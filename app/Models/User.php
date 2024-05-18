@@ -23,7 +23,16 @@ class User extends Authenticatable
     //     'password',
     // ];
 
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
     protected $guarded = ['id'];
+
+    public function anggotaOrganisasi()
+    {
+        return $this->hasMany(AnggotaOrganisasi::class, 'user_id');
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

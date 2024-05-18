@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organisasi', function (Blueprint $table) {
-            $table->id('organisasi_id');
-            $table->string('nama_organisasi');
-            $table->timestamps();
-        });
+        // Schema::create('roles', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->enum('role', ['rt', 'rw', 'admin']);
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organisasi');
+        Schema::dropIfExists('roles');
     }
 };
