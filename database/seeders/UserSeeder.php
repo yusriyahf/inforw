@@ -21,7 +21,9 @@ class UserSeeder extends Seeder
                 'nama' => 'Yusriyah Firjatullah',
                 'password' => bcrypt('12345'),
                 'rt_id' => '1',
-                'role_id' => '1'
+                'role_id' => '1',
+                'kartu_keluarga_id' => '1'
+
             ],
             [
                 'user_id' => 2,
@@ -29,7 +31,8 @@ class UserSeeder extends Seeder
                 'nama' => 'Asti Nurin',
                 'password' => bcrypt('12345'),
                 'rt_id' => '2',
-                'role_id' => '2'
+                'role_id' => '2',
+                'kartu_keluarga_id' => '1'
             ],
             [
                 'user_id' => 3,
@@ -37,7 +40,8 @@ class UserSeeder extends Seeder
                 'nama' => 'Putri Ayu',
                 'password' => bcrypt('12345'),
                 'rt_id' => '3',
-                'role_id' => '3'
+                'role_id' => '3',
+                'kartu_keluarga_id' => '2'
             ],
             [
                 'user_id' => 4,
@@ -45,7 +49,8 @@ class UserSeeder extends Seeder
                 'nama' => 'Maulita',
                 'password' => bcrypt('12345'),
                 'rt_id' => '4',
-                'role_id' => '4'
+                'role_id' => '4',
+                'kartu_keluarga_id' => '2'
             ],
         ];
         DB::table('users')->insert($data);

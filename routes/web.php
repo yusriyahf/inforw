@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Models\KartuKeluargaModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,28 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/profile', [ProfileController::class, 'update']);
 Route::get('/profile/edit', [ProfileController::class, 'edit']);
+
+
+Route::get('/pengaduan', function () {
+
+    return view('pengaduan.index', [
+        'title' => 'Pengaduan'
+    ]);
+});
+
+Route::get('/keluarga', function () {
+    $data = User::where('kartu_keluarga_id', auth()->user()->kartu_keluarga_id)->get();
+
+    $kk = KartuKeluargaModel::where('kartu_keluarga_id', auth()->user()->kartu_keluarga_id)->first();
+
+    $userkk = $kk->user_id;
+
+    $kepala = User::where('user_id', $userkk)->first();
+
+    return view('keluarga.index', [
+        'title' => 'Kartu Keluarga',
+        'data' => $data,
+        'kk' => $kk,
+        'kepala' => $kepala
+    ]);
+});

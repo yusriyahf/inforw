@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('kartu_keluarga', function (Blueprint $table) {
+            $table->id('kartu_keluarga_id');
+            $table->string('no_kk');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('kartu_keluarga');
     }
 };

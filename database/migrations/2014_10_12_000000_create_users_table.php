@@ -24,10 +24,13 @@ return new class extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->unsignedBigInteger('rt_id')->index();
             $table->unsignedBigInteger('role_id')->index();
+            $table->unsignedBigInteger('kartu_keluarga_id')->index();
+
             $table->timestamps();
 
             $table->foreign('rt_id')->references('rt_id')->on('rt');
             $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('kartu_keluarga_id')->references('kartu_keluarga_id')->on('kartu_keluarga');
         });
     }
 
