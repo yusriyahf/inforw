@@ -15,7 +15,9 @@ class UserController extends Controller
         $title = 'Warga';
         return view('warga.index', [
             'title' => $title,
-            'warga' => User::all()
+            // 'warga' => User::all()
+            'warga' => User::with('rt', 'roles')->get()
+
         ]);
     }
 

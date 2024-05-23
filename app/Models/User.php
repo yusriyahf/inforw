@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -25,11 +26,16 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'user_id';
-    protected $guarded = ['id'];
+    protected $guarded = ['user_id'];
 
-    public function anggotaOrganisasi()
+    public function rt(): BelongsTo
     {
-        return $this->hasMany(AnggotaOrganisasi::class, 'user_id');
+        return $this->belongsTo(RtModel::class, 'rt_id', 'rt_id');
+    }
+
+    public function roles(): BelongsTo
+    {
+        return $this->belongsTo(RolesModel::class, 'role_id', 'role_id');
     }
 
 

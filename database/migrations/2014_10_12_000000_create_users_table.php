@@ -13,21 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
+            $table->string('nik');
             $table->string('nama');
-            $table->string('nik')->unique();
-            $table->string('kk');
-            $table->string('alamat');
-            $table->string('rt');
-            $table->enum('status_pernikahan', ['menikah', 'belum menikah']);
-            $table->enum('status_keluarga', ['anak', 'ayah', 'ibu']);
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['warga', 'rt', 'rw', 'admin']);
             $table->string('password');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->rememberToken();
+            $table->string('pekerjaan')->nullable();
+            $table->string('notelp')->nullable();
+            $table->enum('status_perkawinan', ['kawin', 'belum kawin'])->nullable();
+            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->unsignedBigInteger('rt_id')->index();
+            $table->unsignedBigInteger('role_id')->index();
             $table->timestamps();
+
+            $table->foreign('rt_id')->references('rt_id')->on('rt');
+            $table->foreign('role_id')->references('role_id')->on('roles');
         });
     }
 

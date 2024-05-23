@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
+use App\Http\Controllers\AnggotaOrganisasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +46,10 @@ Route::group(['prefix' => 'organisasi'], function () {
     Route::put('/{id}', [OrganisasiController::class, 'update']);
 });
 
-Route::get('/login', function () {
-    return view('login.index');
-})->name('login')->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
-Route::get('/register', function () {
-    return view('register.index');
-});
+
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/profile', [ProfileController::class, 'update']);
+Route::get('/profile/edit', [ProfileController::class, 'edit']);

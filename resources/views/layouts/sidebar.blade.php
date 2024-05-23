@@ -17,6 +17,7 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('warga') ? 'active' : '' }}" href="/warga">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -25,6 +26,7 @@
             <span class="nav-link-text ms-1">Warga</span>
           </a>
         </li>
+        @endif
         {{-- <li class="nav-item">
           <a class="nav-link " href="../pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -49,6 +51,7 @@
             <span class="nav-link-text ms-1">Persuratan</span>
           </a>
         </li> --}}
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('organisasi') ? 'active' : '' }}" href="/organisasi">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -57,6 +60,7 @@
             <span class="nav-link-text ms-1">Organisasi</span>
           </a>
         </li>
+        @endif
         {{-- <li class="nav-item">
           <a class="nav-link " href="../pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -73,33 +77,22 @@
             <span class="nav-link-text ms-1">Iuran Warga</span>
           </a>
         </li> --}}
-        {{-- <li class="nav-item mt-3">
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga'))
+        <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
+        @endif
+
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga'))
         <li class="nav-item">
-          <a class="nav-link " href="../pages/profile.html">
+          <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="/profile">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-in.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li> --}}
+        @endif
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
@@ -107,8 +100,6 @@
         <img class="w-50 mx-auto" src="/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
           <div class="docs-info">
-            {{-- <h6 class="mb-0">Need help?</h6>
-            <p class="text-xs font-weight-bold mb-0">Please check our docs</p> --}}
           </div>
         </div>
       </div>
@@ -116,8 +107,6 @@
         @csrf
         <button type="submit" class="btn btn-dark btn-sm w-100 mb-3">Logout</button>
       </form>
-      {{-- <a href="/logout" class="btn btn-dark btn-sm w-100 mb-3">Logout</a> --}}
-      {{-- <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a> --}}
     </div>
   </aside>
 
