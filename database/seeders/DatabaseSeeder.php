@@ -117,15 +117,22 @@ class DatabaseSeeder extends Seeder
 
 
 
-        // RtModel::where('rt_id', '4')->update([
-        //     'nama' => '04 Updated',
-        //     'saldo' => 200000
-        // ]);
+        RtModel::where('rt_id', '1')->update([
+            'ketua' => '2',
+            'sekretaris' => '3',
+            'bendahara' => '1',
+        ]);
+        RtModel::where('rt_id', '2')->update([
+            'ketua' => '2',
+            'sekretaris' => '3',
+            'bendahara' => '1',
+        ]);
 
-        // RwModel::where('rw_id', '1')->update([
-        //     'nama' => '13 Updated',
-        //     'saldo' => 200000
-        // ]);
+        RwModel::where('rw_id', '1')->update([
+            'ketua' => '1',
+            'sekretaris' => '2',
+            'bendahara' => '3',
+        ]);
 
         // User::create([
         //     'nama' => 'Maulana Arya',

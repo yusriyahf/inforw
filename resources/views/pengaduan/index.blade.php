@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>INI PENGADUAN</h1>
+<div class="container-fluid py-4">
+    <div class="row">
+        Pengaduan
+    </div>
+</div>
 @endsection

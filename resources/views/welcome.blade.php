@@ -3,9 +3,9 @@
 @section('container')
 <div class="container-fluid py-4">
     <div class="row">
-      <div class="col-xl-12 col-sm-12 mb-xl-0 mb-5">
+      <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
         <h2 class="text-white">Selamat Datang {{ Auth::user()->nama }}</h2>
-        <h4 class="text-white"> @can('is-admin')
+        <h6 class="text-white"> @can('is-admin')
             Admin
         @elsecan('is-rw')
             Ketua RW
@@ -13,14 +13,18 @@
             Ketua RT 
         @elsecan('is-warga')
             Warga RT {{ $data->getrt->nama }}
-        @endcan  RW {{ $data->getrw->nama }} Kecamatan Pandanwangi</h4>
+        @endcan  RW {{ $data->getrw->nama }} Kecamatan Pandanwangi</h6>
       </div>
 
-      <div class="col-12 mt-3">
+      <div class="col-12 mt-1">
+        <button class="btn btn-white btn-sm ms-auto text-primary" type="submit">Pengumuman</button>
+      </div>
+
+      <div class="col-12 mt-1">
         <div class="card mb-4">
           <div class="card-header pb-0">
             <h6>Struktur Jabatan RT {{ $data->getrt->nama }} dan RW {{ $data->getrw->nama }} Pandanwangi</h6>
-          {{-- </div> --}}
+          </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center mb-0">

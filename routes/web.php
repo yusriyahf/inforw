@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\SuratController;
 use App\Models\KartuKeluargaModel;
 use App\Models\KeluargaModel;
 
@@ -67,6 +68,13 @@ Route::get('/peminjaman', function () {
         'title' => 'peminjaman'
     ]);
 });
+
+
+Route::get('/surat', [SuratController::class, 'index']);
+Route::get('/sktm', [SuratController::class, 'sktm']);
+Route::post('/sktm/create', [SuratController::class, 'storesktm']);
+Route::get('/sktm/{id}', [SuratController::class, 'showsktm']);
+
 
 Route::get('/keluarga', function () {
     $data = KeluargaModel::where('keluarga_id', auth()->user()->keluarga)->first();
