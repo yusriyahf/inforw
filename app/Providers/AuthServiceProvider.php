@@ -25,22 +25,22 @@ class AuthServiceProvider extends ServiceProvider
     {
         // Gate untuk Admin
         Gate::define('is-admin', function (User $user) {
-            return $user->roles->nama === 'Admin';
+            return $user->roles->nama === 'admin';
         });
 
         // Gate untuk Warga
         Gate::define('is-warga', function (User $user) {
-            return $user->roles->nama === 'Warga';
+            return $user->roles->nama === 'warga';
         });
 
         // Gate untuk RT
         Gate::define('is-rt', function (User $user) {
-            return $user->roles->nama === 'RT';
+            return $user->roles->nama === 'rt';
         });
 
         // Gate untuk RW
         Gate::define('is-rw', function (User $user) {
-            return $user->roles->nama === 'RW';
+            return $user->roles->nama === 'rw';
         });
     }
 }

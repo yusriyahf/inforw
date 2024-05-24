@@ -15,7 +15,7 @@ class IsRt
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->roles->nama === 'RT') {
+        if (auth()->user() && auth()->user()->roles->nama === 'rt') {
             return $next($request);
         }
 

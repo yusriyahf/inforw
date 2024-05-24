@@ -15,7 +15,7 @@ class IsWarga
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->roles->nama === 'Warga') {
+        if (auth()->user() && auth()->user()->roles->nama === 'warga') {
             return $next($request);
         }
 

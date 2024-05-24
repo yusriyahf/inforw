@@ -28,14 +28,14 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
     protected $guarded = ['user_id'];
 
-    public function rt(): BelongsTo
+    public function getkeluarga(): BelongsTo
     {
-        return $this->belongsTo(RtModel::class, 'rt_id', 'rt_id');
+        return $this->belongsTo(KeluargaModel::class, 'keluarga', 'keluarga_id');
     }
 
     public function roles(): BelongsTo
     {
-        return $this->belongsTo(RolesModel::class, 'role_id', 'role_id');
+        return $this->belongsTo(RolesModel::class, 'role', 'role_id');
     }
 
 

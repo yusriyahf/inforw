@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aset', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_aset');
-            $table->enum('status', ['tersedia', 'tidak tersedia']);
+        Schema::create('rt', function (Blueprint $table) {
+            $table->id('rt_id');
+            $table->string('nama');
+            $table->integer('saldo');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aset');
+        Schema::dropIfExists('rt');
     }
 };

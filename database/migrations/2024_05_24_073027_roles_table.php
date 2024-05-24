@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengaduan', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->enum('jenis', ['saran', 'pengaduan']);
-            $table->string('deskripsi');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id('role_id');
+            $table->enum('nama', ['admin', 'rw', 'rt', 'warga']);
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengaduan');
+        Schema::dropIfExists('roles');
     }
 };

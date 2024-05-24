@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kartu_keluarga', function (Blueprint $table) {
-            $table->id('kartu_keluarga_id');
+        Schema::create('keluarga', function (Blueprint $table) {
+            $table->id('keluarga_id');
             $table->string('no_kk');
+            $table->string('kepala_keluarga');
+            $table->unsignedBigInteger('rw')->index();
+            $table->unsignedBigInteger('rt')->index();
+
             $table->timestamps();
+
+            $table->foreign('rw')->references('rw_id')->on('rw');
+            $table->foreign('rt')->references('rt_id')->on('rt');
         });
     }
 
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kartu_keluarga');
+        Schema::dropIfExists('keluarga');
     }
 };

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Models\KartuKeluargaModel;
+use App\Models\KeluargaModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,12 @@ use App\Models\KartuKeluargaModel;
 */
 
 Route::get('/', function () {
+
+    $data = KeluargaModel::with(['getrw', 'getrt'])->first();
+
     return view('welcome', [
         'title' => 'Dahboard',
+        'data' => $data
     ]);
 })->middleware('auth');
 
@@ -56,26 +61,21 @@ Route::post('/profile', [ProfileController::class, 'update']);
 Route::get('/profile/edit', [ProfileController::class, 'edit']);
 
 
-Route::get('/pengaduan', function () {
+Route::get('/peminjaman', function () {
 
-    return view('pengaduan.index', [
-        'title' => 'Pengaduan'
+    return view('peminjaman.index', [
+        'title' => 'peminjaman'
     ]);
 });
 
 Route::get('/keluarga', function () {
-    $data = User::where('kartu_keluarga_id', auth()->user()->kartu_keluarga_id)->get();
+    $data = KeluargaModel::where('keluarga_id', auth()->user()->keluarga)->first();
 
-    $kk = KartuKeluargaModel::where('kartu_keluarga_id', auth()->user()->kartu_keluarga_id)->first();
-
-    $userkk = $kk->user_id;
-
-    $kepala = User::where('user_id', $userkk)->first();
+    $anggota = User::where('keluarga', auth()->user()->keluarga)->get();
 
     return view('keluarga.index', [
         'title' => 'Kartu Keluarga',
         'data' => $data,
-        'kk' => $kk,
-        'kepala' => $kepala
+        'anggota' => $anggota
     ]);
 });

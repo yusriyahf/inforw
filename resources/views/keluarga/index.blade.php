@@ -5,10 +5,13 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Tabel {{ $title }}</h6>
-          <p>No KK = {{ $kk->no_kk }}</p>
-          <p>Kepala Keluarga = {{ $kepala->nama }}</p>
-          <p>RT = {{ $kk->rt->nama }}</p>
+            <div class="d-flex flex-column">
+                <h6>Tabel {{ $title }}</h6>
+                <span class="mb-2 text-sm">No KK: <span class="text-dark font-weight-bold ms-sm-2">{{ $data->no_kk }}</span></span>
+                <span class="mb-2 text-sm">Kepala Keluarga: <span class="text-dark ms-sm-2 font-weight-bold">{{ $data->kepala_keluarga }}</span></span>
+                <span class="mb-2 text-sm">RW: <span class="text-dark ms-sm-2 font-weight-bold">{{ $data->getrw->nama }}</span></span>
+                <span class="text-sm">RT: <span class="text-dark ms-sm-2 font-weight-bold">{{ $data->getrt->nama }}</span></span>
+            </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
@@ -26,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($data as $d) 
+                @foreach ($anggota as $d) 
                 <tr>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
