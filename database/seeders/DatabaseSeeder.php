@@ -14,6 +14,7 @@ use App\Models\RolesModel;
 use App\Models\KeluargaModel;
 use Illuminate\Database\Seeder;
 use App\Models\AnggotaOrganisasi;
+use App\Models\PengumumanModel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -127,6 +128,24 @@ class DatabaseSeeder extends Seeder
             'ketua' => '1',
             'sekretaris' => '2',
             'bendahara' => '3',
+        ]);
+
+        PengumumanModel::create([
+            'pengumuman_id' => '1',
+            'judul' => 'Beso Kerja Bakti',
+            'deskripsi' => 'Semua bapak bapak wajib mengikuti jika tidak akan dikenakan sangsi yang sangat berat lo',
+            'tanggal' =>  now()->toDateString(),
+            'user' => '1',
+            'rt' => '1'
+        ]);
+
+        PengumumanModel::create([
+            'pengumuman_id' => '2',
+            'judul' => 'Ada warga baru',
+            'deskripsi' => 'Semuanya mari kita beri sambutan yang meriah kepada pak martis',
+            'tanggal' =>  now()->toDateString(),
+            'user' => '1',
+            'rt' => '1'
         ]);
 
         // User::create([

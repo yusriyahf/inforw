@@ -10,6 +10,8 @@ use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\SuratController;
 use App\Models\KartuKeluargaModel;
 use App\Models\KeluargaModel;
+use App\Models\PengumumanModel;
+use Illuminate\Validation\Rules\Can;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +70,30 @@ Route::get('/peminjaman', function () {
         'title' => 'peminjaman'
     ]);
 });
+
+
+Route::get('/pengumuman', function () {
+
+    $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+
+    return view('pengumuman.warga', [
+        'title' => 'pengumuman',
+        'data' => $data
+    ]);
+})->middleware('warga');
+
+Route::get('/pengumuman/{id}', function (String $id) {
+
+    $data = PengumumanModel::where('pengumuman_id', $id)->first();
+
+    return view('pengumuman.show', [
+        'title' => 'Detail pengumuman',
+        'data' => $data
+    ]);
+})->middleware('warga');
+
+
+
 
 
 Route::get('/surat', [SuratController::class, 'index']);

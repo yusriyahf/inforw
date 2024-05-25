@@ -20,7 +20,7 @@
                 <h6>Riwayat Pengajuan SKTM</h6>
                 @if (session()->has('successsktm'))
                   <div class="alert alert-success col-lg-8" role="alert">
-                    {{ session('success') }}
+                    {{ session('successsktm') }}
                   </div>
                 @endif
               </div>
@@ -67,7 +67,7 @@
             <div class="card mb-4">
               <div class="card-header pb-0">
                 <h6>Riwayat Pengajuan SP</h6>
-                @if (session()->has('success'))
+                @if (session()->has('successsp'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('successsp') }}
                   </div>

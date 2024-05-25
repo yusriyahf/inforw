@@ -17,7 +17,7 @@
       </div>
 
       <div class="col-12 mt-1">
-        <button class="btn btn-white btn-sm ms-auto text-primary" type="submit">Pengumuman</button>
+        <a href="/pengumuman" class="btn btn-white btn-sm ms-auto text-primary" type="submit">Pengumuman</a>
       </div>
 
       <div class="col-12 mt-1">
