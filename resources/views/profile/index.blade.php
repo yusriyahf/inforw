@@ -3,6 +3,10 @@
 @section('container')
 <div class="container-fluid py-4">
     <div class="row">
+      <div class="col-xl-12 col-sm-12 mb-2">
+        <h2 class="text-white">Profil Data Diri</h2>
+        <h6 class="text-white">Data diri digital</h6>
+    </div>
       <div class="col-md-10">
         <div class="card">
           <div class="card-header pb-0">

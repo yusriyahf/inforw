@@ -14,6 +14,7 @@ use App\Models\RolesModel;
 use App\Models\KeluargaModel;
 use Illuminate\Database\Seeder;
 use App\Models\AnggotaOrganisasi;
+use App\Models\AsetModel;
 use App\Models\PengumumanModel;
 
 class DatabaseSeeder extends Seeder
@@ -146,6 +147,34 @@ class DatabaseSeeder extends Seeder
             'tanggal' =>  now()->toDateString(),
             'user' => '1',
             'rt' => '1'
+        ]);
+
+        AsetModel::create([
+            'aset_id' => '1',
+            'nama' => 'Lapangan',
+            'deskripsi' => 'lapangan dengan luas 3x3m',
+            'status' =>  'tersedia',
+            'jenis' => 'tempat',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '2',
+            'nama' => 'Gedung',
+            'deskripsi' => 'Gedung dengan 3 lantai',
+            'status' =>  'tersedia',
+            'jenis' => 'tempat',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '3',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
         ]);
 
         // User::create([

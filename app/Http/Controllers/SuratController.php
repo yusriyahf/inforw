@@ -23,7 +23,7 @@ class SuratController extends Controller
 
     public function sp()
     {
-        return view('surat.create_sp', [
+        return view('surat.sp.create', [
             'title' => 'Surat Pengantar'
         ]);
     }
@@ -50,7 +50,7 @@ class SuratController extends Controller
     {
         $data = SpModel::where('sp_id', $id)->first();
 
-        return view('surat.show_sp', [
+        return view('surat.sp.show', [
             'title' => 'SP Detail',
             'data' => $data
         ]);
@@ -67,7 +67,7 @@ class SuratController extends Controller
     {
         $data = SktmModel::where('sktm_id', $id)->first();
 
-        return view('surat.show_sktm', [
+        return view('surat.sktm.show', [
             'title' => 'SKTM Detail',
             'data' => $data
         ]);

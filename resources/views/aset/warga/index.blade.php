@@ -25,27 +25,37 @@
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Aset</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Surat</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">deskripsi</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($datasktm as $data)        --}}
+                        @foreach ($data as $d)       
                       <tr>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">1 </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">Nama</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->nama }}</span>
                           <td class="align-middle text-center text-sm">
-                              <span class="text-secondary text-xs font-weight-bold text-danger">p</span>
+                              <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }}</span>
+                            </td>
+                        </td>
+                          <td class="align-middle text-center text-sm">
+                              <span class="text-secondary text-xs font-weight-bold">{{ $d->jenis }}</span>
+                            </td>
+                          <td class="align-middle text-center text-sm">
+                              <span class="badge badge-sm bg-gradient-
+                              bg-gradient-{{ $d->status == 'tersedia' ? 'success' : 'danger' }}">{{ $d->status }}</span>
                             </td>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold"><a href="#" class="text-primary">Cetak</a></span>
+                          <span class="text-secondary text-xs font-weight-bold"><a href="#" class="text-primary">Pinjam</a></span>
                         </td>
                       </tr>
-                      {{-- @endforeach --}}
+                      @endforeach
                       
                     </tbody>
                   </table>

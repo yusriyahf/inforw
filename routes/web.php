@@ -8,11 +8,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\SuratController;
+use App\Models\AsetModel;
 use App\Models\KartuKeluargaModel;
 use App\Models\KeluargaModel;
 use App\Models\PengumumanModel;
 use Illuminate\Validation\Rules\Can;
-
+use Illuminate\Support\Facades\Gate;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,16 +72,37 @@ Route::get('/peminjaman', function () {
     ]);
 });
 
+Route::get('/aset', function () {
+
+    $data = AsetModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+
+    return view('aset.warga.index', [
+        'title' => 'peminjaman',
+        'data' => $data
+    ]);
+});
+
 
 Route::get('/pengumuman', function () {
 
-    $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+    if (Gate::allows('is-rt')) {
 
-    return view('pengumuman.warga', [
-        'title' => 'pengumuman',
-        'data' => $data
-    ]);
-})->middleware('warga');
+        $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+
+        return view('pengumuman.admin.index', [
+            'title' => 'pengumuman',
+            'data' => $data
+        ]);
+    } else {
+
+        $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+
+        return view('pengumuman.warga.index', [
+            'title' => 'pengumuman',
+            'data' => $data
+        ]);
+    }
+});
 
 Route::get('/pengumuman/{id}', function (String $id) {
 

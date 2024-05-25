@@ -1,7 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
+<div class="container-fluid py-4">
+
 <div class="row">
+     <div class="col-xl-12 col-sm-12 mb-2">
+        <h2 class="text-white">Kartu Keluarga</h2>
+        <h6 class="text-white">Kartu keluarga digital mudah dilihat</h6>
+    </div>
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -61,6 +67,7 @@
               </tbody>
             </table>
           </div>
+        </div>
         </div>
       </div>
     </div>
