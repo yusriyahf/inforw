@@ -50,28 +50,23 @@ class DatabaseSeeder extends Seeder
 
         RtModel::create([
             'rt_id' => '1',
-            'nama' => '01',
-            'saldo' => 100000,
+            'nama' => '01'
         ]);
         RtModel::create([
             'rt_id' => '2',
-            'nama' => '02',
-            'saldo' => 100000,
+            'nama' => '02'
         ]);
         RtModel::create([
             'rt_id' => '3',
-            'nama' => '03',
-            'saldo' => 100000,
+            'nama' => '03'
         ]);
         RtModel::create([
             'rt_id' => '4',
-            'nama' => '04',
-            'saldo' => 100000,
+            'nama' => '04'
         ]);
         RwModel::create([
             'rw_id' => '1',
-            'nama' => '13',
-            'saldo' => 100000,
+            'nama' => '13'
         ]);
 
         KeluargaModel::create([

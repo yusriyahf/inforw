@@ -71,7 +71,7 @@
           </a>
         </li>
         @endcan
-        @can('is-warga')
+        {{-- @can('is-warga')
         <li class="nav-item">
           <a class="nav-link {{ Request::is('organisasi') ? 'active' : '' }}" href="/pengaduan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -80,8 +80,8 @@
             <span class="nav-link-text ms-1">Pengaduan</span>
           </a>
         </li>
-        @endcan
-        @can('is-warga')
+        @endcan --}}
+        {{-- @can('is-warga')
         <li class="nav-item">
           <a class="nav-link {{ Request::is('organisasi') ? 'active' : '' }}" href="/peminjaman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -90,7 +90,7 @@
             <span class="nav-link-text ms-1">Peminjaman</span>
           </a>
         </li>
-        @endcan
+        @endcan --}}
         {{-- <li class="nav-item">
           <a class="nav-link " href="../pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">

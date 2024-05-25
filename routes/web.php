@@ -71,6 +71,9 @@ Route::get('/peminjaman', function () {
 
 
 Route::get('/surat', [SuratController::class, 'index']);
+Route::get('/sp', [SuratController::class, 'sp']);
+Route::post('/sp/create', [SuratController::class, 'storesp']);
+Route::get('/sp/{id}', [SuratController::class, 'showsp']);
 Route::get('/sktm', [SuratController::class, 'sktm']);
 Route::post('/sktm/create', [SuratController::class, 'storesktm']);
 Route::get('/sktm/{id}', [SuratController::class, 'showsktm']);

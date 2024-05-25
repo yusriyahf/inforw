@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('rw', function (Blueprint $table) {
             $table->id('rw_id');
             $table->string('nama');
-            $table->integer('saldo');
             $table->timestamps();
         });
     }
