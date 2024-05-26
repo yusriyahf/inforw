@@ -12,7 +12,7 @@
             <div class="card mb-4">
               <div class="card-header pb-0">
                 <h6>Riwayat Pengumuman</h6>
-                <a href="/warga/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+                <a href="/pengumuman/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('success') }}

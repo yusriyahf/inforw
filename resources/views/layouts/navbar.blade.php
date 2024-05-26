@@ -6,6 +6,8 @@
           @foreach ($breadcrumb->list as $key => $value)
           @if ($key == count($breadcrumb->list) - 1)
           <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $value }}</li>
+          @elseif ($key == 0)
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">{{ $value }}</a></li>
           @else
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/{{ strtolower($value) }}">{{ $value }}</a></li>
 

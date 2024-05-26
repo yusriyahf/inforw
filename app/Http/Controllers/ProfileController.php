@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Profile',
-            'list' => ['Home', 'Profile']
+            'list' => ['Pages', 'Profile']
         ];
 
         return view('profile.index', ['data' => $data, 'breadcrumb' => $breadcrumb]);
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Edit',
-            'list' => ['Home', 'Profile', 'Edit']
+            'list' => ['Pages', 'Profile', 'Edit']
         ];
 
         return view('profile.edit', ['breadcrumb' => $breadcrumb, 'data' => $data]);

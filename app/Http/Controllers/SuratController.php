@@ -16,7 +16,7 @@ class SuratController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Surat',
-            'list' => ['Home', 'Surat']
+            'list' => ['Pages', 'Surat']
         ];
 
         return view('surat.index', [
@@ -30,7 +30,7 @@ class SuratController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Pengajuan',
-            'list' => ['Home', 'Surat', 'Pengajuan']
+            'list' => ['Pages', 'Surat', 'Pengajuan']
         ];
 
         return view('surat.sp.create', [
@@ -62,7 +62,7 @@ class SuratController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail',
-            'list' => ['Home', 'Surat', 'Detail']
+            'list' => ['Pages', 'Surat', 'Detail']
         ];
 
         return view('surat.sp.show', [
@@ -75,7 +75,7 @@ class SuratController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Pengajuan',
-            'list' => ['Home', 'Surat', 'Pengajuan']
+            'list' => ['Pages', 'Surat', 'Pengajuan']
         ];
 
         return view('surat.sktm.create', [
@@ -89,7 +89,7 @@ class SuratController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Detail',
-            'list' => ['Home', 'Surat', 'Detail']
+            'list' => ['Pages', 'Surat', 'Detail']
         ];
         return view('surat.sktm.show', [
             'breadcrumb' => $breadcrumb,

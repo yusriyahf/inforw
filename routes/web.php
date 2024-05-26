@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SuratController;
 use App\Models\AsetModel;
 use App\Models\KartuKeluargaModel;
@@ -31,7 +32,7 @@ Route::get('/', function () {
 
     $breadcrumb = (object) [
         'title' => 'Dashboard',
-        'list' => ['Home', 'Dashboard']
+        'list' => ['Pages', 'Dashboard']
     ];
 
     return view('welcome', [
@@ -83,7 +84,7 @@ Route::get('/aset', function () {
 
     $breadcrumb = (object) [
         'title' => 'Aset',
-        'list' => ['Home', 'Aset']
+        'list' => ['Pages', 'Aset']
     ];
 
     return view('aset.warga.index', [
@@ -92,52 +93,13 @@ Route::get('/aset', function () {
     ]);
 });
 
-
-Route::get('/pengumuman', function () {
-
-    if (Gate::allows('is-rt')) {
-
-        $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
-
-        $breadcrumb = (object) [
-            'title' => 'Pengumuman',
-            'list' => ['Home', 'Pengumuman']
-        ];
-
-        return view('pengumuman.admin.index', [
-            'breadcrumb' => $breadcrumb,
-            'data' => $data
-        ]);
-    } else {
-
-        $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
-        $breadcrumb = (object) [
-            'title' => 'Pengumuman',
-            'list' => ['Home', 'Pengumuman']
-        ];
-        return view('pengumuman.warga.index', [
-            'breadcrumb' => $breadcrumb,
-            'data' => $data
-        ]);
-    }
-});
-
-Route::get('/pengumuman/{id}', function (String $id) {
-
-    $data = PengumumanModel::where('pengumuman_id', $id)->first();
-
-    $breadcrumb = (object) [
-        'title' => 'Detail',
-        'list' => ['Home', 'Pengumuman', 'Detail']
-    ];
-
-    return view('pengumuman.warga.show', [
-        'breadcrumb' => $breadcrumb,
-        'data' => $data
-    ]);
-})->middleware('warga');
-
-
+Route::get('/pengumuman', [PengumumanController::class, 'index']);
+Route::get('/pengumuman/create', [PengumumanController::class, 'create']);
+Route::post('/pengumuman/create', [PengumumanController::class, 'store']);
+Route::get('/pengumuman/{id}', [PengumumanController::class, 'show']);
+Route::get('/pengumuman/{id}/edit', [PengumumanController::class, 'edit']);
+Route::put('/pengumuman/{id}', [PengumumanController::class, 'update']);
+Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy']);
 
 
 
@@ -157,7 +119,7 @@ Route::get('/keluarga', function () {
 
     $breadcrumb = (object) [
         'title' => 'Kartu Keluarga',
-        'list' => ['Home', 'Kartu Keluarga']
+        'list' => ['Pages', 'Kartu Keluarga']
     ];
 
     return view('keluarga.index', [

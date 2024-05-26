@@ -12,9 +12,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $title = 'Warga';
+        $breadcrumb = (object) [
+            'title' => 'Warga',
+            'list' => ['Pages', 'Warga']
+        ];
+
         return view('warga.index', [
-            'title' => $title,
+            'breadcrumb' => $breadcrumb,
             'warga' => User::with('getkeluarga')->get()
         ]);
     }
@@ -24,8 +28,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = 'Create';
-        return view('warga.create', ['title' => $title]);
+        $breadcrumb = (object) [
+            'title' => 'Create',
+            'list' => ['Pages', 'Warga', 'Create']
+        ];
+
+        return view('warga.create', ['breadcrumb' => $breadcrumb]);
     }
 
     /**
@@ -64,13 +72,16 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $title = 'Edit';
+        $breadcrumb = (object) [
+            'title' => 'Edit',
+            'list' => ['Pages', 'Warga', 'Edit']
+        ];
 
         $warga = User::find($id);
 
         return view('warga.edit', [
             'warga' => $warga,
-            'title' => $title
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
