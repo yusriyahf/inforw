@@ -25,7 +25,9 @@ class UserController extends Controller
         } else {
             $data = User::with('getkeluarga')
                 ->where('role', '!=', 1)
-                ->where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->whereHas('getkeluarga.getrt', function ($query) {
+                    $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
+                })
                 ->get();
         }
         return view('warga.index', [

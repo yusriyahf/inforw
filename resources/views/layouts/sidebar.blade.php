@@ -158,6 +158,25 @@
             <span class="nav-link-text ms-1">Iuran Warga</span>
           </a>
         </li> --}}
+        
+
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Keuangan</h6>
+        </li>
+        @endif
+
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('pemasukan*') ? 'active' : '' }}" href="/pemasukan">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Pemasukan</span>
+          </a>
+        </li>
+        @endif
+
         @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga'))
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
