@@ -1,20 +1,24 @@
 <?php
 
 use App\Models\User;
+use App\Models\RtModel;
+use App\Models\AsetModel;
+use App\Models\KeluargaModel;
+use Database\Seeders\RtSeeder;
+use App\Models\PengumumanModel;
+use App\Models\KartuKeluargaModel;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\Can;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RtController;
+use App\Http\Controllers\RwController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
-use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\SuratController;
-use App\Models\AsetModel;
-use App\Models\KartuKeluargaModel;
-use App\Models\KeluargaModel;
-use App\Models\PengumumanModel;
-use Illuminate\Validation\Rules\Can;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\AnggotaOrganisasiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -101,6 +105,8 @@ Route::get('/pengumuman/{id}/edit', [PengumumanController::class, 'edit']);
 Route::put('/pengumuman/{id}', [PengumumanController::class, 'update']);
 Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy']);
 
+Route::get('/rt', [RtController::class, 'index']);
+Route::get('/rw', [RwController::class, 'index']);
 
 
 Route::get('/surat', [SuratController::class, 'index']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -16,10 +17,20 @@ class UserController extends Controller
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
+        if (Gate::allows('is-admin')) {
 
+            $data = User::with('getkeluarga')
+                ->where('role', '!=', 1)
+                ->get();
+        } else {
+            $data = User::with('getkeluarga')
+                ->where('role', '!=', 1)
+                ->where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->get();
+        }
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'warga' => User::with('getkeluarga')->get()
+            'warga' => $data
         ]);
     }
 

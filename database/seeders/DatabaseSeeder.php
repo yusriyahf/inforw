@@ -81,14 +81,22 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'user_id' => '1',
+            'nik' => 'admin',
+            'nama' => 'admin',
+            'password' => bcrypt('admin'),
+            'role' => '1',
+        ]);
+
+        User::create([
+            'user_id' => '2',
             'nik' => '2241720171',
             'nama' => 'Kim Gimyung',
             'password' => bcrypt('12345'),
-            'role' => '1',
+            'role' => '4',
             'keluarga' => '1'
         ]);
         User::create([
-            'user_id' => '2',
+            'user_id' => '3',
             'nik' => '2241720172',
             'nama' => 'Zin Lee',
             'password' => bcrypt('12345'),
@@ -96,7 +104,7 @@ class DatabaseSeeder extends Seeder
             'keluarga' => '1'
         ]);
         User::create([
-            'user_id' => '3',
+            'user_id' => '4',
             'nik' => '2241720173',
             'nama' => 'Vasko',
             'password' => bcrypt('12345'),
@@ -104,7 +112,7 @@ class DatabaseSeeder extends Seeder
             'keluarga' => '1'
         ]);
         User::create([
-            'user_id' => '4',
+            'user_id' => '5',
             'nik' => '2241720178',
             'nama' => 'Yusriyah Firjatullah',
             'password' => bcrypt('12345'),
