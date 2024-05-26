@@ -29,8 +29,13 @@ Route::get('/', function () {
 
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
+    $breadcrumb = (object) [
+        'title' => 'Dashboard',
+        'list' => ['Home', 'Dashboard']
+    ];
+
     return view('welcome', [
-        'title' => 'Dahboard',
+        'breadcrumb' => $breadcrumb,
         'data' => $data
     ]);
 })->middleware('auth');
@@ -76,8 +81,13 @@ Route::get('/aset', function () {
 
     $data = AsetModel::where('rt', auth()->user()->getkeluarga->rt)->get();
 
+    $breadcrumb = (object) [
+        'title' => 'Aset',
+        'list' => ['Home', 'Aset']
+    ];
+
     return view('aset.warga.index', [
-        'title' => 'peminjaman',
+        'breadcrumb' => $breadcrumb,
         'data' => $data
     ]);
 });
@@ -89,16 +99,24 @@ Route::get('/pengumuman', function () {
 
         $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
 
+        $breadcrumb = (object) [
+            'title' => 'Pengumuman',
+            'list' => ['Home', 'Pengumuman']
+        ];
+
         return view('pengumuman.admin.index', [
-            'title' => 'pengumuman',
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     } else {
 
         $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
-
+        $breadcrumb = (object) [
+            'title' => 'Pengumuman',
+            'list' => ['Home', 'Pengumuman']
+        ];
         return view('pengumuman.warga.index', [
-            'title' => 'pengumuman',
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     }
@@ -108,8 +126,13 @@ Route::get('/pengumuman/{id}', function (String $id) {
 
     $data = PengumumanModel::where('pengumuman_id', $id)->first();
 
-    return view('pengumuman.show', [
-        'title' => 'Detail pengumuman',
+    $breadcrumb = (object) [
+        'title' => 'Detail',
+        'list' => ['Home', 'Pengumuman', 'Detail']
+    ];
+
+    return view('pengumuman.warga.show', [
+        'breadcrumb' => $breadcrumb,
         'data' => $data
     ]);
 })->middleware('warga');
@@ -132,8 +155,13 @@ Route::get('/keluarga', function () {
 
     $anggota = User::where('keluarga', auth()->user()->keluarga)->get();
 
-    return view('keluarga.index', [
+    $breadcrumb = (object) [
         'title' => 'Kartu Keluarga',
+        'list' => ['Home', 'Kartu Keluarga']
+    ];
+
+    return view('keluarga.index', [
+        'breadcrumb' => $breadcrumb,
         'data' => $data,
         'anggota' => $anggota
     ]);

@@ -12,7 +12,7 @@
       <div class="card mb-4">
         <div class="card-header pb-0">
             <div class="d-flex flex-column">
-                <h6>Tabel {{ $title }}</h6>
+                <h6>Tabel {{ $breadcrumb->title }}</h6>
                 <span class="mb-2 text-sm">No KK: <span class="text-dark font-weight-bold ms-sm-2">{{ $data->no_kk }}</span></span>
                 <span class="mb-2 text-sm">Kepala Keluarga: <span class="text-dark ms-sm-2 font-weight-bold">{{ $data->kepala_keluarga }}</span></span>
                 <span class="mb-2 text-sm">RW: <span class="text-dark ms-sm-2 font-weight-bold">{{ $data->getrw->nama }}</span></span>

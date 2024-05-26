@@ -14,8 +14,13 @@ class SuratController extends Controller
         $datasktm = SktmModel::where('user', auth()->user()->user_id)->get();
         $datasp = SpModel::where('user', auth()->user()->user_id)->get();
 
+        $breadcrumb = (object) [
+            'title' => 'Surat',
+            'list' => ['Home', 'Surat']
+        ];
+
         return view('surat.index', [
-            'title' => 'surat',
+            'breadcrumb' => $breadcrumb,
             'datasktm' => $datasktm,
             'datasp' => $datasp
         ]);
@@ -23,8 +28,13 @@ class SuratController extends Controller
 
     public function sp()
     {
+        $breadcrumb = (object) [
+            'title' => 'Pengajuan',
+            'list' => ['Home', 'Surat', 'Pengajuan']
+        ];
+
         return view('surat.sp.create', [
-            'title' => 'Surat Pengantar'
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
@@ -50,16 +60,26 @@ class SuratController extends Controller
     {
         $data = SpModel::where('sp_id', $id)->first();
 
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Home', 'Surat', 'Detail']
+        ];
+
         return view('surat.sp.show', [
-            'title' => 'SP Detail',
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     }
 
     public function sktm()
     {
-        return view('surat.create_sktm', [
-            'title' => 'SKTM'
+        $breadcrumb = (object) [
+            'title' => 'Pengajuan',
+            'list' => ['Home', 'Surat', 'Pengajuan']
+        ];
+
+        return view('surat.sktm.create', [
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
@@ -67,8 +87,12 @@ class SuratController extends Controller
     {
         $data = SktmModel::where('sktm_id', $id)->first();
 
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Home', 'Surat', 'Detail']
+        ];
         return view('surat.sktm.show', [
-            'title' => 'SKTM Detail',
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     }
