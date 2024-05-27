@@ -19,6 +19,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\PengeluaranController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -134,3 +136,12 @@ Route::get('/keluarga', function () {
         'anggota' => $anggota
     ]);
 });
+Route::group(['prefix' => 'pengeluaran'], function () {
+    Route::get('/', [PengeluaranController::class, 'index'])->middleware('auth');
+    Route::delete('/{id}', [PengeluaranController::class, 'destroy']);
+    Route::get('/create', [PengeluaranController::class, 'create']);
+    Route::post('/create', [PengeluaranController::class, 'store']);
+    Route::get('/{id}/edit', [PengeluaranController::class, 'edit']);
+    Route::put('/{id}', [PengeluaranController::class, 'update']);
+});
+
