@@ -1,0 +1,60 @@
+@extends('layouts.main')
+
+@section('container')
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="d-flex align-items-center">
+              <p class="mb-0">Tambahkan pemasukan keuangan</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <form action="/pemasukan/create" method="POST">
+                  @csrf
+            
+            <input type="hidden" value="{{ auth()->user()->user_id }}" name="user">
+            <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="deskripsi" class="form-control-label">Deskripsi</label>
+                  <input class="form-control @error('deskripsi') is-invalid @enderror" type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}" autocomplete="off">
+                  @error('deskripsi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="jumlah" class="form-control-label">Jumlah</label>
+                    <input class="form-control @error('jumlah') is-invalid @enderror" type="number" name="jumlah" id="jumlah" value="{{ old('jumlah') }}" autocomplete="off">
+                  @error('jumlah')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            
+              
+             <div class="col-md-10">
+
+              </div>
+              <div class="col-md-2">
+                <div class="d-flex justify-content-end">
+                  <a href="/pemasukan" class="btn btn-danger btn-sm me-2">Batal</a>
+                  <button class="btn btn-primary btn-sm" type="submit">Kirim</button>
+                </div>              
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

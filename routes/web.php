@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaOrganisasiController;
@@ -104,6 +105,14 @@ Route::get('/pengumuman/{id}', [PengumumanController::class, 'show']);
 Route::get('/pengumuman/{id}/edit', [PengumumanController::class, 'edit']);
 Route::put('/pengumuman/{id}', [PengumumanController::class, 'update']);
 Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy']);
+
+Route::get('/pemasukan', [PemasukanController::class, 'index']);
+Route::get('/pemasukan/create', [PemasukanController::class, 'create']);
+Route::post('/pemasukan/create', [PemasukanController::class, 'store']);
+Route::get('/pemasukan/{id}', [PemasukanController::class, 'show']);
+Route::get('/pemasukan/{id}/edit', [PemasukanController::class, 'edit']);
+Route::put('/pemasukan/{id}', [PemasukanController::class, 'update']);
+Route::delete('/pemasukan/{id}', [PemasukanController::class, 'destroy']);
 
 Route::get('/rt', [RtController::class, 'index']);
 Route::get('/rw', [RwController::class, 'index']);
