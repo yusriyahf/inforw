@@ -8,9 +8,9 @@
         <h6 class="text-white"> @can('is-admin')
             Admin
         @elsecan('is-rw')
-            Ketua RW
+            Ketua
         @elsecan('is-rt')
-            Ketua RT 
+            Ketua RT {{ $data->getrt->nama }} 
         @elsecan('is-warga')
             Warga RT {{ $data->getrt->nama }}
         @endcan  RW {{ $data->getrw->nama }} Kecamatan Pandanwangi</h6>
