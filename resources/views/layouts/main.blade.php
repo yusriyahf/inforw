@@ -34,6 +34,10 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 
+  {{-- CHART --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -223,6 +227,8 @@
     }
   </script>
 
+  {{-- CHART --}}
+  
 
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

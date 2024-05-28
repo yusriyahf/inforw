@@ -109,7 +109,77 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-6 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+                <h6 class="text-capitalize">Pemasukan Keuangan</h6>
+            </div>
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="pemasukanChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+                <h6 class="text-capitalize">Pengeluaran Keuangan</h6>
+            </div>
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="pengeluaranChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+
+
     </div> 
-      
+    
 </div>
+<script>
+  var ctx1 = document.getElementById('pemasukanChart').getContext('2d');
+  var pemasukanChart = new Chart(ctx1, {
+      type: 'line',
+      data: {
+          labels: {!! json_encode(array_column($pemasukanChartData, 'tanggal')) !!},
+          datasets: [{
+              label: 'Total Pemasukan',
+              data: {!! json_encode(array_column($pemasukanChartData, 'total')) !!},
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+
+  var ctx2 = document.getElementById('pengeluaranChart').getContext('2d');
+  var pengeluaranChart = new Chart(ctx2, {
+      type: 'line',
+      data: {
+          labels: {!! json_encode(array_column($pengeluaranChartData, 'tanggal')) !!},
+          datasets: [{
+              label: 'Total Pengeluaran',
+              data: {!! json_encode(array_column($pengeluaranChartData, 'total')) !!},
+              borderColor: 'rgb(255, 99, 132)',
+              tension: 0.1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
 @endsection

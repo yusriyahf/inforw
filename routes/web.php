@@ -4,9 +4,12 @@ use App\Models\User;
 use App\Models\RtModel;
 use App\Models\AsetModel;
 use App\Models\KeluargaModel;
+use App\Models\PemasukanModel;
 use Database\Seeders\RtSeeder;
 use App\Models\PengumumanModel;
+use App\Models\PengeluaranModel;
 use App\Models\KartuKeluargaModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Can;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +37,47 @@ use App\Http\Controllers\AnggotaOrganisasiController;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
 
+//     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
+//     $breadcrumb = (object) [
+//         'title' => 'Dashboard',
+//         'list' => ['Pages', 'Dashboard']
+//     ];
+
+//     return view('welcome', [
+//         'breadcrumb' => $breadcrumb,
+//         'data' => $data
+//     ]);
+// })->middleware('auth');
+Route::get('/', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
+
+    // Mengambil data pemasukan
+    $pemasukan = PemasukanModel::all();
+    $pemasukanGroupedByDate = $pemasukan->groupBy(function ($item) {
+        return $item->created_at->format('Y-m-d');
+    });
+    $pemasukanTotal = $pemasukanGroupedByDate->map(function ($group) {
+        return $group->sum('jumlah');
+    });
+    $pemasukanChartData = [];
+    foreach ($pemasukanTotal as $tanggal => $total) {
+        $pemasukanChartData[] = ['tanggal' => $tanggal, 'total' => $total];
+    }
+
+    // Mengambil data pengeluaran
+    $pengeluaran = PengeluaranModel::all();
+    $pengeluaranGroupedByDate = $pengeluaran->groupBy(function ($item) {
+        return $item->created_at->format('Y-m-d');
+    });
+    $pengeluaranTotal = $pengeluaranGroupedByDate->map(function ($group) {
+        return $group->sum('jumlah');
+    });
+    $pengeluaranChartData = [];
+    foreach ($pengeluaranTotal as $tanggal => $total) {
+        $pengeluaranChartData[] = ['tanggal' => $tanggal, 'total' => $total];
+    }
 
     $breadcrumb = (object) [
         'title' => 'Dashboard',
@@ -45,9 +86,13 @@ Route::get('/', function () {
 
     return view('welcome', [
         'breadcrumb' => $breadcrumb,
-        'data' => $data
+        'data' => $data,
+        'pemasukanChartData' => $pemasukanChartData,
+        'pengeluaranChartData' => $pengeluaranChartData,
     ]);
 })->middleware('auth');
+
+
 
 
 
