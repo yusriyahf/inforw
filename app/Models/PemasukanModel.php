@@ -22,4 +22,9 @@ class PemasukanModel extends Model
     {
         return $this->belongsTo(User::class, 'rt', 'rt_id');
     }
+
+    public function laporanKeuangan()
+    {
+        return $this->hasMany(LaporanModel::class, 'pengeluaran');
+    }
 }

@@ -7,17 +7,23 @@ use Illuminate\Http\Request;
 
 class PengeluaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = PengeluaranModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
-            $breadcrumb = (object) [
-                'title' => 'Pengeluaran',
-                'list' => ['Pages', 'Pengeluaran']
-            ];
-            return view('pengeluaran.index', [
-                'breadcrumb' => $breadcrumb,
-                'pengeluaran' => $data
-            ]);
+        $tanggal = $request->input('tanggal', now()->format('Y-m'));
+        $data = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+            ->whereYear('created_at', '=', date('Y', strtotime($tanggal)))
+            ->whereMonth('created_at', '=', date('m', strtotime($tanggal)))
+            ->get();
+
+        $breadcrumb = (object) [
+            'title' => 'Pengeluaran',
+            'list' => ['Pages', 'Pengeluaran']
+        ];
+        return view('pengeluaran.index', [
+            'breadcrumb' => $breadcrumb,
+            'pengeluaran' => $data,
+            'tanggal' => $tanggal
+        ]);
     }
     public function create()
     {
@@ -85,5 +91,4 @@ class PengeluaranController extends Controller
             return redirect('/pengeluaran')->with('error' . 'Data Pengeluaran gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
-
 }

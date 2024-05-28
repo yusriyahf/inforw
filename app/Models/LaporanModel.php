@@ -18,8 +18,8 @@ class LaporanModel extends Model
         return $this->belongsTo(PemasukanModel::class, 'pemasukan', 'pemasukan_id');
     }
 
-    // public function getpengeluaran()
-    // {
-    //     return $this->belongsTo(User::class, 'rt', 'rt_id');
-    // }
+    public function getpengeluaran()
+    {
+        return $this->belongsTo(PengeluaranModel::class, 'pengeluaran', 'pengeluaran_id');
+    }
 }

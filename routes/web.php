@@ -15,12 +15,13 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\AnggotaOrganisasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +117,16 @@ Route::get('/pemasukan/{id}/edit', [PemasukanController::class, 'edit']);
 Route::put('/pemasukan/{id}', [PemasukanController::class, 'update']);
 Route::delete('/pemasukan/{id}', [PemasukanController::class, 'destroy']);
 
+Route::get('/laporan', [LaporanController::class, 'index']);
+Route::get('/laporan/create', [LaporanController::class, 'create']);
+Route::post('/laporan/create', [LaporanController::class, 'store']);
+Route::get('/laporan/{id}', [LaporanController::class, 'show']);
+Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit']);
+Route::put('/laporan/{id}', [LaporanController::class, 'update']);
+Route::delete('/laporan/{id}', [LaporanController::class, 'destroy']);
+
+
+
 Route::get('/rt', [RtController::class, 'index']);
 Route::get('/rw', [RwController::class, 'index']);
 
@@ -153,4 +164,3 @@ Route::group(['prefix' => 'pengeluaran'], function () {
     Route::get('/{id}/edit', [PengeluaranController::class, 'edit']);
     Route::put('/{id}', [PengeluaranController::class, 'update']);
 });
-

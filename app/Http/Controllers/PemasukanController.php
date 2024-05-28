@@ -10,9 +10,13 @@ class PemasukanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = PemasukanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
+        $tanggal = $request->input('tanggal', now()->format('Y-m'));
+        $data = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+            ->whereYear('created_at', '=', date('Y', strtotime($tanggal)))
+            ->whereMonth('created_at', '=', date('m', strtotime($tanggal)))
+            ->get();
 
         $breadcrumb = (object) [
             'title' => 'Pemasukan',
@@ -21,7 +25,8 @@ class PemasukanController extends Controller
 
         return view('pemasukan.index', [
             'breadcrumb' => $breadcrumb,
-            'data' => $data
+            'data' => $data,
+            'tanggal' => $tanggal,
         ]);
     }
 
