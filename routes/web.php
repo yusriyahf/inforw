@@ -20,7 +20,9 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengeluaranController;
+use App\Models\KegiatanModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,4 +155,13 @@ Route::group(['prefix' => 'pengeluaran'], function () {
     Route::get('/{id}/edit', [PengeluaranController::class, 'edit']);
     Route::put('/{id}', [PengeluaranController::class, 'update']);
 });
+Route::group(['prefix' => 'kegiatan'], function () {
+    Route::get('/', [KegiatanController::class, 'index'])->middleware('auth');
+    Route::delete('/{id}', [KegiatanController::class, 'destroy']);
+    Route::get('/create', [KegiatanController::class, 'create']);
+    Route::post('/create', [KegiatanController::class, 'store']);
+    Route::get('/{id}/edit', [KegiatanController::class, 'edit']);
+    Route::put('/{id}', [KegiatanController::class, 'update']);
+});
+
 
