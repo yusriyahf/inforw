@@ -25,6 +25,7 @@ use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\BansosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -208,4 +209,20 @@ Route::group(['prefix' => 'pengeluaran'], function () {
     Route::post('/create', [PengeluaranController::class, 'store']);
     Route::get('/{id}/edit', [PengeluaranController::class, 'edit']);
     Route::put('/{id}', [PengeluaranController::class, 'update']);
+});
+
+//BANSOS di RW
+Route::group(['prefix' => 'bansos'], function () {
+    Route::get('/', [BansosController::class, 'index'])->middleware('auth');
+    Route::get('/create', [BansosController::class, 'create'])->name('tambahBansos'); //buat data bansos
+    Route::delete('/{id}', [BansosController::class, 'destroy']);
+    Route::get('/{bansos_id}', [BansosController::class, 'detailBansos']); //lihat detail bansos
+    Route::get('/{bansos_id}/kriteria/{kriteria_id}', [BansosController::class, 'detailKriteria'])->name('showSubKriteria'); //lihat detail kriteria yang berisi sub kriteria
+    Route::post('/create', [BansosController::class, 'store']); //simpan data baru bansos
+    Route::get('/create/{bansos_id}/kriteria', [BansosController::class, 'addKriteria'])->name('addKriteria'); //buat kriteria bansos
+    Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
+    Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
+    Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
+    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
 });
