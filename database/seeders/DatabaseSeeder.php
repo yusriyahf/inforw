@@ -15,6 +15,7 @@ use App\Models\KeluargaModel;
 use Illuminate\Database\Seeder;
 use App\Models\AnggotaOrganisasi;
 use App\Models\AsetModel;
+use App\Models\PemasukanModel;
 use App\Models\PengumumanModel;
 
 class DatabaseSeeder extends Seeder
@@ -185,6 +186,48 @@ class DatabaseSeeder extends Seeder
             'rt' => '1',
         ]);
 
+        // $users = [1]; // Tetapkan user ke 1
+        // $rt = [1]; // Tetapkan rt ke 1
+        // $deskripsi = ['bayar kas', 'pemasukan lain', 'pemasukan bulanan']; // Contoh deskripsi yang berbeda
+        // $jumlah = [500, 10000, 20000, 25000, 30000, 35000, 40000, 50000]; // Contoh jumlah yang berbeda
+
+        // // Looping untuk setiap bulan
+        // for ($bulan = 1; $bulan <= 12; $bulan++) {
+        //     // Tetapkan tanggal awal dan akhir untuk setiap bulan
+        //     $tanggal_awal = date('Y-m-01', strtotime(date('Y') . '-' . $bulan . '-01'));
+        //     $tanggal_akhir = date('Y-m-t', strtotime($tanggal_awal));
+
+        //     // Looping untuk setiap hari dalam bulan
+        //     for ($tanggal = $tanggal_awal; $tanggal <= $tanggal_akhir; $tanggal = date('Y-m-d', strtotime($tanggal . ' +1 day'))) {
+        //         // Pilih acak deskripsi dan jumlah
+        //         $deskripsi_random = $deskripsi[array_rand($deskripsi)];
+        //         $jumlah_random = $jumlah[array_rand($jumlah)];
+
+        //         // Pilih acak user dan rt (tetap 1)
+        //         $user_random = $users[array_rand($users)];
+        //         $rt_random = $rt[array_rand($rt)];
+
+        //         // Buat data pemasukan
+        //         PemasukanModel::create([
+        //             'jumlah' => $jumlah_random,
+        //             'deskripsi' => $deskripsi_random,
+        //             'user' => $user_random,
+        //             'rt' => $rt_random,
+        //             'tanggal' => $tanggal,
+        //         ]);
+        //     }
+        // }
+
+        // PemasukanModel::create([
+        //     'pemasukan_id' => '1',
+        //     'jumlah' => 20000,
+        //     'deskripsi' => 'bayar kas',
+        //     'user' => '1',
+        //     'rt' => '1',
+        //     'tanggal' => '',
+
+        // ]);
+
         // User::create([
         //     'nama' => 'Maulana Arya',
         //     'nik' => '2241720172',
@@ -260,5 +303,7 @@ class DatabaseSeeder extends Seeder
         //     'user_id' => '3',
         //     'organisasi_id' => '1'
         // ]);
+
+        $this->call(BansosSeeder::class);
     }
 }

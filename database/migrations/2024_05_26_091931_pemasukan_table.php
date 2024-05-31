@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->unsignedBigInteger('user')->index();
             $table->unsignedBigInteger('rt')->index();
-
+            $table->datetime('tanggal');
             $table->timestamps();
             $table->foreign('user')->references('user_id')->on('users');
             $table->foreign('rt')->references('rt_id')->on('rt');

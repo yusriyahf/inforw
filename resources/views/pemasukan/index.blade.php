@@ -6,6 +6,7 @@
         <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
             <h2 class="text-white">Pemasukan Keuangan</h2>
             <h6 class="text-white">Buat Pemasukan Keuangan untuk warga dengan solusi digital</h6>
+           
         </div>
         {{-- SKTM --}}
         <div class="col-12 mt-1">
@@ -13,6 +14,15 @@
               <div class="card-header pb-0">
                 <h6>Riwayat Pemasukan Keuangan</h6>
                 <a href="/pemasukan/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+                <form action="/pemasukan" method="GET" style="display: flex; align-items: flex-start;">
+                  @csrf
+                  <div class="form-group" style="margin-right: 10px;">
+                      <label for="tanggal">Tanggal (Bulan-Tahun):</label>
+                      <input type="month" id="tanggal" name="tanggal" class="form-control" value="{{ $tanggal }}" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
+              </form>
+              
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('success') }}
