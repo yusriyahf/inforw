@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PengumumanModel extends Model
+class KegiatanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengumuman';
-    protected $primaryKey = 'pengumuman_id';
-    protected $guarded = ['pengumuman_id'];
+    protected $table = 'kegiatan';
+    protected $primaryKey = 'kegiatan_id';
+    protected $guarded = ['kegiatan_id'];
 
     public function users()
     {

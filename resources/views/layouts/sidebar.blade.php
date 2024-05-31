@@ -14,7 +14,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1">Beranda</span>
           </a>
         </li>
         @if(Gate::allows('is-rt') || Gate::allows('is-rw')|| Gate::allows('is-admin'))
@@ -132,6 +132,17 @@
           </a>
         </li>
         @endcan
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Bansos</span>
+          </a>
+        </li>
+        @endif
+
         {{-- @can('is-warga')
         <li class="nav-item">
           <a class="nav-link {{ Request::is('peminjaman*') ? 'active' : '' }}" href="/peminjaman">
@@ -142,15 +153,15 @@
           </a>
         </li>
         @endcan --}}
-        {{-- <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('kegiatan*') ? 'active' : '' }}" href="/kegiatan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Kegiatan Warga</span>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link " href="../pages/rtl.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
@@ -173,6 +184,27 @@
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Pemasukan</span>
+          </a>
+        </li>
+
+        @endif
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('pengeluaran*') ? 'active' : '' }}" href="/pengeluaran">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Pengeluaran</span>
+          </a>
+        </li>
+        @endif
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('laporan*') ? 'active' : '' }}" href="/laporan">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Laporan</span>
           </a>
         </li>
         @endif

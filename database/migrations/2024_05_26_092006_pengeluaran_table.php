@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->string('deskripsi');
             $table->unsignedBigInteger('rt')->index();
-
+            $table->datetime('tanggal');
             $table->timestamps();
             $table->foreign('rt')->references('rt_id')->on('rt');
         });

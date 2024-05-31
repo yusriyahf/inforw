@@ -33,6 +33,11 @@
   <link href="/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+
+  {{-- CHART --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -123,6 +128,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
+  <script src="/js/plugins/flatpickr.min.js"></script>
   <script src="/js/core/popper.min.js"></script>
   <script src="/js/core/bootstrap.min.js"></script>
   <script src="/js/plugins/perfect-scrollbar.min.js"></script>
@@ -220,10 +226,16 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+
+  {{-- CHART --}}
+  
+
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/js/argon-dashboard.min.js?v=2.0.4"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  @stack('js')
 </body>
 
 </html>
