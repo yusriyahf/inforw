@@ -24,12 +24,16 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+
+use App\Http\Controllers\PengaduanController;
+
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Models\KegiatanModel;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\BansosController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -171,6 +175,7 @@ Route::get('/aset', function () {
     ]);
 });
 
+
 Route::get('/pengumuman', [PengumumanController::class, 'index']);
 Route::get('/pengumuman/create', [PengumumanController::class, 'create']);
 Route::post('/pengumuman/create', [PengumumanController::class, 'store']);
@@ -208,6 +213,16 @@ Route::get('/sp/{id}', [SuratController::class, 'showsp']);
 Route::get('/sktm', [SuratController::class, 'sktm']);
 Route::post('/sktm/create', [SuratController::class, 'storesktm']);
 Route::get('/sktm/{id}', [SuratController::class, 'showsktm']);
+
+
+Route::delete('/warga/{id}', [UserController::class, 'destroy']);
+
+Route::get('/pengaduan', [PengaduanController::class, 'index']);
+Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy']);
+Route::get('/pengaduan/create', [PengaduanController::class, 'create']);
+Route::post('/pengaduan/create', [PengaduanController::class, 'store']);
+Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit']);
+Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']);
 
 
 Route::get('/keluarga', function () {
