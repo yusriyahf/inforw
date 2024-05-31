@@ -303,5 +303,7 @@ class DatabaseSeeder extends Seeder
         //     'user_id' => '3',
         //     'organisasi_id' => '1'
         // ]);
+
+        $this->call(BansosSeeder::class);
     }
 }
