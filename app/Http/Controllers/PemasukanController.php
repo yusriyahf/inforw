@@ -54,6 +54,7 @@ class PemasukanController extends Controller
             'deskripsi' => 'required',
             'rt' => 'required',
             'user' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PemasukanModel::create($validatedData);

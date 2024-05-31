@@ -6,7 +6,7 @@
       <div class="card mb-4">
         <div class="card-header pb-0">
           <h6>Tabel Data {{ $breadcrumb->title }}</h6>
-          <form action="/pemasukan" method="GET" style="display: flex; align-items: flex-start;">
+          <form action="/laporan" method="GET" style="display: flex; align-items: flex-start;">
             @csrf
             <div class="form-group" style="margin-right: 10px;">
                 <label for="tanggal">Tanggal (Bulan-Tahun):</label>

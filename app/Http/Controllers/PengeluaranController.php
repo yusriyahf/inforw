@@ -39,9 +39,9 @@ class PengeluaranController extends Controller
     {
         $validatedData = $request->validate([
             'rt' => 'required',
-            'user' => 'required',
             'deskripsi' => 'required',
             'jumlah' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PengeluaranModel::create($validatedData);

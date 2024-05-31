@@ -54,29 +54,36 @@ Route::get('/', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    $pemasukan = PemasukanModel::all();
-    $pemasukanGroupedByDate = $pemasukan->groupBy(function ($item) {
-        return $item->created_at->format('Y-m-d');
+    $pemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+    $pemasukanGroupedByMonth = $pemasukan->groupBy(function ($item) {
+        // Mengonversi string tanggal menjadi objek DateTime
+        $tanggal = new DateTime($item->tanggal);
+        // Mengembalikan bulan dalam format 'm'
+        return $tanggal->format('m');
     });
-    $pemasukanTotal = $pemasukanGroupedByDate->map(function ($group) {
-        return $group->sum('jumlah');
-    });
-    $pemasukanChartData = [];
-    foreach ($pemasukanTotal as $tanggal => $total) {
-        $pemasukanChartData[] = ['tanggal' => $tanggal, 'total' => $total];
+
+    $pemasukanTotal = [];
+    // Menambahkan data untuk setiap bulan
+    for ($i = 1; $i <= 12; $i++) {
+        $bulan = str_pad($i, 2, '0', STR_PAD_LEFT); // Formatkan bulan menjadi dua digit (01, 02, dst)
+        $total = $pemasukanGroupedByMonth->has($bulan) ? $pemasukanGroupedByMonth[$bulan]->sum('jumlah') : 0;
+        $pemasukanTotal[] = $total;
     }
 
     // Mengambil data pengeluaran
-    $pengeluaran = PengeluaranModel::all();
-    $pengeluaranGroupedByDate = $pengeluaran->groupBy(function ($item) {
-        return $item->created_at->format('Y-m-d');
+    $pengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+    $pengeluaranGroupedByMonth = $pengeluaran->groupBy(function ($item) {
+        // Mengonversi string tanggal menjadi objek DateTime
+        $tanggal = new DateTime($item->tanggal);
+        // Mengembalikan bulan dalam format 'm'
+        return $tanggal->format('m');
     });
-    $pengeluaranTotal = $pengeluaranGroupedByDate->map(function ($group) {
-        return $group->sum('jumlah');
-    });
-    $pengeluaranChartData = [];
-    foreach ($pengeluaranTotal as $tanggal => $total) {
-        $pengeluaranChartData[] = ['tanggal' => $tanggal, 'total' => $total];
+    $pengeluaranTotal = [];
+    // Menambahkan data untuk setiap bulan
+    for ($i = 1; $i <= 12; $i++) {
+        $bulan = str_pad($i, 2, '0', STR_PAD_LEFT); // Formatkan bulan menjadi dua digit (01, 02, dst)
+        $total = $pengeluaranGroupedByMonth->has($bulan) ? $pengeluaranGroupedByMonth[$bulan]->sum('jumlah') : 0;
+        $pengeluaranTotal[] = $total;
     }
 
     $breadcrumb = (object) [
@@ -87,10 +94,14 @@ Route::get('/', function () {
     return view('welcome', [
         'breadcrumb' => $breadcrumb,
         'data' => $data,
-        'pemasukanChartData' => $pemasukanChartData,
-        'pengeluaranChartData' => $pengeluaranChartData,
+        'pemasukanChartData' => $pemasukanTotal,
+        'pengeluaranChartData' => $pengeluaranTotal,
     ]);
 })->middleware('auth');
+
+
+
+
 
 
 

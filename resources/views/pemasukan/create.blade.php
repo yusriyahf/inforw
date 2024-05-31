@@ -39,6 +39,17 @@
                     @enderror
                 </div>
             </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                    <label for="tanggal" class="form-control-label">Tanggal</label>
+                    <input class="form-control @error('tanggal') is-invalid @enderror" type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" autocomplete="off">
+                  @error('tanggal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
             
               
              <div class="col-md-10">
