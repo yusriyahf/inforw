@@ -11,6 +11,8 @@
             Ketua
         @elsecan('is-rt')
             Ketua RT {{ $data->getrt->nama }} 
+        @elsecan('is-bendahara')
+            Ketua RT {{ Auth::user()->role }}
         @elsecan('is-warga')
             Warga RT {{ $data->getrt->nama }}
         @endcan  RW {{ $data->getrw->nama }} Kecamatan Pandanwangi</h6>

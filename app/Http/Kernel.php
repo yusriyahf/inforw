@@ -68,5 +68,7 @@ class Kernel extends HttpKernel
         'rw' => \App\Http\Middleware\IsRw::class,
         'rt' => \App\Http\Middleware\IsRt::class,
         'warga' => \App\Http\Middleware\IsWarga::class,
+        'sekretaris' => \App\Http\Middleware\IsSekretaris::class,
+        'bendahara' => \App\Http\Middleware\IsBendahara::class,
     ];
 }
