@@ -30,8 +30,7 @@ use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Models\KegiatanModel;
-use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\AnggotaOrganisasiController;
+
 use App\Http\Controllers\BansosController;
 
 
@@ -117,7 +116,7 @@ Route::get('/', function () {
     ]);
 })->middleware('auth');
 
-
+Route::get('generate-pdf', [App\Http\Controllers\PdfController::class, 'index']);
 
 
 
