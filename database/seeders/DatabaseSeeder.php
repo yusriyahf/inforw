@@ -51,6 +51,14 @@ class DatabaseSeeder extends Seeder
             'role_id' => '4',
             'nama' => 'warga',
         ]);
+        RolesModel::create([
+            'role_id' => '5',
+            'nama' => 'sekretaris',
+        ]);
+        RolesModel::create([
+            'role_id' => '6',
+            'nama' => 'bendahara',
+        ]);
 
         RtModel::create([
             'rt_id' => '1',
@@ -119,6 +127,22 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Yusriyah Firjatullah',
             'password' => bcrypt('12345'),
             'role' => '4',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '6',
+            'nik' => '2241720179',
+            'nama' => 'Sung Jin Woo',
+            'password' => bcrypt('12345'),
+            'role' => '6',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '7',
+            'nik' => '2241720180',
+            'nama' => 'Cha Hae In',
+            'password' => bcrypt('12345'),
+            'role' => '5',
             'keluarga' => '1'
         ]);
 
