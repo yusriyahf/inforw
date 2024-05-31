@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id('kegiatan_id');
-            $table->date('tanggal');
+            $table->dateTime('tanggal');
             $table->string('nama_kegiatan');
             $table->unsignedBigInteger('rt')->index();
             $table->unsignedBigInteger('user')->index();
