@@ -140,6 +140,8 @@
 
 
     </div> 
+
+    @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
     <div class="row mt-3">
       <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
@@ -238,6 +240,7 @@
         </div>
       </div>
     </div>
+    @endif
     
 </div>
 
