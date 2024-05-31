@@ -63,6 +63,12 @@ Route::get('/', function () {
         return $tanggal->format('m');
     });
 
+    $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+        ->sum('jumlah');
+    $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+        ->sum('jumlah');
+    $totalSaldo = $totalPemasukan - $totalPengeluaran;
+
     $pemasukanTotal = [];
     // Menambahkan data untuk setiap bulan
     for ($i = 1; $i <= 12; $i++) {
@@ -97,6 +103,9 @@ Route::get('/', function () {
         'data' => $data,
         'pemasukanChartData' => $pemasukanTotal,
         'pengeluaranChartData' => $pengeluaranTotal,
+        'totalPemasukan' => $totalPemasukan,
+        'totalPengeluaran' => $totalPengeluaran,
+        'totalSaldo' => $totalSaldo,
     ]);
 })->middleware('auth');
 
@@ -234,6 +243,6 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
     Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
-    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
-    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
+    Route::get('/create/{bansos_id}/bobot', [BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot', [BansosController::class, 'storeBobot'])->name('saveBobot'); //simpan
 });

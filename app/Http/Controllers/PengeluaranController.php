@@ -11,8 +11,8 @@ class PengeluaranController extends Controller
     {
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
         $data = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-            ->whereYear('created_at', '=', date('Y', strtotime($tanggal)))
-            ->whereMonth('created_at', '=', date('m', strtotime($tanggal)))
+            ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+            ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
 
         $breadcrumb = (object) [

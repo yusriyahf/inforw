@@ -61,7 +61,7 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->getrt }} </span>
                         </td> --}}
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->created_at }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal }} </span>
                         </td>
                         <td class="align-middle text-center">
                             <a class="btn btn-link text-dark px-1 mb-0" href="/pemasukan/{{ $d->pemasukan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
