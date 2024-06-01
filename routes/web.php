@@ -8,8 +8,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\AsetController;
 use App\Models\KartuKeluargaModel;
 use App\Models\KeluargaModel;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,20 @@ use App\Models\KeluargaModel;
 
 Route::get('/', function () {
 
+    $breadcrumb = (object)[
+        'title' => 'Warga',
+        'list' => ['Beranda', 'Warga']
+    ];
+
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     return view('welcome', [
-        'title' => 'Dahboard',
+        'breadcrumb' => $breadcrumb,
+        'title' => 'Dashboard',
         'data' => $data
     ]);
+
+
 })->middleware('auth');
 
 
@@ -89,4 +99,15 @@ Route::get('/keluarga', function () {
         'data' => $data,
         'anggota' => $anggota
     ]);
+});
+
+// ROUTE ASET
+Route::group(['prefix' => 'aset', 'middleware' => 'auth'], function () {
+    Route::get('/', [AsetController::class, 'index'])->name('aset.index');
+    Route::get('/create', [AsetController::class, 'create'])->name('aset.create');
+    Route::post('/create', [AsetController::class, 'store'])->name('aset.store');
+    Route::get('/{id}', [AsetController::class, 'show'])->name('aset.show');
+    Route::delete('/{id}', [AsetController::class, 'destroy'])->name('aset.destroy');
+    Route::get('/{id}/edit', [AsetController::class, 'edit'])->name('aset.edit');
+    Route::put('/{id}', [AsetController::class, 'update'])->name('aset.update');
 });

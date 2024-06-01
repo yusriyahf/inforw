@@ -14,10 +14,15 @@ class SuratController extends Controller
         $datasktm = SktmModel::where('user', auth()->user()->user_id)->get();
         $datasp = SpModel::where('user', auth()->user()->user_id)->get();
 
+        $breadcrumb = (object) [
+            'title' => 'Surat',
+            'list' => ['Beranda', 'Surat']
+        ];
         return view('surat.index', [
             'title' => 'surat',
             'datasktm' => $datasktm,
-            'datasp' => $datasp
+            'datasp' => $datasp,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 

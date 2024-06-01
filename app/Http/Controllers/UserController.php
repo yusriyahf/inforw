@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -12,10 +14,28 @@ class UserController extends Controller
      */
     public function index()
     {
-        $title = 'Warga';
+        $breadcrumb = (object) [
+            'title' => 'Warga',
+            'list' => ['Pages', 'Warga']
+        ];
+        $rts = RtModel::all();
+        if (Gate::allows('is-admin')) {
+
+            $data = User::with('getkeluarga')
+                ->where('role', '!=', 1)
+                ->get();
+        } else {
+            $data = User::with('getkeluarga')
+                ->where('role', '!=', 1)
+                ->whereHas('getkeluarga.getrt', function ($query) {
+                    $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
+                })
+                ->get();
+        }
         return view('warga.index', [
-            'title' => $title,
-            'warga' => User::with('getkeluarga')->get()
+            'breadcrumb' => $breadcrumb,
+            'warga' => $data,
+            'rts' => $rts
         ]);
     }
 
@@ -24,8 +44,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = 'Create';
-        return view('warga.create', ['title' => $title]);
+        $breadcrumb = (object) [
+            'title' => 'Create',
+            'list' => ['Pages', 'Warga', 'Create']
+        ];
+
+        return view('warga.create', ['breadcrumb' => $breadcrumb]);
     }
 
     /**
@@ -64,13 +88,16 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $title = 'Edit';
+        $breadcrumb = (object) [
+            'title' => 'Edit',
+            'list' => ['Pages', 'Warga', 'Edit']
+        ];
 
         $warga = User::find($id);
 
         return view('warga.edit', [
             'warga' => $warga,
-            'title' => $title
+            'breadcrumb' => $breadcrumb
         ]);
     }
 

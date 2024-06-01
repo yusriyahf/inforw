@@ -2,17 +2,27 @@
 
 @section('container')
 <div class="row">
-    <div class="col-12">
-      <div class="card mb-4">
-        <div class="card-header pb-0">
-          <h6>Tabel Data {{ $title }}</h6>
-          <a href="/warga/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-          @if (session()->has('success'))
-            <div class="alert alert-success col-lg-8" role="alert">
-              {{ session('success') }}
-            </div>
-          @endif
+  <div class="col-12 mt-1">
+    <div class="card pl-2 p-4 mb-4">
+        <div class="card-header p-0 d-flex justify-content-between align-items-center">
+          <div>
+            <h6>Tabel Data {{ $breadcrumb->title }}</h6>
+            <a href="/warga/create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>   
+          </div>
+          <div>
+          <select class="btn btn-white btn-sm">
+            <option value="">Filter RT</option>
+            @foreach ($rts as $rt)
+              <option value="{{ $rt->nama }}">{{ $rt->nama }}</option>
+            @endforeach
+          </select>
+          </div>          
         </div>
+        @if (session()->has('success'))
+          <div class="alert alert-success col-lg-8" role="alert">
+            {{ session('success') }}
+          </div>
+        @endif
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">
@@ -28,7 +38,6 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pekerjaan</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">notelp</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                  {{-- <th class="text-secondary opacity-7"></th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -63,7 +72,6 @@
                   </td>
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="warga/{{ $war->user_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
-
                     <form class="d-inline-block" method="POST" action="/warga/{{$war->user_id}}">
                         @csrf
                         @method('DELETE')
@@ -71,7 +79,6 @@
                             <i class="far fa-trash-alt me-2"></i>
                         </button>
                     </form>
-                    
                   </td>
                 </tr>
                 @endforeach
@@ -82,4 +89,47 @@
       </div>
     </div>
   </div>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- Custom CSS -->
+<style>
+    table.dataTable.no-footer {
+        border-bottom: 1px solid #e0e0e0; /* Change this color to the desired border color */
+    }
+    div.dataTables_wrapper div.dataTables_filter {
+        text-align: left;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+        margin-left: 0.5em;
+    }
+    div.dataTables_wrapper div.dataTables_info {
+        text-align: right;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        var table = $('.table').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+        $('#rtFilter').on('change', function() {
+            table.column(3).search(this.value).draw();   
+        });
+    });
+</script>
 @endsection
