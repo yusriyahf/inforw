@@ -91,7 +91,7 @@
                     <span class="text-secondary text-xs font-weight-bold"> @empty($war->notelp)
                       <span class="text-danger">(belum diinput)</span>
                   @else
-                      {{ $war->notelp }}
+                      0{{ $war->notelp }}
                   @endempty</span>
                   </td>
                   <td class="align-middle text-center text-sm">

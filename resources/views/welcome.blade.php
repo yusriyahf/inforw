@@ -155,7 +155,7 @@
                                 
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getketuart->notelp)
-                                  <a href="https://wa.me/{{ $data->getrt->getketuart->notelp }}" target="_blank">
+                                  <a href="https://wa.me/62{{ $data->getrt->getketuart->notelp }}" target="_blank">
                                       <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                   </a>
                               @else
@@ -179,7 +179,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getbendaharart->notelp)
-                                      <a href="https://wa.me/{{ $data->getrt->getbendaharart->notelp }}" target="_blank">
+                                      <a href="https://wa.me/62{{ $data->getrt->getbendaharart->notelp }}" target="_blank">
                                           <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                       </a>
                                   @else
@@ -203,7 +203,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getsekretarisrt->notelp)
-                                      <a href="https://wa.me/{{ $data->getrt->getsekretarisrt->notelp }}" target="_blank">
+                                      <a href="https://wa.me/62{{ $data->getrt->getsekretarisrt->notelp }}" target="_blank">
                                           <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                       </a>
                                   @else
@@ -227,7 +227,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getketuarw->notelp)
-                                      <a href="https://wa.me/{{ $data->getrt->getketuarw->notelp }}" target="_blank">
+                                      <a href="https://wa.me/62{{ $data->getrt->getketuarw->notelp }}" target="_blank">
                                           <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                       </a>
                                   @else
@@ -251,7 +251,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getbendahararw->notelp)
-                                      <a href="https://wa.me/{{ $data->getrt->getbendahararw->notelp }}" target="_blank">
+                                      <a href="https://wa.me/62{{ $data->getrt->getbendahararw->notelp }}" target="_blank">
                                           <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                       </a>
                                   @else
@@ -275,7 +275,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                   @isset($data->getrt->getsekretarisrw->notelp)
-                                      <a href="https://wa.me/{{ $data->getrt->getsekretarisrw->notelp }}" target="_blank">
+                                      <a href="https://wa.me/62{{ $data->getrt->getsekretarisrw->notelp }}" target="_blank">
                                           <span class="text-success text-xs font-weight-bold">WhatsApp</span>
                                       </a>
                                   @else

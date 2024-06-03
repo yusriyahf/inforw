@@ -75,15 +75,14 @@ class UserController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'pekerjaan' => 'required',
-            'notelp' => 'required',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'notelp' => 'required',
         ]);
-
 
         $validatedData['keluarga'] = 1;
         $validatedData['role'] = 4;
@@ -137,6 +136,8 @@ class UserController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
         ]);
+
+
 
         User::find($id)->update([
             'nik' => $request->nik,
