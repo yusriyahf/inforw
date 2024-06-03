@@ -8,7 +8,6 @@
             <h6 class="text-white">Buat Pemasukan Keuangan untuk warga dengan solusi digital</h6>
            
         </div>
-        {{-- SKTM --}}
         <div class="col-12 mt-1">
             <div class="card mb-4">
               <div class="card-header pb-0">

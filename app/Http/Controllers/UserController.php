@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,30 +13,45 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
-        if (Gate::allows('is-admin')) {
 
-            $data = User::with('getkeluarga')
-                ->where('role', '!=', 1)
-                ->get();
-        } else {
+        $rt = $request->input('rt');
+        $daftarRT = RtModel::all();
+
+        if (Gate::allows('is-admin') || Gate::allows('is-rw')) {
+            $query = User::with(['getkeluarga.getrt'])->where('role', '!=', 1);
+
+            if (!empty($rt)) {
+                $query->whereHas('getkeluarga.getrt', function ($query) use ($rt) {
+                    $query->where('rt_id', $rt);
+                });
+            }
+
+            $data = $query->get();
+        } elseif (Gate::allows('is-warga') || Gate::allows('is-rt')) {
             $data = User::with('getkeluarga')
                 ->where('role', '!=', 1)
                 ->whereHas('getkeluarga.getrt', function ($query) {
                     $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
                 })
                 ->get();
+        } else {
+            // Handle the case where the user does not have any of the specified roles
+            $data = collect(); // Return an empty collection
         }
+
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'warga' => $data
+            'warga' => $data,
+            'daftarRT' => $daftarRT
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
