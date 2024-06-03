@@ -14,6 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $title = 'Warga';
         $breadcrumb = (object) [
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
@@ -38,7 +39,7 @@ class UserController extends Controller
             'breadcrumb' => $breadcrumb,
             'rts' => $rts,
             'warga' => $data
-        ]);
+        ]);    
     }
 
     /**
@@ -70,11 +71,12 @@ class UserController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'password' => 'required',
+            'role' => 'required'
         ]);
 
         User::create($validatedData);
 
-        return redirect('/warga')->with('success', 'Data Warga Berhasil Ditambahkan');
+        return redirect('/warga')->with('successw', 'Data Warga Berhasil Ditambahkan');
     }
 
     /**

@@ -18,7 +18,7 @@ class AsetController extends Controller
         $title = 'Aset';
         $breadcrumb = (object) [
             'title' => 'Aset',
-            'list' => ['Beranda', 'Aset']
+            'list' => ['Pages', 'Aset']
         ];
 
         $data = AsetModel::all();
@@ -39,9 +39,13 @@ class AsetController extends Controller
     public function create()
     {
         $breadcrumb = (object) [
-            'title' => 'Create Aset'
+            'title' => 'Create Aset',
+            'list' => ['Pages', 'Aset', 'Create']
         ];
-        return view('aset.create', compact('breadcrumb'));
+
+        
+        return view('aset.create', ['breadcrumb' => $breadcrumb]);
+        
     }
 
 

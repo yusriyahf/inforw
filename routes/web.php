@@ -23,6 +23,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\AsetController;
 use App\Models\KartuKeluargaModel;
 use App\Models\KeluargaModel;
 
@@ -230,3 +231,16 @@ Route::get('/keluarga', function () {
         'anggota' => $anggota
     ]);
 });
+
+Route::get('/page.landing', function () {
+
+    return view('landingpage.index');
+});
+
+
+Route::get('/aset', [AsetController::class, 'index']);
+Route::delete('/aset/{id}', [AsetController::class, 'destroy']);
+Route::get('/aset/create', [AsetController::class, 'create']);
+Route::post('/aset/create', [AsetController::class, 'store']);
+Route::get('/aset/{id}/edit', [AsetController::class, 'edit']);
+Route::put('/aset/{id}', [AsetController::class, 'update']);
