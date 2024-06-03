@@ -40,16 +40,6 @@ class PengaduanController extends Controller
                 'pengaduan' => $pengaduan,
             ]);
         }
-        // $breadcrumb = (object) [
-        //     'title' => 'Pengaduan',
-        //     'list' => ['Pages', 'Pengaduan']
-        // ];
-        // $title = 'Pengaduan';
-        // return view('pengaduan.index', [
-        //     'breadcrumb' => $breadcrumb,
-        //     'title'=> $title,
-        //     'pengaduan' => PengaduanModel::all()
-        // ]);
     }
 
     /**
@@ -57,23 +47,23 @@ class PengaduanController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('is-warga')){
-        $breadcrumb = (object) [
-            'title' => 'Pengaduan',
-            'list' => ['Pages', 'Pengaduan']
-        ];
-        $title = 'Create';
-        $pengaduan = new PengaduanModel();
-        return view('pengaduan.warga.create', ['breadcrumb' => $breadcrumb], compact('pengaduan'));
-    } else {
-        $breadcrumb = (object) [
-            'title' => 'Pengaduan',
-            'list' => ['Pages', 'Pengaduan']
-        ];
-        $title = 'Create';
-        $pengaduan = new PengaduanModel();
-        return view('pengaduan.admin.create', ['breadcrumb' => $breadcrumb], compact('pengaduan'));
-    }
+        if (Gate::allows('is-warga')) {
+            $breadcrumb = (object) [
+                'title' => 'Pengaduan',
+                'list' => ['Pages', 'Pengaduan']
+            ];
+            $title = 'Create';
+            $pengaduan = new PengaduanModel();
+            return view('pengaduan.warga.create', ['breadcrumb' => $breadcrumb], compact('pengaduan'));
+        } else {
+            $breadcrumb = (object) [
+                'title' => 'Pengaduan',
+                'list' => ['Pages', 'Pengaduan']
+            ];
+            $title = 'Create';
+            $pengaduan = new PengaduanModel();
+            return view('pengaduan.admin.create', ['breadcrumb' => $breadcrumb], compact('pengaduan'));
+        }
     }
 
     /**
@@ -89,9 +79,6 @@ class PengaduanController extends Controller
             'rw' => 'required',
             'rt' => 'required',
             'tanggal_pengaduan' => 'required',
-            // 'tempat_lahir' => 'required',
-            // 'tanggal_lahir' => 'required',
-            // 'password' => 'required',
         ]);
 
         PengaduanModel::create($validatedData);
@@ -122,29 +109,29 @@ class PengaduanController extends Controller
      */
     public function edit(string $id)
     {
-        if(Gate::allows('is-warga')){
-        $breadcrumb = (object) [
-            'title' => 'Edit',
-            'list' => ['Pages', 'Pengaduan', 'Edit']
-        ];
+        if (Gate::allows('is-warga')) {
+            $breadcrumb = (object) [
+                'title' => 'Edit',
+                'list' => ['Pages', 'Pengaduan', 'Edit']
+            ];
 
-        $pengaduan = PengaduanModel::find($id);
-        return view('pengaduan.warga.edit', [
-            'pengaduan' => $pengaduan,
-            'breadcrumb' => $breadcrumb,
-        ]);
-    }else{
-        $breadcrumb = (object) [
-            'title' => 'Edit',
-            'list' => ['Pages', 'Pengaduan', 'Edit']
-        ];
+            $pengaduan = PengaduanModel::find($id);
+            return view('pengaduan.warga.edit', [
+                'pengaduan' => $pengaduan,
+                'breadcrumb' => $breadcrumb,
+            ]);
+        } else {
+            $breadcrumb = (object) [
+                'title' => 'Edit',
+                'list' => ['Pages', 'Pengaduan', 'Edit']
+            ];
 
-        $pengaduan = PengaduanModel::find($id);
-        return view('pengaduan.admin.edit', [
-            'pengaduan' => $pengaduan,
-            'breadcrumb' => $breadcrumb,
-        ]);
-    } 
+            $pengaduan = PengaduanModel::find($id);
+            return view('pengaduan.admin.edit', [
+                'pengaduan' => $pengaduan,
+                'breadcrumb' => $breadcrumb,
+            ]);
+        }
     }
 
     /**
@@ -152,80 +139,80 @@ class PengaduanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if(Gate::allows('is-warga')){
-        $request->validate([
-            'judul' => 'required',
-            'jenis' => 'required',
-            'deskripsi' => 'required',
-            'user' => 'required',
-            'rw' => 'required',
-            'rt' => 'required',
-            'tanggal_pengaduan' => 'required',
-            // 'tempat_lahir' => 'required',
-            // 'tanggal_lahir' => 'required',
-            // 'password' => 'nullable',
-        ]);
+        if (Gate::allows('is-warga')) {
+            $request->validate([
+                'judul' => 'required',
+                'jenis' => 'required',
+                'deskripsi' => 'required',
+                'user' => 'required',
+                'rw' => 'required',
+                'rt' => 'required',
+                'tanggal_pengaduan' => 'required',
+                // 'tempat_lahir' => 'required',
+                // 'tanggal_lahir' => 'required',
+                // 'password' => 'nullable',
+            ]);
 
-        PengaduanModel::find($id)->update([
-            'judul' => $request->judul,
-            'jenis' => $request->jenis,
-            'deskripsi' => $request->deskripsi,
-            'user' => $request->user,
-            'rw' => $request->rw,
-            'rt' => $request->rt,
-            'tanggal_pengaduan' => $request->tanggal_pengaduan,
-            // 'tempat_lahir' => $request->tempat_lahir,
-            // 'tanggal_lahir' => $request->tanggal_lahir,
-            // 'password' => $request->password ? bcrypt($request->password) : User::find($id)->password
-        ]);
-        return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil diubah');
-    }else{
-        $request->validate([
-            'judul' => 'required',
-            'jenis' => 'required',
-            'deskripsi' => 'required',
-            'user' => 'required',
-            'rw' => 'required',
-            'rt' => 'required',
-            'tanggal_pengaduan' => 'required',
-            // 'tempat_lahir' => 'required',
-            // 'tanggal_lahir' => 'required',
-            // 'password' => 'nullable',
-        ]);
+            PengaduanModel::find($id)->update([
+                'judul' => $request->judul,
+                'jenis' => $request->jenis,
+                'deskripsi' => $request->deskripsi,
+                'user' => $request->user,
+                'rw' => $request->rw,
+                'rt' => $request->rt,
+                'tanggal_pengaduan' => $request->tanggal_pengaduan,
+                // 'tempat_lahir' => $request->tempat_lahir,
+                // 'tanggal_lahir' => $request->tanggal_lahir,
+                // 'password' => $request->password ? bcrypt($request->password) : User::find($id)->password
+            ]);
+            return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil diubah');
+        } else {
+            $request->validate([
+                'judul' => 'required',
+                'jenis' => 'required',
+                'deskripsi' => 'required',
+                'user' => 'required',
+                'rw' => 'required',
+                'rt' => 'required',
+                'tanggal_pengaduan' => 'required',
+                // 'tempat_lahir' => 'required',
+                // 'tanggal_lahir' => 'required',
+                // 'password' => 'nullable',
+            ]);
 
-        PengaduanModel::find($id)->update([
-            'judul' => $request->judul,
-            'jenis' => $request->jenis,
-            'deskripsi' => $request->deskripsi,
-            'user' => $request->user,
-            'rw' => $request->rw,
-            'rt' => $request->rt,
-            'tanggal_pengaduan' => $request->tanggal_pengaduan,
-            // 'tempat_lahir' => $request->tempat_lahir,
-            // 'tanggal_lahir' => $request->tanggal_lahir,
-            // 'password' => $request->password ? bcrypt($request->password) : User::find($id)->password
-        ]);
-        return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil diubah');  
-    }
+            PengaduanModel::find($id)->update([
+                'judul' => $request->judul,
+                'jenis' => $request->jenis,
+                'deskripsi' => $request->deskripsi,
+                'user' => $request->user,
+                'rw' => $request->rw,
+                'rt' => $request->rt,
+                'tanggal_pengaduan' => $request->tanggal_pengaduan,
+                // 'tempat_lahir' => $request->tempat_lahir,
+                // 'tanggal_lahir' => $request->tanggal_lahir,
+                // 'password' => $request->password ? bcrypt($request->password) : User::find($id)->password
+            ]);
+            return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil diubah');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(String $id)
-{
-    $check = PengaduanModel::find($id);
-    if (!$check) {
-        return redirect('/pengaduan')->with('error', 'Data stok tidak ditemukan');
-    }
+    {
+        $check = PengaduanModel::find($id);
+        if (!$check) {
+            return redirect('/pengaduan')->with('error', 'Data stok tidak ditemukan');
+        }
 
-    try {
-        PengaduanModel::destroy($id);
+        try {
+            PengaduanModel::destroy($id);
 
-        return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil dihapus');
-    } catch (\Illuminate\Database\QueryException $e) {
-        Log::error('Failed to delete pengaduan: ' . $e->getMessage());
-        return redirect('/pengaduan')->with('error', 'Data pengaduan gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/pengaduan')->with('success', 'Data pengaduan berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            Log::error('Failed to delete pengaduan: ' . $e->getMessage());
+            return redirect('/pengaduan')->with('error', 'Data pengaduan gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
-}
 }

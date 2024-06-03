@@ -176,7 +176,7 @@
         </li> --}}
         
 
-        @can('is-bendahara')
+        
             
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Keuangan</h6>
@@ -207,7 +207,6 @@
             <span class="nav-link-text ms-1">Laporan</span>
           </a>
         </li>
-        @endcan
 
         @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga') || Gate::allows('is-bendahara'))
         <li class="nav-item mt-3">

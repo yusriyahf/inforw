@@ -1,7 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
+<div class="container-fluid py-4">
+
 <div class="row">
+  <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
+    <h2 class="text-white">Pengaduan</h2>
+    <h6 class="text-white">Buat Pengaduan lebih mudah</h6>
+  </div>
   <div class="col-12 mt-1">
     <div class="card pl-2 p-4 mb-4">
         <div class="card-header p-0">
@@ -20,15 +26,10 @@
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RW</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengaduan</th>
-                  {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTL</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th> --}}
-                  <th class="text-secondary opacity-7"></th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,26 +42,15 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->judul }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->jenis }}</span>
-                  </td>
-                  <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->deskripsi }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->user }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->jenis }}</span>
                   </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->rw }}</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->rt}}</span>
-                  </td>
+                  
                   <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->tanggal_pengaduan}}</span>
                   </td>
-                  {{-- <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->tempat_lahir . ', ' . $war->tanggal_lahir}}</span>
-                  </td> --}}
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/pengaduan/{{ $pn->pengaduan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
                     <form class="d-inline-block" method="POST" action="/pengaduan/{{$pn->pengaduan_id}}">
@@ -80,6 +70,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">

@@ -3,12 +3,11 @@
 @section('container')
 <div class="container-fluid py-4">
     <div class="row">
-        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
+        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
             <h2 class="text-white">Pengumuman Warga</h2>
             <h6 class="text-white">Buat Pengumuman untuk warga dengan solusi digital</h6>
         </div>
-        {{-- SKTM --}}
-        <div class="col-12 mt-1">
+        <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
                 <h6>Riwayat Pengumuman</h6>

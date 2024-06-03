@@ -8,7 +8,6 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <p class="mb-0">Edit Data Pengaduan</p>
-              {{-- <button class="btn btn-primary btn-sm ms-auto">Create</button> --}}
             </div>
           </div>
           <div class="card-body">
@@ -36,8 +35,8 @@
                   <label for="jenis" class="form-control-label">Jenis</label>
                   <select class="form-control @error('jenis') is-invalid @enderror" name="jenis" id="jenis">
                     <option value="">Pilih</option>
-                    <option value="pengaduan" {{ old('jenis', $pengaduan->jenis) == 'Pengaduan' ? 'selected' : '' }}>Pengaduan</option>
-                    <option value="saran" {{ old('jenis', $pengaduan->jenis) == 'Saran' ? 'selected' : '' }}>Saran</option>
+                    <option value="pengaduan" {{ old('jenis', $pengaduan->jenis) == 'pengaduan' ? 'selected' : '' }}>Pengaduan</option>
+                    <option value="saran" {{ old('jenis', $pengaduan->jenis) == 'saran' ? 'selected' : '' }}>Saran</option>
                 </select>
                     @error('jenis')
                         <div class="invalid-feedback">
