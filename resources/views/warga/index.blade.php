@@ -21,14 +21,16 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nik</th>  
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pekerjaan</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Telp</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Perkawinan</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Kelamin</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Agama</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTL</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pekerjaan</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">notelp</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">KK</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                  {{-- <th class="text-secondary opacity-7"></th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -44,22 +46,31 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $war->nik }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $war->getkeluarga->getrt->nama }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->pekerjaan }}</span>
                   </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $war->status_perkawinan}}</span>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->notelp }}</span>
                   </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $war->jenis_kelamin}}</span>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->status_perkawinan }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->jenis_kelamin }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->agama }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->alamat }}</span>
                   </td>
                   <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $war->tempat_lahir . ', ' . $war->tanggal_lahir}}</span>
                   </td>
                   <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $war->pekerjaan}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->getkeluarga->no_kk}}</span>
                   </td>
                   <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $war->notelp}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $war->getkeluarga->getrt->nama}}</span>
                   </td>
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="warga/{{ $war->user_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>

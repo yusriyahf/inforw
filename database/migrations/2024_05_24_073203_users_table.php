@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('notelp')->nullable();
             $table->enum('status_perkawinan', ['kawin', 'belum kawin'])->nullable();
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
+            $table->enum('agama', ['islam', 'kristen', 'katolik', 'khonghucu', 'budha', 'hindu'])->nullable();
+            $table->string('alamat')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->unsignedBigInteger('keluarga')->index()->nullable();
