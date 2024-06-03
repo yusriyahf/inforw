@@ -3,8 +3,19 @@
     <div class="container-fluid py-1 px-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
           <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $breadcrumb->title }}</li>
+          @foreach ($breadcrumb->list as $key => $value)
+          @if ($key == count($breadcrumb->list) - 1)
+          <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $value }}</li>
+          @elseif ($key == 0)
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white">{{ $value }}</a></li>
+          @else
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/{{ strtolower($value) }}">{{ $value }}</a></li> 
+          @endif
+
+          @endforeach
         </ol>
         <h6 class="font-weight-bolder text-white mb-0">{{ $breadcrumb->title }}</h6>
       </nav>
@@ -119,3 +130,14 @@
     </div>
   </nav>
   <!-- End Navbar -->
+  {{-- <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+      @foreach ($breadcrumb->list as $key => $value)
+          @if ($key == count($breadcrumb->list) - 1)
+            <li class="breadcrumb-item active">{{ $value }}</li>
+          @else
+            <li class="breadcrumb-item">{{ $value }}</li>
+          @endif
+      @endforeach
+    </ol>
+  </div> --}}

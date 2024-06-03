@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->unsignedBigInteger('keluarga')->index();
+            $table->unsignedBigInteger('keluarga')->index()->nullable();
             $table->unsignedBigInteger('role')->index();
             $table->timestamps();
 

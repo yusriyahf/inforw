@@ -14,9 +14,12 @@ class ProfileController extends Controller
     {
         $data = User::find(auth()->user()->user_id);
 
-        $title = 'tes';
+        $breadcrumb = (object) [
+            'title' => 'Profile',
+            'list' => ['Pages', 'Profile']
+        ];
 
-        return view('profile.index', ['data' => $data, 'title' => $title]);
+        return view('profile.index', ['data' => $data, 'breadcrumb' => $breadcrumb]);
     }
 
     /**
@@ -50,7 +53,12 @@ class ProfileController extends Controller
     {
         $data = User::find(auth()->user()->user_id);
 
-        return view('profile.edit', ['title' => 'profile', 'data' => $data]);
+        $breadcrumb = (object) [
+            'title' => 'Edit',
+            'list' => ['Pages', 'Profile', 'Edit']
+        ];
+
+        return view('profile.edit', ['breadcrumb' => $breadcrumb, 'data' => $data]);
     }
 
     /**

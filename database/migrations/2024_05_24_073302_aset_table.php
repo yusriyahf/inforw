@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('aset', function (Blueprint $table) {
             $table->id('aset_id');
-            $table->string('nama_aset');
+            $table->string('nama');
+            $table->string('deskripsi');
             $table->enum('status', ['tersedia', 'tidak tersedia']);
             $table->enum('jenis', ['barang', 'tempat']);
             $table->unsignedBigInteger('rw')->index();

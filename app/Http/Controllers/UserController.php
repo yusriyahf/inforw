@@ -18,7 +18,9 @@ class UserController extends Controller
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
+
         $rts = RtModel::all();
+
         if (Gate::allows('is-admin')) {
 
             $data = User::with('getkeluarga')
@@ -34,8 +36,8 @@ class UserController extends Controller
         }
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'warga' => $data,
-            'rts' => $rts
+            'rts' => $rts,
+            'warga' => $data
         ]);
     }
 

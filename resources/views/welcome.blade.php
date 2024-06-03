@@ -8,16 +8,18 @@
         <h6 class="text-white"> @can('is-admin')
             Admin
         @elsecan('is-rw')
-            Ketua RW
+            Ketua
         @elsecan('is-rt')
-            Ketua RT 
+            Ketua RT {{ $data->getrt->nama }} 
+        @elsecan('is-bendahara')
+            Ketua RT {{ Auth::user()->role }}
         @elsecan('is-warga')
             Warga RT {{ $data->getrt->nama }}
         @endcan  RW {{ $data->getrw->nama }} Kecamatan Pandanwangi</h6>
       </div>
 
       <div class="col-12 mt-1">
-        <button class="btn btn-white btn-sm ms-auto text-primary" type="submit">Pengumuman</button>
+        <a href="/pengumuman" class="btn btn-white btn-sm ms-auto text-primary" type="submit">Pengumuman</a>
       </div>
 
       <div class="col-12 mt-1">
@@ -109,7 +111,188 @@
           </div>
         </div>
       </div>
+      @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+  
+      <div class="col-lg-6 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+                <h6 class="text-capitalize">Pemasukan Keuangan</h6>
+            </div>
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="pemasukanChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+                <h6 class="text-capitalize">Pengeluaran Keuangan</h6>
+            </div>
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="pengeluaranChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    
+
+
     </div> 
-      
+
+    @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+    <div class="row mt-3">
+      <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                    Total Pemasukan
+                  </p>
+                  <h5 class="font-weight-bolder">{{ formatRupiah($totalPemasukan) }}</h5>
+                  {{-- <p class="mb-0">
+                    <span class="text-success text-sm font-weight-bolder"
+                      >+55%</span
+                    >
+                    since yesterday
+                  </p> --}}
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div
+                  class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                >
+                  <i
+                    class="ni ni-money-coins text-lg opacity-10"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                    Total Pengeluaran
+                  </p>
+                  <h5 class="font-weight-bolder">{{ formatRupiah($totalPengeluaran) }}</h5>
+                  {{-- <p class="mb-0">
+                    <span class="text-success text-sm font-weight-bolder"
+                      >+55%</span
+                    >
+                    since yesterday
+                  </p> --}}
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div
+                  class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                >
+                  <i
+                    class="ni ni-money-coins text-lg opacity-10"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                    Total Saldo
+                  </p>
+                  <h5 class="font-weight-bolder">{{ formatRupiah($totalSaldo) }}</h5>
+                  {{-- <p class="mb-0">
+                    <span class="text-success text-sm font-weight-bolder"
+                      >+55%</span
+                    >
+                    since yesterday
+                  </p> --}}
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div
+                  class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
+                >
+                  <i
+                    class="ni ni-money-coins text-lg opacity-10"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
+    
 </div>
+
+@if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+
+<script>
+  var ctx = document.getElementById('pemasukanChart').getContext('2d');
+  var pemasukanChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+          datasets: [{
+              label: 'Pemasukan',
+              data: {!! json_encode($pemasukanChartData) !!},
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+
+  var ctx2 = document.getElementById('pengeluaranChart').getContext('2d');
+  var pengeluaranChart = new Chart(ctx2, {
+      type: 'line',
+      data: {
+          labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+          datasets: [{
+              label: 'Pengeluaran',
+              data: {!! json_encode($pengeluaranChartData) !!},
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
+
+@endif
 @endsection

@@ -16,10 +16,11 @@ class SuratController extends Controller
 
         $breadcrumb = (object) [
             'title' => 'Surat',
-            'list' => ['Beranda', 'Surat']
+            'list' => ['Pages', 'Surat']
         ];
+
         return view('surat.index', [
-            'title' => 'surat',
+            'breadcrumb' => $breadcrumb,
             'datasktm' => $datasktm,
             'datasp' => $datasp,
             'breadcrumb' => $breadcrumb
@@ -28,8 +29,13 @@ class SuratController extends Controller
 
     public function sp()
     {
-        return view('surat.create_sp', [
-            'title' => 'Surat Pengantar'
+        $breadcrumb = (object) [
+            'title' => 'Pengajuan',
+            'list' => ['Pages', 'Surat', 'Pengajuan']
+        ];
+
+        return view('surat.sp.create', [
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
@@ -55,16 +61,26 @@ class SuratController extends Controller
     {
         $data = SpModel::where('sp_id', $id)->first();
 
-        return view('surat.show_sp', [
-            'title' => 'SP Detail',
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Pages', 'Surat', 'Detail']
+        ];
+
+        return view('surat.sp.show', [
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     }
 
     public function sktm()
     {
-        return view('surat.create_sktm', [
-            'title' => 'SKTM'
+        $breadcrumb = (object) [
+            'title' => 'Pengajuan',
+            'list' => ['Pages', 'Surat', 'Pengajuan']
+        ];
+
+        return view('surat.sktm.create', [
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
@@ -72,8 +88,12 @@ class SuratController extends Controller
     {
         $data = SktmModel::where('sktm_id', $id)->first();
 
-        return view('surat.show_sktm', [
-            'title' => 'SKTM Detail',
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Pages', 'Surat', 'Detail']
+        ];
+        return view('surat.sktm.show', [
+            'breadcrumb' => $breadcrumb,
             'data' => $data
         ]);
     }

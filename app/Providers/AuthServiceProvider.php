@@ -42,5 +42,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-rw', function (User $user) {
             return $user->roles->nama === 'rw';
         });
+        Gate::define('is-sekretaris', function (User $user) {
+            return $user->roles->nama === 'sekretaris';
+        });
+        Gate::define('is-bendahara', function (User $user) {
+            return $user->roles->nama === 'bendahara';
+        });
     }
 }

@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->belongsTo(RolesModel::class, 'role', 'role_id');
     }
 
+    public function getpengumuman()
+    {
+        return $this->hasMany(PengumumanModel::class, 'pengumuman_id');
+    }
+
 
 
     /**
