@@ -2,39 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
-        if (Gate::allows('is-admin')) {
 
-            $data = User::with('getkeluarga')
-                ->where('role', '!=', 1)
-                ->get();
-        } else {
+        $rt = $request->input('rt');
+        $daftarRT = RtModel::all();
+
+        if (Gate::allows('is-admin') || Gate::allows('is-rw')) {
+            $query = User::with(['getkeluarga.getrt'])->where('role', '!=', 1);
+
+            if (!empty($rt)) {
+                $query->whereHas('getkeluarga.getrt', function ($query) use ($rt) {
+                    $query->where('rt_id', $rt);
+                });
+            }
+
+            $data = $query->get();
+        } elseif (Gate::allows('is-warga') || Gate::allows('is-rt')) {
             $data = User::with('getkeluarga')
                 ->where('role', '!=', 1)
                 ->whereHas('getkeluarga.getrt', function ($query) {
                     $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
                 })
                 ->get();
+        } else {
+            // Handle the case where the user does not have any of the specified roles
+            $data = collect(); // Return an empty collection
         }
+
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'warga' => $data
+            'warga' => $data,
+            'daftarRT' => $daftarRT
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -55,17 +72,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
             'nik' => 'required',
-            'kk' => 'required',
+            'nama' => 'required',
+            'pekerjaan' => 'required',
+            'status_perkawinan' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
             'alamat' => 'required',
-            'rt' => 'required',
-            'status_pernikahan' => 'required',
-            'status_keluarga' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'password' => 'required',
+            'notelp' => 'required',
         ]);
+
+        $validatedData['keluarga'] = 1;
+        $validatedData['role'] = 4;
+        $validatedData['password'] = Hash::make('12345');
 
         User::create($validatedData);
 
@@ -104,29 +125,31 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama' => 'required',
             'nik' => 'required',
-            'kk' => 'required',
+            'nama' => 'required',
+            'pekerjaan' => 'required',
+            'notelp' => 'required',
+            'status_perkawinan' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
             'alamat' => 'required',
-            'rt' => 'required',
-            'status_pernikahan' => 'required',
-            'status_keluarga' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'password' => 'nullable',
         ]);
 
+
+
         User::find($id)->update([
-            'nama' => $request->nama,
             'nik' => $request->nik,
-            'kk' => $request->kk,
+            'nama' => $request->nama,
+            'pekerjaan' => $request->pekerjaan,
+            'notelp' => $request->notelp,
+            'status_perkawinan' => $request->status_perkawinan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama,
             'alamat' => $request->alamat,
-            'rt' => $request->rt,
-            'status_pernikahan' => $request->status_pernikahan,
-            'status_keluarga' => $request->status_keluarga,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'password' => $request->password ? bcrypt($request->password) : User::find($id)->password
         ]);
 
         return redirect('/warga')->with('success', 'Data Warga berhasil diubah');

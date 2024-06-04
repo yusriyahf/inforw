@@ -7,11 +7,11 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Pengajuan Surat Keterangan Tidak Mampu</p>
+              <p class="mb-0">Buat Pengumuman</p>
             </div>
           </div>
           <div class="card-body">
-            <form action="/pengumuman/create" method="POST">
+            <form action="/pengumuman/create" method="POST" enctype="multipart/form-data">
                   @csrf
             
             <input type="hidden" value="{{ auth()->user()->user_id }}" name="user">
@@ -39,6 +39,17 @@
                     @enderror
                 </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                  <label for="gambar" class="form-control-label">Gambar</label>
+                  <input class="form-control @error('gambar') is-invalid @enderror" type="file" name="gambar" id="gambar">
+                  @error('gambar')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
+              </div>
+          </div>
             
               
              <div class="col-md-10">

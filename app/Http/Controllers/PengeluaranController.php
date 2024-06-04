@@ -15,6 +15,9 @@ class PengeluaranController extends Controller
             ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
 
+        $jumlahPengeluaran = $data->count();
+        $totalPengeluaran = $data->sum('jumlah');
+
         $breadcrumb = (object) [
             'title' => 'Pengeluaran',
             'list' => ['Pages', 'Pengeluaran']
@@ -22,7 +25,9 @@ class PengeluaranController extends Controller
         return view('pengeluaran.index', [
             'breadcrumb' => $breadcrumb,
             'pengeluaran' => $data,
-            'tanggal' => $tanggal
+            'tanggal' => $tanggal,
+            'jumlahPengeluaran' => $jumlahPengeluaran,
+            'totalPengeluaran' => $totalPengeluaran,
         ]);
     }
     public function create()

@@ -18,6 +18,9 @@ class PemasukanController extends Controller
             ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
 
+        $totalIuran = $data->count();
+        $totalSaldo = $data->sum('jumlah');
+
         $breadcrumb = (object) [
             'title' => 'Pemasukan',
             'list' => ['Pages', 'Pemasukan']
@@ -27,6 +30,8 @@ class PemasukanController extends Controller
             'breadcrumb' => $breadcrumb,
             'data' => $data,
             'tanggal' => $tanggal,
+            'totalIuran' => $totalIuran,
+            'totalSaldo' => $totalSaldo,
         ]);
     }
 
@@ -96,11 +101,13 @@ class PemasukanController extends Controller
         $request->validate([
             'jumlah' => 'required',
             'deskripsi' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PemasukanModel::find($id)->update([
             'jumlah' => $request->jumlah,
             'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
         ]);
 
         return redirect('/pemasukan')->with('success', 'Data Pemasukan berhasil diubah');
