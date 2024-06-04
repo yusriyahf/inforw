@@ -13,4 +13,9 @@ class KriteriaModel extends Model
     protected $primaryKey = 'kriteria_id';
 
     protected $guarded = ['kriteria_id'];
+
+    public function sub_kriteria()
+    {
+        return $this->hasMany(SubKriteriaModel::class, 'kriteria_id', 'kriteria_id');
+    }
 }

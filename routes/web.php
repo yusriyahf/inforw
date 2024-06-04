@@ -1,36 +1,37 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RtModel;
+use App\Models\SpModel;
 use App\Models\AsetModel;
+use App\Models\SktmModel;
 use App\Models\KeluargaModel;
 use App\Models\PemasukanModel;
-use Database\Seeders\RtSeeder;
-use App\Models\PengumumanModel;
+use App\Models\PengaduanModel;
+use App\Models\PeminjamanModel;
 use App\Models\PengeluaranModel;
-use App\Models\KartuKeluargaModel;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rules\Can;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
+
+
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PemasukanController;
-use App\Http\Controllers\OrganisasiController;
-use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\AnggotaOrganisasiController;
-
-use App\Http\Controllers\PengaduanController;
-
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\OrganisasiController;
+// use Illuminate\Auth\Access\Gate;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
-use App\Models\KegiatanModel;
+use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\BansosController;
+
 
 use App\Http\Controllers\PdfController;
 
@@ -105,6 +106,98 @@ Route::get('/', function () {
         'list' => ['Pages', 'Dashboard']
     ];
 
+    // Total Warga
+    if (Gate::allows('is-rt')) {
+        $totalWarga = User::whereHas('getkeluarga.getrt', function ($query) {
+            $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
+        })->count();
+    } elseif (Gate::allows('is-rw')) {
+        $totalWarga = User::count() - 1;
+    }
+
+    // Total Pengaduan
+    if (Gate::allows('is-rt')) {
+        $totalPengaduan = PengaduanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->count();
+    } elseif (Gate::allows('is-rw')) {
+        $totalPengaduan = PengaduanModel::count();
+    }
+
+    // Total Surat
+    if (Gate::allows('is-rt')) {
+        $totalSktm = SktmModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->count();
+        $totalSp = SpModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->count();
+        $totalSurat = $totalSktm + $totalSp;
+    } elseif (Gate::allows('is-rw')) {
+        $totalSktm = SktmModel::count();
+        $totalSp = SpModel::count();
+        $totalSurat = $totalSktm + $totalSp;
+    }
+    // Total Peminjaman
+    if (Gate::allows('is-rt')) {
+        $totalPeminjaman = PeminjamanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->count();
+    } elseif (Gate::allows('is-rw')) {
+        $totalPeminjaman = PeminjamanModel::count();
+    }
+
+    // umur chart
+    if (Gate::allows('is-rt')) {
+        $users = User::whereHas('getkeluarga.getrt', function ($query) {
+            $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
+        })->get();
+    } elseif (Gate::allows('is-rw')) {
+        $users = User::whereNotIn('user_id', [1])->get();
+    }
+
+    // Inisialisasi variabel untuk menyimpan jumlah pengguna dalam setiap kelompok umur
+    if (Gate::allows('is-rt') || Gate::allows('is-rw')) {
+        $anakAnakCount = 0;
+        $remajaCount = 0;
+        $dewasaCount = 0;
+        $lansiaCount = 0;
+
+        // Kelompokkan usia pengguna dan hitung jumlahnya
+        foreach ($users as $user) {
+            $tanggalLahir = Carbon::parse($user->tanggal_lahir);
+            $usia = $tanggalLahir->diffInYears(Carbon::now());
+
+            if ($usia >= 5 && $usia <= 11) {
+                $anakAnakCount++;
+            } elseif ($usia >= 12 && $usia <= 25) {
+                $remajaCount++;
+            } elseif ($usia >= 26 && $usia <= 45) {
+                $dewasaCount++;
+            } elseif ($usia >= 46 && $usia <= 100) {
+                $lansiaCount++;
+            }
+        }
+
+        // Buat data untuk pie chart
+        $umurChartData = [
+            'Anak-anak (5-11 tahun)' => $anakAnakCount,
+            'Remaja (12-25 tahun)' => $remajaCount,
+            'Dewasa (26-45 tahun)' => $dewasaCount,
+            'Lansia (46-100 tahun)' => $lansiaCount,
+        ];
+
+        $maleCount = 0;
+        $femaleCount = 0;
+
+        // Kelompokkan pengguna berdasarkan jenis kelamin dan hitung jumlahnya
+        foreach ($users as $user) {
+            if ($user->jenis_kelamin === 'laki-laki') {
+                $maleCount++;
+            } elseif ($user->jenis_kelamin === 'perempuan') {
+                $femaleCount++;
+            }
+        }
+
+        // Buat data untuk bar chart
+        $jenisKelaminChartData = [
+            'Laki-laki' => $maleCount,
+            'Perempuan' => $femaleCount,
+        ];
+    }
+
     return view('welcome', [
         'breadcrumb' => $breadcrumb,
         'data' => $data,
@@ -113,6 +206,12 @@ Route::get('/', function () {
         'totalPemasukan' => $totalPemasukan,
         'totalPengeluaran' => $totalPengeluaran,
         'totalSaldo' => $totalSaldo,
+        'totalWarga' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalWarga : null,
+        'totalPengaduan' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPengaduan : null,
+        'totalSurat' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalSurat : null,
+        'totalPeminjaman' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPeminjaman : null,
+        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $umurChartData : null,
+        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
     ]);
 })->middleware('auth');
 
@@ -272,6 +371,9 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
     Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
-    Route::get('/create/{bansos_id}/bobot', [BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
-    Route::post('/create/{bansos_id}/bobot', [BansosController::class, 'storeBobot'])->name('saveBobot'); //simpan
+    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
+    Route::get('/{bansos_id}/pendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
+    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//
 });
+

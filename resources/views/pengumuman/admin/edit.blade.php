@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="card-body">
-            <form action="/pengumuman/{{ $data->pengumuman_id }}" method="POST">
+            <form action="/pengumuman/{{ $data->pengumuman_id }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                   @csrf
           
@@ -37,6 +37,17 @@
                         </div>
                     @enderror
                 </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="gambar" class="form-control-label">Gambar</label>
+                <input class="form-control" type="file" name="gambar" id="gambar" value="{{ old('gambar', $data->gambar) }}">
+                  @error('gambar')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
+              </div>
             </div>
             
               

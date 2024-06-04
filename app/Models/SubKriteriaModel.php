@@ -13,4 +13,8 @@ class SubKriteriaModel extends Model
     protected $primaryKey = 'sub_kriteria_id';
 
     protected $guarded = ['sub_kriteria_id'];
+
+    public function getKriteria(){
+        return $this->belongsTo(KriteriaModel::class, 'kriteria_id', 'kriteria_id');
+    }
 }

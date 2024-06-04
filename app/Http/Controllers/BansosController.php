@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
 use App\Models\KriteriaModel;
+use App\Models\PendaftarBansosModel;
+use App\Models\PenerimaModel;
 use App\Models\SubKriteriaModel;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Integer;
@@ -221,7 +223,7 @@ class BansosController extends Controller
         $benefitPW = $this->hitungPW($normalBen); //menghitung PW kriteria benefit
         $costPW = $this->hitungPW($normalCost); //menghitung PW kriteria cost
         // dd($costPW);
-
+ 
         if ($this->cekCR($benefitMatrix, $benefitPW)) {
             if ($this->cekCR($costMatrix, $costPW)) {
                 $bobotBen = [];
@@ -352,4 +354,175 @@ class BansosController extends Controller
             return redirect('/bansos')->with('error', 'Data gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
+
+    public function tampilPendaftar($bansos_id){
+        $bansos = BansosModel::with('getPendaftar.user')->find($bansos_id);
+        $hasil = $this->prosesMabac($bansos_id);
+        // dd($hasil);
+        foreach ($hasil as $pendaftarId => $data) {
+            PendaftarBansosModel::where('pendaftar_id', $pendaftarId)->update([
+                'hasil_akhir' => $data['skor'],
+                'rank' => $data['ranking']
+            ]);
+        }
+        $breadcrumb = (object) [
+            'title' => 'List Pendaftar Bansos',
+            'list' => ['Pages', 'Pendaftar Bansos']
+        ];
+        return view('bansos.tampilPendaftar',[
+            'breadcrumb' => $breadcrumb,
+            'bansos' => $bansos,
+            'hasil' => $hasil
+        ]);
+    }
+
+    public function konfirmasi($bansos_id, Request $request){
+        // dd($request->pendaftar_id);
+        $request->validate([
+            'pendaftar_id' => 'required|array|min:1', // Pastikan pendaftar_id adalah array dan minimal ada satu elemen
+        ]);
+
+        foreach ($request['pendaftar_id'] as $key => $penerima) {
+            PenerimaModel::create([
+                'pendaftar_id' => $penerima
+            ]);
+            PendaftarBansosModel::where('pendaftar_id', $penerima)->update([
+                'status' => 'disetujui'
+            ]);
+            PendaftarBansosModel::where('bansos_id', $bansos_id)
+                ->whereNotIn('pendaftar_id', $request['pendaftar_id'])
+                ->update([
+                    'status' => 'ditolak'
+            ]);
+        }
+        return redirect('/bansos')->with('success', 'Data Penerima Berhasil Disimpan');
+
+    }
+
+    //MABAC
+    private function prosesMabac($bansos_id){
+        $pendaftars = PendaftarBansosModel::with(['getKriteria'])->where('bansos_id', $bansos_id)->get();
+
+        $matriksKeputusan = [];
+        foreach ($pendaftars as $pendaftar => $p) {
+            // dd($p->pendaftar_id);
+            foreach ($p->getKriteria as $kriteria => $value) {
+                $matriksKeputusan[$p->pendaftar_id][$value->getSubKriteria->getKriteria->kriteria_id] = $value->getSubKriteria->nilai;
+                // dd($value->getSubKriteria->nilai);
+            }
+
+        }
+        $normal = $this->normalisasiMabac($matriksKeputusan);
+        $tertimbang = $this->matriksTertimbang($normal);
+        $perbatasan = $this->perkiraanPerbatasan($tertimbang);
+        $jarak = $this->jarakPerkiraan($tertimbang, $perbatasan);
+        // dd($jarak);
+        $hasil = $this->perankingan($jarak);
+        // dd($perbatasan);
+
+        return $hasil;
+    }
+
+    private function normalisasiMabac($matriksKeputusan){
+        $nilaiMin = [];
+        $nilaiMax = [];
+        $normalisasi = [];
+
+        foreach ($matriksKeputusan as $alternatif => $key) {
+            foreach ($key as $kolom => $value) {
+                if (!isset($nilaiMin[$kolom]) || $value < $nilaiMin[$kolom]) {
+                    $nilaiMin[$kolom] = $value;
+                }
+                if (!isset($nilaiMax[$kolom]) || $value > $nilaiMax[$kolom]) {
+                    $nilaiMax[$kolom] = $value;
+                }
+            }
+        }
+
+        foreach ($matriksKeputusan as $baris => $value) {
+            foreach ($value as $kolom => $nilai) {
+                // dd($kolom);
+                $kriteria = KriteriaModel::find($kolom);
+                // dd($kriteria->jenis_kriteria);
+                if ($kriteria->jenis_kriteria == 'benefit') {
+                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMin[$kolom]) / ($nilaiMax[$kolom]-$nilaiMin[$kolom]);
+                }else{
+                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMax[$kolom]) / ($nilaiMin[$kolom]-$nilaiMax[$kolom]);
+                }
+            }
+        }
+
+        // dd($normalisasi);
+        return $normalisasi;
+    }
+
+    private function matriksTertimbang($normal){
+        $tertimbang = [];
+
+        foreach ($normal as $baris => $b) {
+            foreach ($b as $kolom => $nilai) {
+                $kriteria = KriteriaModel::find($kolom);
+                $tertimbang[$baris][$kolom] = ($kriteria->bobot * $nilai) + $kriteria->bobot;
+            }
+        }
+
+        return $tertimbang;
+    }
+
+    private function perkiraanPerbatasan($timbang){
+        $batas = [];
+        foreach ($timbang as $baris => $b) {
+            foreach ($b as $kolom => $nilai) {
+                if (!isset($batas[$kolom])){
+                    $batas[$kolom] = 1;
+                }
+                $batas[$kolom] *= $nilai;
+            }
+        }
+
+        foreach ($batas as $key => $value) {
+            $batas[$key] = pow($value, 1/count($timbang));
+        }
+        return $batas;
+    }
+
+    private function jarakPerkiraan($tertimbang, $batas){
+        $jarak = [];
+
+        foreach ($tertimbang as $baris => $val) {
+            foreach ($val as $kolom => $nilai) {
+                $jarak[$baris][$kolom] = $nilai - $batas[$kolom];
+            }
+        }
+
+        return $jarak;
+    }
+
+    private function perankingan($jarak) {
+        $rank = [];
+    
+        // Hitung jumlah elemen per baris
+        foreach ($jarak as $baris => $val) {
+            $rank[$baris] = array_sum($val);
+        }
+    
+        // Urutkan berdasarkan nilai (value) secara menurun, mempertahankan indeks aslinya
+        arsort($rank);
+    
+        // Tetapkan peringkat dan gabungkan dengan nilai total
+        $currentRank = 1;
+        foreach ($rank as $baris => $nilai) {
+            $rank[$baris] = [
+                'skor' => $nilai,
+                'ranking' => $currentRank++
+            ];
+        }
+    
+        return $rank;
+    }
+    
+
+    
+    
+
 }
