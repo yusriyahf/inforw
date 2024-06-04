@@ -143,6 +143,7 @@
                   
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="warga/{{ $war->user_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
+
                     <form class="d-inline-block" method="POST" action="/warga/{{$war->user_id}}">
                         @csrf
                         @method('DELETE')
@@ -150,6 +151,7 @@
                             <i class="far fa-trash-alt me-2"></i>
                         </button>
                     </form>
+                    
                   </td>
                 </tr>
                 @endforeach
@@ -161,47 +163,4 @@
     </div>
   </div>
   </div>
-
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-<!-- DataTables JS -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
-<!-- Custom CSS -->
-<style>
-    table.dataTable.no-footer {
-        border-bottom: 1px solid #e0e0e0; /* Change this color to the desired border color */
-    }
-    div.dataTables_wrapper div.dataTables_filter {
-        text-align: left;
-    }
-    div.dataTables_wrapper div.dataTables_filter input {
-        margin-left: 0.5em;
-    }
-    div.dataTables_wrapper div.dataTables_info {
-        text-align: right;
-    }
-</style>
-
-<script>
-    $(document).ready(function() {
-        var table = $('.table').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-
-        $('#rtFilter').on('change', function() {
-            table.column(3).search(this.value).draw();   
-        });
-    });
-</script>
 @endsection

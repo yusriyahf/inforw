@@ -5,13 +5,12 @@ use App\Models\User;
 use App\Models\RtModel;
 use App\Models\SpModel;
 use App\Models\AsetModel;
+use App\Models\SktmModel;
 use App\Models\KeluargaModel;
 use App\Models\PemasukanModel;
 use App\Models\PengaduanModel;
 use App\Models\PeminjamanModel;
 use App\Models\PengeluaranModel;
-use App\Models\KartuKeluargaModel;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RtController;
@@ -19,6 +18,8 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
+
+
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
@@ -29,14 +30,10 @@ use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
-
-use App\Http\Controllers\PengaduanController;
-
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\PengeluaranController;
-use App\Models\KegiatanModel;
 use App\Http\Controllers\BansosController;
 
+
+use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +60,6 @@ use App\Http\Controllers\BansosController;
 //     ]);
 // })->middleware('auth');
 Route::get('/', function () {
-
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
@@ -203,13 +199,19 @@ Route::get('/', function () {
     }
 
     return view('welcome', [
-        'title' => 'Dahboard',
+        'breadcrumb' => $breadcrumb,
         'data' => $data,
         'pemasukanChartData' => $pemasukanTotal,
         'pengeluaranChartData' => $pengeluaranTotal,
         'totalPemasukan' => $totalPemasukan,
         'totalPengeluaran' => $totalPengeluaran,
         'totalSaldo' => $totalSaldo,
+        'totalWarga' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalWarga : null,
+        'totalPengaduan' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPengaduan : null,
+        'totalSurat' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalSurat : null,
+        'totalPeminjaman' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPeminjaman : null,
+        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $umurChartData : null,
+        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
     ]);
 })->middleware('auth');
 
@@ -369,6 +371,8 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
     Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
-    Route::get('/create/{bansos_id}/bobot', [BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
-    Route::post('/create/{bansos_id}/bobot', [BansosController::class, 'storeBobot'])->name('saveBobot'); //simpan
+    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
+    Route::get('/{bansos_id}/pendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
+    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//
 });

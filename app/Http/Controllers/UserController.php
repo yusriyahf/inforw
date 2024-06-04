@@ -15,17 +15,25 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Warga';
         $breadcrumb = (object) [
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
-        if (Gate::allows('is-admin')) {
 
-            $data = User::with('getkeluarga')
-                ->where('role', '!=', 1)
-                ->get();
-        } else {
+        $rt = $request->input('rt');
+        $daftarRT = RtModel::all();
+
+        if (Gate::allows('is-admin') || Gate::allows('is-rw')) {
+            $query = User::with(['getkeluarga.getrt'])->where('role', '!=', 1);
+
+            if (!empty($rt)) {
+                $query->whereHas('getkeluarga.getrt', function ($query) use ($rt) {
+                    $query->where('rt_id', $rt);
+                });
+            }
+
+            $data = $query->get();
+        } elseif (Gate::allows('is-warga') || Gate::allows('is-rt')) {
             $data = User::with('getkeluarga')
                 ->where('role', '!=', 1)
                 ->whereHas('getkeluarga.getrt', function ($query) {
@@ -39,7 +47,8 @@ class UserController extends Controller
 
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'warga' => $data
+            'warga' => $data,
+            'daftarRT' => $daftarRT
         ]);
     }
 
@@ -81,7 +90,7 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect('/warga')->with('successw', 'Data Warga Berhasil Ditambahkan');
+        return redirect('/warga')->with('success', 'Data Warga Berhasil Ditambahkan');
     }
 
     /**
