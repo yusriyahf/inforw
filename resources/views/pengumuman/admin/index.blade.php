@@ -26,6 +26,7 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       </tr>
@@ -42,6 +43,21 @@
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }} </span>
                         </td>
+                        <td class="align-middle text-center text-sm">
+                             @if(!empty($d->gambar))
+                          <span class="text-primary text-xs font-weight-bold">
+                               
+                                  <a href="#" class="text-decoration-none text-reset" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-url="gambar/pengumuman/{{ $d->gambar }}">
+                                      {{ $d->gambar }}
+                                  </a>
+                          </span>
+
+                              @else
+                              <span class="text-danger text-xs font-weight-bold">Empty
+                              </span>
+                              @endif
+                      </td>
+                      
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->created_at }} </span>
                         </td>
@@ -72,4 +88,30 @@
         
     </div>
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid" alt="Image Preview">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+      var imageModal = document.getElementById('imageModal');
+      imageModal.addEventListener('show.bs.modal', function (event) {
+          var button = event.relatedTarget; // Button that triggered the modal
+          var imageUrl = button.getAttribute('data-image-url'); // Extract info from data-* attributes
+          var modalImage = document.getElementById('modalImage');
+          modalImage.src = imageUrl;
+      });
+  });
+</script>
 @endsection
