@@ -50,15 +50,19 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="notelp" class="form-control-label">No Telp</label>
-                  <input class="form-control @error('notelp') is-invalid @enderror" type="text" name="notelp" id="notelp" value="{{ old('notelp') }}">
+                    <label for="notelp" class="form-control-label">No Telp</label>
+                    <div class="input-group">
+                        <span class="input-group-text">+62</span>
+                        <input class="form-control @error('notelp') is-invalid @enderror" type="text" name="notelp" id="notelp" value="{{ old('notelp') }}" placeholder="Nomor Telepon">
+                    </div>
                     @error('notelp')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-              </div>
+            </div>
+            
 
               <div class="col-md-6">
                 <div class="form-group">

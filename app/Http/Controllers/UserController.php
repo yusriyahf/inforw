@@ -13,16 +13,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Warga';
         $breadcrumb = (object) [
             'title' => 'Warga',
             'list' => ['Pages', 'Warga']
         ];
-
-        $rts = RtModel::all();
-
         if (Gate::allows('is-admin')) {
 
             $data = User::with('getkeluarga')
@@ -35,13 +32,17 @@ class UserController extends Controller
                     $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
                 })
                 ->get();
+        } else {
+            // Handle the case where the user does not have any of the specified roles
+            $data = collect(); // Return an empty collection
         }
+
         return view('warga.index', [
             'breadcrumb' => $breadcrumb,
-            'rts' => $rts,
             'warga' => $data
-        ]);    
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -65,15 +66,14 @@ class UserController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'pekerjaan' => 'required',
-            'notelp' => 'required',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'notelp' => 'required',
         ]);
-
 
         $validatedData['keluarga'] = 1;
         $validatedData['role'] = 4;
@@ -127,6 +127,8 @@ class UserController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
         ]);
+
+
 
         User::find($id)->update([
             'nik' => $request->nik,
