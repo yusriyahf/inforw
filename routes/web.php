@@ -19,7 +19,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 
-use App\Http\Controllers\BansosController;
 
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +30,7 @@ use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
+use App\Http\Controllers\BansosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -366,6 +366,9 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
     Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
-    Route::get('/create/{bansos_id}/bobot', [BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
-    Route::post('/create/{bansos_id}/bobot', [BansosController::class, 'storeBobot'])->name('saveBobot'); //simpan
+    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
+    Route::get('/{bansos_id}/pendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
+    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//
 });
+
