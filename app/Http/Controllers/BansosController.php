@@ -48,7 +48,8 @@ class BansosController extends Controller
         return view('bansos.detailKriteria',[
             'breadcrumb' => $breadcrumb,
             'kriteria' => $kriteria,
-            'sub' => $sub
+            'sub' => $sub,
+            'bansos_id' => $bansos_id
         ]);
     }
 
@@ -88,11 +89,10 @@ class BansosController extends Controller
 
     public function storeKriteria(Request $request, $bansos_id){
         $validatedData = $request->validate([
+            'nama_kriteria' => 'required|min:1',
             'nama_kriteria.*' => 'required|string|max:255',
             'jenis_kriteria.*' => 'required|in:benefit,cost',
         ]);
-
-        // dd($validatedData);
 
         foreach ($validatedData['nama_kriteria'] as $key => $namaKriteria) {
             KriteriaModel::create([
@@ -120,12 +120,11 @@ class BansosController extends Controller
 
     public function storeSubKriteria($bansos_id, Request $request){
         $validatedData = $request->validate([
-            'kriteria_id.*' => 'required',
-            'nama_sub_kriteria.*' => 'required',
-            'nilai.*' => 'required|integer|min:1|'
+            'kriteria_id' => 'required|min:1',
+            'nama_sub_kriteria' => 'required|min:1',
+            'nilai' => 'required|min:1|',
+            'nilai.*' => 'integer|min:1|'
         ]);
-
-        // dd($validatedData);
 
         foreach ($validatedData['kriteria_id'] as $key => $kriteria_id) {
             SubKriteriaModel::create([
@@ -140,7 +139,6 @@ class BansosController extends Controller
     }
 
     public function addBobot($bansos_id){
-        // dd($bansos_id);
         $breadcrumb = (object) [
             'title' => 'Bobot Kriteria',
             'list' => ['Pages', 'Bansos','Create','Kriteria','Bobot']
@@ -161,7 +159,6 @@ class BansosController extends Controller
     }
 
     public function storeBobot($bansos_id, Request $request){
-        // dd($bansos_id);
         // Mengambil semua data input
         $input = $request->all();
 
@@ -214,46 +211,67 @@ class BansosController extends Controller
             }
         }
 
-        // dd($benefitMatrix);
-        // dd($costMatrix);
+        if(!empty($benefitMatrix)){
+            $hasilB = $this->prosesAHP($benefitMatrix, 'benefit', $bansos_id);
+            if ($hasilB == NULL) {
+                return redirect()->route('addBobot',['bansos_id'=> $bansos_id ])->with('errorB',"Penilaian Kriteria Benefit tidak Konsisten, Ubah Penilaian!");
+            }
+        }
+        if(!empty($costMatrix)){
+            $hasilC = $this->prosesAHP($costMatrix, 'cost', $bansos_id);
+            if ($hasilC == NULL) {
+                return redirect()->route('addBobot',['bansos_id'=> $bansos_id ])->with('errorC',"Penilaian Kriteria Cost tidak Konsisten, Ubah Penilaian!");
+            }
+        }
 
-        $normalBen = $this->normalisasi($benefitMatrix); //normalisai benefit
-        $normalCost = $this->normalisasi($costMatrix); //normalisasi cost
-        // dd($normalCost);
-        $benefitPW = $this->hitungPW($normalBen); //menghitung PW kriteria benefit
-        $costPW = $this->hitungPW($normalCost); //menghitung PW kriteria cost
-        // dd($costPW);
- 
-        if ($this->cekCR($benefitMatrix, $benefitPW)) {
-            if ($this->cekCR($costMatrix, $costPW)) {
+        if (isset($hasilB) && isset($hasilC)) {
+            $bobotBen = [];
+                    $bobotCost = [];
+                    foreach ($hasilB as $key => $value) {
+                        $bobotBen[$key] = $hasilB[$key] / 2; 
+                        KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
+                    }
+                    foreach ($hasilC as $key => $value) {
+                        $bobotCost[$key] = $hasilC[$key] / 2; 
+                        KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
+                    }
+                    return redirect('/bansos')->with('success', 'Data berhasil disimpan');
+        }elseif(isset($hasilB)){
                 $bobotBen = [];
-                $bobotCost = [];
-                foreach ($benefitPW as $key => $value) {
-                    $bobotBen[$key] = $benefitPW[$key] / 2; 
+                foreach ($hasilB as $key => $value) {
+                    $bobotBen[$key] = $hasilB[$key]; 
                     KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
                 }
-                foreach ($costPW as $key => $value) {
-                    $bobotCost[$key] = $costPW[$key] / 2; 
+                return redirect('/bansos')->with('success', 'Data berhasil disimpan');
+        }elseif(isset($hasilC)){
+                $bobotCost = [];
+                foreach ($hasilC as $key => $value) {
+                    $bobotCost[$key] = $hasilC[$key]; 
                     KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
                 }
-                // dd($bobotCost);
-                // echo "BOBOT SUKSES";
                 return redirect('/bansos')->with('success', 'Data berhasil disimpan');
-            }else{
-                return redirect()->route('addBobot',['bansos_id' => $bansos_id])->with('errorC','Penilaian Kriteria Cost tidak Konsisten, Ubah Penilaian!');
-                // echo "Cost tidak konsisten";
-            }
-        }else{
-            return redirect()->route('addBobot',['bansos_id'=> $bansos_id ])->with('errorB','Penilaian Kriteria Benefit tidak Konsisten, Ubah Penilaian!');
-            // echo "Tidak konsisten";
+        }else {
+            echo "salah woy";
         }
+        
     }
 
     //AHP
+
+    private function prosesAHP($matrix, $jenis, $bansos_id){
+        $normalisasi = $this->normalisasi($matrix);
+        $PW = $this->hitungPW($normalisasi);
+
+        if ($this->cekCR($matrix, $PW)) {
+            return $PW;
+        }else{
+            return null;
+        }
+    }
+
     private function normalisasi($matrix){
         $total = [];
         foreach ($matrix as $key => $value) {
-            // dd($key);
             foreach ($value as $kolom => $nilai ) {
                 if (!isset($total[$kolom])) {
                     $total[$kolom] = 0;
@@ -261,7 +279,6 @@ class BansosController extends Controller
                 $total[$kolom] += $nilai;
             }
         }
-        // dd($total);
 
         $normal = [];
         foreach ($matrix as $key => $row) {
@@ -269,7 +286,6 @@ class BansosController extends Controller
                 $normal[$key][$kolom] = $nilai / $total[$kolom];
             }
         }
-        // dd($normal);
         return $normal;
     }
 
@@ -288,16 +304,13 @@ class BansosController extends Controller
             }
             $PW[$key] = $jumlah[$key] / $count;
         }
-        // dd($jumlah);
-        // dd($PW);
 
         return $PW;
     }
 
     private function cekCR($matrix, $PW){
         $hasil = [];
-        // dd($matrix);
-        // dd($PW);
+
         $count = 0;
         foreach ($matrix as $key => $row) {
             $total = 0;
@@ -331,10 +344,13 @@ class BansosController extends Controller
 
         foreach ($tableRI as $n => $ri){
             if ($n == $count) {
-                $cr = $ci / $ri;
+                if ($ri == 0) {
+                    $cr = 0;
+                }else{
+                    $cr = $ci / $ri;
+                }
             }
         }
-        // dd($cr);
 
         return ($cr <= 0.1) ? true : false; 
     }
@@ -358,7 +374,7 @@ class BansosController extends Controller
     public function tampilPendaftar($bansos_id){
         $bansos = BansosModel::with('getPendaftar.user')->find($bansos_id);
         $hasil = $this->prosesMabac($bansos_id);
-        // dd($hasil);
+
         foreach ($hasil as $pendaftarId => $data) {
             PendaftarBansosModel::where('pendaftar_id', $pendaftarId)->update([
                 'hasil_akhir' => $data['skor'],
@@ -367,7 +383,7 @@ class BansosController extends Controller
         }
         $breadcrumb = (object) [
             'title' => 'List Pendaftar Bansos',
-            'list' => ['Pages', 'Pendaftar Bansos']
+            'list' => ['Pages','Bansos', 'Pendaftar Bansos']
         ];
         return view('bansos.tampilPendaftar',[
             'breadcrumb' => $breadcrumb,
@@ -376,10 +392,10 @@ class BansosController extends Controller
         ]);
     }
 
-    public function konfirmasi($bansos_id, Request $request){
+    public function konfirmasi($bansos_id, Request $request){ //fungsi buat menyetujui siapa saja yang akan menerima bansos
         // dd($request->pendaftar_id);
         $request->validate([
-            'pendaftar_id' => 'required|array|min:1', // Pastikan pendaftar_id adalah array dan minimal ada satu elemen
+            'pendaftar_id' => 'required|array|min:1', // pendaftar_id adalah array dan minimal ada satu elemen
         ]);
 
         foreach ($request['pendaftar_id'] as $key => $penerima) {
@@ -394,9 +410,25 @@ class BansosController extends Controller
                 ->update([
                     'status' => 'ditolak'
             ]);
+            BansosModel::where('bansos_id', $bansos_id)->update([
+                'status' => 'selesai'
+            ]);
         }
-        return redirect('/bansos')->with('success', 'Data Penerima Berhasil Disimpan');
+        return redirect()->route('tampilPenerima',['bansos_id' => $bansos_id])->with('success', 'Data Penerima Berhasil Disimpan');
 
+    }
+
+    public function tampilPenerima($bansos_id){
+        $bansos = BansosModel::with('getPendaftar.user')->find($bansos_id);
+    
+        $breadcrumb = (object) [
+            'title' => 'List Penerima Bansos',
+            'list' => ['Pages', 'Bansos', 'Penerima Bansos']
+        ];
+        return view('bansos.tampilPenerima',[
+            'breadcrumb' => $breadcrumb,
+            'bansos' => $bansos
+        ]);
     }
 
     //MABAC
@@ -405,10 +437,8 @@ class BansosController extends Controller
 
         $matriksKeputusan = [];
         foreach ($pendaftars as $pendaftar => $p) {
-            // dd($p->pendaftar_id);
             foreach ($p->getKriteria as $kriteria => $value) {
                 $matriksKeputusan[$p->pendaftar_id][$value->getSubKriteria->getKriteria->kriteria_id] = $value->getSubKriteria->nilai;
-                // dd($value->getSubKriteria->nilai);
             }
 
         }
@@ -416,9 +446,8 @@ class BansosController extends Controller
         $tertimbang = $this->matriksTertimbang($normal);
         $perbatasan = $this->perkiraanPerbatasan($tertimbang);
         $jarak = $this->jarakPerkiraan($tertimbang, $perbatasan);
-        // dd($jarak);
+
         $hasil = $this->perankingan($jarak);
-        // dd($perbatasan);
 
         return $hasil;
     }
@@ -441,10 +470,10 @@ class BansosController extends Controller
 
         foreach ($matriksKeputusan as $baris => $value) {
             foreach ($value as $kolom => $nilai) {
-                // dd($kolom);
                 $kriteria = KriteriaModel::find($kolom);
-                // dd($kriteria->jenis_kriteria);
-                if ($kriteria->jenis_kriteria == 'benefit') {
+                if ($nilaiMax[$kolom] == $nilaiMin[$kolom]){
+                    $normalisasi[$baris][$kolom] = 0;
+                }else if ($kriteria->jenis_kriteria == 'benefit') {
                     $normalisasi[$baris][$kolom] = ($nilai - $nilaiMin[$kolom]) / ($nilaiMax[$kolom]-$nilaiMin[$kolom]);
                 }else{
                     $normalisasi[$baris][$kolom] = ($nilai - $nilaiMax[$kolom]) / ($nilaiMin[$kolom]-$nilaiMax[$kolom]);
@@ -452,7 +481,6 @@ class BansosController extends Controller
             }
         }
 
-        // dd($normalisasi);
         return $normalisasi;
     }
 

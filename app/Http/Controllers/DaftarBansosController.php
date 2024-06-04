@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BansosModel;
+use App\Models\KeluargaModel;
 use App\Models\KriteriaModel;
 use App\Models\PendaftarBansosModel;
 use App\Models\PendaftarKriteria;
@@ -20,11 +21,17 @@ class DaftarBansosController extends Controller
         $tglSaatIni = now();
         $data = BansosModel::where('tgl_akhir_daftar', '>=', $tglSaatIni)->get();
         $pendaftar = PendaftarBansosModel::where('user_id', Auth::id())->get();
-        // dd($pendaftar);
+        if (KeluargaModel::where('kepala_keluarga', Auth::id())->exists()) {
+            $isKepala = true;
+        }else{
+            $isKepala = false;
+        }
+        // dd($isKepala);
         return view('daftarBansos.index', [
             'breadcrumb' => $breadcrumb,
             'data' => $data,
-            'pendaftar' => $pendaftar
+            'pendaftar' => $pendaftar,
+            'kepala' => $isKepala
         ]);
     }
 

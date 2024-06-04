@@ -73,6 +73,8 @@
                 </tbody>
             </table>
         </div>
+        <a href="{{ route('addKriteria', ['bansos_id' => $bansos->bansos_id])}}" class="btn btn-primary">Tambah Kriteria</a>
+        <a href="{{ route('addBobot', ['bansos_id' => $bansos->bansos_id])}}" class="btn btn-primary">Hitung Ulang Pembobotan</a>
     </div>
     <div class="card-footer">
         <a href="/bansos" class="btn btn-primary">Kembali ke Daftar Bansos</a>

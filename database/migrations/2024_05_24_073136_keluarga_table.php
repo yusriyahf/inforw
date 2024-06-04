@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('keluarga', function (Blueprint $table) {
             $table->id('keluarga_id');
             $table->string('no_kk');
-            $table->string('kepala_keluarga');
+            $table->unsignedBigInteger('kepala_keluarga');
             $table->unsignedBigInteger('rw')->index();
             $table->unsignedBigInteger('rt')->index();
 
             $table->timestamps();
 
+            $table->foreign('kepala_keluarga')->references('user_id')->on('users');
             $table->foreign('rw')->references('rw_id')->on('rw');
             $table->foreign('rt')->references('rt_id')->on('rt');
         });

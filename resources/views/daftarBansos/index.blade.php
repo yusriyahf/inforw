@@ -29,6 +29,7 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $d)
+                            @if ($d->tipe_penerima == 'keluarga' && $kepala || $d->tipe_penerima == 'individu')
                             <tr>
                                 <td class="align-middle text-center text-sm">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
@@ -52,7 +53,7 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{ $d->tgl_penyaluran }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    @if ($pendaftar->isEmpty())
+                                    @if ($pendaftar->isEmpty() || !$pendaftar->contains('bansos_id', $d->bansos_id))
                                         <a href="{{ route('daftar', ['bansos_id' => $d->bansos_id])}}" class="btn btn-sm btn-primary">Daftar</a>
                                     @else
                                     @foreach ($pendaftar as $p)
@@ -63,6 +64,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
