@@ -1,12 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
+<div class="container-fluid py-4">
 <div class="row">
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
           <h6>Tabel Data {{ $breadcrumb->title }}</h6>
-          <form action="/pemasukan" method="GET" style="display: flex; align-items: flex-start;">
+          <form action="/laporan" method="GET" style="display: flex; align-items: flex-start;">
             @csrf
             <div class="form-group" style="margin-right: 10px;">
                 <label for="tanggal">Tanggal (Bulan-Tahun):</label>
@@ -39,13 +40,13 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold"> {{ $pemasukan->created_at }}</span>
+                    <span class="text-secondary text-xs font-weight-bold"> {{ $pemasukan->tanggal }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pemasukan->deskripsi }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pemasukan->jumlah }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ formatRupiah($pemasukan->jumlah) }}</span>
                   </td>
                 </tr>
                 @endforeach
@@ -57,10 +58,10 @@
                         <span class="text-secondary text-xs font-weight-bold"></span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">Total</span>
+                        <span class="text-success text-xs font-weight-bold">Total</span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">{{ $totalPemasukan }}</span>
+                        <span class="text-success text-xs font-weight-bold">{{ formatRupiah($totalPemasukan) }}</span>
                       </td>
                 </tr>
             </table>
@@ -91,7 +92,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $pengeluaran->deskripsi }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pengeluaran->jumlah }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ formatRupiah($pengeluaran->jumlah) }}</span>
                   </td>
                 </tr>
                 @endforeach
@@ -103,15 +104,10 @@
                         <span class="text-secondary text-xs font-weight-bold"></span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">Total</span>
+                        <span class="text-danger text-xs font-weight-bold">Total</span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">{{ $totalPemasukan }}</span>
-                      </td>
-                </tr>
-                <tr>
-                    <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold"></span>
+                        <span class="text-danger text-xs font-weight-bold">{{ formatRupiah($totalPemasukan) }}</span>
                       </td>
                 </tr>
                 <tr>
@@ -123,14 +119,19 @@
                     <td class="align-middle text-center text-sm">
                         <span class="text-secondary text-xs font-weight-bold"></span>
                       </td>
+                </tr>
+                <tr>
                     <td class="align-middle text-center text-sm">
                         <span class="text-secondary text-xs font-weight-bold"></span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">Saldo</span>
+                        <span class="text-secondary text-xs font-weight-bold"></span>
                       </td>
                     <td class="align-middle text-center text-sm">
-                        <span class="text-secondary text-xs font-weight-bold">{{ $total}}</span>
+                        <span class="text-primary text-xs font-weight-bold">Saldo</span>
+                      </td>
+                    <td class="align-middle text-center text-sm">
+                        <span class="text-primary text-xs font-weight-bold">{{ $total}}</span>
                       </td>
                 </tr>
             </table>
@@ -140,5 +141,6 @@
       
       </div>
     </div>
+  </div>
   </div>
 @endsection

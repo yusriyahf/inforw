@@ -14,9 +14,12 @@ class PemasukanController extends Controller
     {
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
         $data = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-            ->whereYear('created_at', '=', date('Y', strtotime($tanggal)))
-            ->whereMonth('created_at', '=', date('m', strtotime($tanggal)))
+            ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+            ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
+
+        $totalIuran = $data->count();
+        $totalSaldo = $data->sum('jumlah');
 
         $breadcrumb = (object) [
             'title' => 'Pemasukan',
@@ -27,6 +30,8 @@ class PemasukanController extends Controller
             'breadcrumb' => $breadcrumb,
             'data' => $data,
             'tanggal' => $tanggal,
+            'totalIuran' => $totalIuran,
+            'totalSaldo' => $totalSaldo,
         ]);
     }
 
@@ -54,6 +59,7 @@ class PemasukanController extends Controller
             'deskripsi' => 'required',
             'rt' => 'required',
             'user' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PemasukanModel::create($validatedData);
@@ -95,11 +101,13 @@ class PemasukanController extends Controller
         $request->validate([
             'jumlah' => 'required',
             'deskripsi' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PemasukanModel::find($id)->update([
             'jumlah' => $request->jumlah,
             'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
         ]);
 
         return redirect('/pemasukan')->with('success', 'Data Pemasukan berhasil diubah');

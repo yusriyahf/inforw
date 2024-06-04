@@ -3,25 +3,16 @@
 @section('container')
 <div class="container-fluid py-4">
     <div class="row">
+        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
+            <h2 class="text-white">Penngajuan Kegiatan</h2>
+            <h6 class="text-white">Buat Pengajuan Kegiatan untuk warga dengan solusi digital</h6>
+        </div>
+        {{-- SKTM --}}
         <div class="col-12 mt-1">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6>Riwayat Pemasukan Keuangan</h6>
-                @can('is-bendahara')
-                <a href="/pemasukan/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-                @endcan
-                <form action="/pemasukan" method="GET" style="display: flex; align-items: flex-start;">
-                  @csrf
-                  <div class="form-group" style="margin-right: 10px;">
-                      <label for="tanggal">Tanggal (Bulan-Tahun):</label>
-                      <input type="month" id="tanggal" name="tanggal" class="form-control" value="{{ $tanggal }}" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
-              </form>
-
-              <h6>Jumlah iuran Masuk: {{ $totalIuran }}</h6>
-              <h6>total saldo: {{ formatRupiah($totalSaldo) }}</h6>
-              
+                <h6>Riwayat Pengajuan Kegiatan</h6>
+                <a href="/kegiatan/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Kegiatan</a>
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('success') }}
@@ -34,13 +25,13 @@
                     <thead>
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Kegiatan</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                        @can('is-bendahara')
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                        @endcan
                       </tr>
                     </thead>
                     <tbody>
@@ -50,22 +41,27 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->nama_kegiatan }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ formatRupiah($d->jumlah) }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->rt }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->users->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->users->alamat }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal }} </span>
                         </td>
-                        @can('is-bendahara')
+                        <td class="align-middle text-center text-sm">
+                            <span class="text-secondary text-xs font-weight-bold">{{ $d->status }} </span>
+                          </td>
                         <td class="align-middle text-center">
-                            <a class="btn btn-link text-dark px-1 mb-0" href="/pemasukan/{{ $d->pemasukan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
+                            <a class="btn btn-link text-dark px-1 mb-0" href="/kegiatan/{{ $d->kegiatan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
         
-                            <form class="d-inline-block" method="POST" action="/pemasukan/{{$d->pemasukan_id}}">
+                            <form class="d-inline-block" method="POST" action="/kegiatan/{{$d->kegiatan_id}}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-link text-danger text-gradient px-1 mb-0" onclick="return confirm('Apakah Anda yakin menghapus data ini?');">
@@ -74,7 +70,6 @@
                             </form>
                             
                           </td>
-                          @endcan
                       </tr>
                       @endforeach
                       

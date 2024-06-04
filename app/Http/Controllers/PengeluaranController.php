@@ -11,9 +11,12 @@ class PengeluaranController extends Controller
     {
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
         $data = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-            ->whereYear('created_at', '=', date('Y', strtotime($tanggal)))
-            ->whereMonth('created_at', '=', date('m', strtotime($tanggal)))
+            ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+            ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
+
+        $jumlahPengeluaran = $data->count();
+        $totalPengeluaran = $data->sum('jumlah');
 
         $breadcrumb = (object) [
             'title' => 'Pengeluaran',
@@ -22,7 +25,9 @@ class PengeluaranController extends Controller
         return view('pengeluaran.index', [
             'breadcrumb' => $breadcrumb,
             'pengeluaran' => $data,
-            'tanggal' => $tanggal
+            'tanggal' => $tanggal,
+            'jumlahPengeluaran' => $jumlahPengeluaran,
+            'totalPengeluaran' => $totalPengeluaran,
         ]);
     }
     public function create()
@@ -39,9 +44,9 @@ class PengeluaranController extends Controller
     {
         $validatedData = $request->validate([
             'rt' => 'required',
-            'user' => 'required',
             'deskripsi' => 'required',
             'jumlah' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PengeluaranModel::create($validatedData);
