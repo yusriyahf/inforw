@@ -101,7 +101,8 @@ Route::get('/', function () {
 
     return view('welcome', [
         'title' => 'Dahboard',
-        'data' => $data
+        'data' => $data,
+        'breadcrumb' => $breadcrumb
     ]);
 
 

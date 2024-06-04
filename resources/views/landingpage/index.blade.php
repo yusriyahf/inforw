@@ -170,6 +170,63 @@
     <section id="values" class="values">
 
       <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>Hierarki</h2>
+           <p>Struktur Organisasi di RW</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Ketua RW</h3>
+              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Ketua RT</h3>
+              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Bendahara</h3>
+              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Sekretaris</h3>
+              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+          </div>
+
+          <header class="section-header">
+            <h2>Informasi</h2>
+             <p>Pengumuman</p>
+          </header>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Putri Diculik</h3>
+              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <h3>Warga Jalan x No. 304 Kehilangan Kucingnya</h3>
+                {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+            </div>
+            </div>
+
+
+        </div>
 
         <header class="section-header">
           <h2>Fitur</h2>
