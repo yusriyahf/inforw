@@ -26,6 +26,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\BansosController;
+use App\Http\Controllers\DaftarBansosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -225,4 +226,14 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
     Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
     Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
+    Route::get('{bansos_id}/tampilPendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
+    Route::post('{bansos_id}/tampilPendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');
+});
+
+//BANSOS di WARGA
+Route::group(['prefix' => 'daftarBansos'], function () {
+    Route::get('/', [DaftarBansosController::class, 'index'])->middleware('auth');
+    Route::get('/{bansos_id}', [DaftarBansosController::class, 'daftar'])->name('daftar');
+    Route::post('/{bansos_id}', [DaftarBansosController::class, 'store'])->name('simpan');
+    
 });
