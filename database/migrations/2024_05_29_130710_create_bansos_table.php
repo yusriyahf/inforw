@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('tipe_penerima',['individu','keluarga']);
             $table->date('tgl_akhir_daftar');
             $table->date('tgl_penyaluran');
+            $table->enum('status',['proses','selesai']);
             $table->timestamps();
         });
     }

@@ -31,6 +31,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\BansosController;
+use App\Http\Controllers\DaftarBansosController;
 
 
 use App\Http\Controllers\PdfController;
@@ -365,8 +366,10 @@ Route::group(['prefix' => 'kegiatan'], function () {
 Route::group(['prefix' => 'bansos'], function () {
     Route::get('/', [BansosController::class, 'index'])->middleware('auth');
     Route::get('/create', [BansosController::class, 'create'])->name('tambahBansos'); //buat data bansos
-    Route::delete('/{id}', [BansosController::class, 'destroy']);
-    Route::get('/{bansos_id}', [BansosController::class, 'detailBansos']); //lihat detail bansos
+    Route::delete('/{bansos_id}', [BansosController::class, 'destroy']);
+    Route::get('/{bansos_id}/edit', [BansosController::class, 'editBansos'])->name('editBansos');
+    Route::put('/{bansos_id}/edit', [BansosController::class, 'updateBansos'])->name('updateBansos');
+    Route::get('/{bansos_id}', [BansosController::class, 'detailBansos'])->name('detailBansos'); //lihat detail bansos
     Route::get('/{bansos_id}/kriteria/{kriteria_id}', [BansosController::class, 'detailKriteria'])->name('showSubKriteria'); //lihat detail kriteria yang berisi sub kriteria
     Route::post('/create', [BansosController::class, 'store']); //simpan data baru bansos
     Route::get('/create/{bansos_id}/kriteria', [BansosController::class, 'addKriteria'])->name('addKriteria'); //buat kriteria bansos
@@ -376,7 +379,15 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
     Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
     Route::get('/{bansos_id}/pendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
-    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//
+    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//simpan
+    Route::get('/{bansos_id}/penerima',[BansosController::class, 'tampilPenerima'])->name('tampilPenerima');//tampil pendaftar
+});
+
+//Daftar Bansos di Warga
+Route::group(['prefix' => 'daftarBansos'], function(){
+    Route::get('/', [DaftarBansosController::class, 'index'])->middleware('auth');
+    Route::get('/daftar/{bansos_id}', [DaftarBansosController::class, 'daftar'])->name('daftar');
+    Route::post('/daftar/{bansos_id}', [DaftarBansosController::class, 'store'])->name('simpan');
 });
 
 Route::get('/', function () {

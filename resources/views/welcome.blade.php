@@ -46,7 +46,8 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                <i class="fas fa-users text-lg opacity-10" style="color: #ffffff;"></i>
+                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
                     </div>
@@ -69,7 +70,8 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                <i class="fas fa-question text-lg opacity-10" style="color: #ffffff;"></i>
+                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
                     </div>
@@ -91,7 +93,8 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                <i class="fas fa-mail-bulk text-lg opacity-10" style="color: #ffffff;"></i>
+                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
                     </div>
@@ -112,7 +115,8 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                
+                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
                     </div>

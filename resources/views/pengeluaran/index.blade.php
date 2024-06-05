@@ -18,7 +18,7 @@
             </div>
             <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
         </form>
-        <h6>Jumlah Pengeluaran: {{ $jumlahPengeluaran }}</h6>
+        <h6>Jenis Iuran Keluar: {{ $jumlahPengeluaran }}</h6>
         <h6>total Pengeluaran: {{ formatRupiah($totalPengeluaran) }}</h6>
           @if (session()->has('success'))
             <div class="alert alert-success col-lg-8" role="alert">
