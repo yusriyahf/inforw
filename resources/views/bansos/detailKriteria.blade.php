@@ -51,7 +51,8 @@
         </div>
     </div>
     <div class="card-footer">
-        <a href="/bansos" class="btn btn-primary">Kembali</a>
+        <a href="{{ route('detailBansos',['bansos_id'=>$bansos_id])}}" class="btn btn-primary">Kembali</a>
+        <a href="{{ route('addSubKriteria',['bansos_id'=>$bansos_id])}}" class="btn btn-primary">Tambah Sub-Kriteria</a>
     </div>
 </div>
 

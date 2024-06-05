@@ -24,8 +24,8 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Penerima</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe Penerima</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Akhir Pendaftaran</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Penyaluran</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Akhir Pendaftaram</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
@@ -45,7 +45,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $d->jenis_bansos }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <a class="text-secondary text-xs font-weight-bold" href="{{ route('tampilPendaftar', ['bansos_id'=>$d->bansos_id])}}">{{ $d->jumlah_penerima }}</a>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $d->jumlah_penerima }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $d->tipe_penerima }}</span>
@@ -58,6 +58,11 @@
                   </td>
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/bansos/{{ $d->bansos_id }}"><i class="fas fa-info-circle text-dark me-2" aria-hidden="true"></i></a>
+                    @if ($d->status == 'proses')
+                    <a class="btn btn-link text-dark px-1 mb-0" href="{{ route('tampilPendaftar', ['bansos_id'=>$d->bansos_id])}}"><i class="fas fa-users text-dark me-2" aria-hidden="true"></i></a>
+                    @elseif ($d->status == 'selesai')
+                    <a class="btn btn-link text-dark px-1 mb-0" href="{{ route('tampilPenerima', ['bansos_id'=>$d->bansos_id])}}"><i class="fas fa-users text-dark me-2" aria-hidden="true"></i></a>
+                    @endif
                     {{-- <a class="btn btn-link text-dark px-1 mb-0" href="/bansos/{{ $d->bansos_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a> --}}
                     
                     <form class="d-inline-block" method="POST" action="/bansos/{{$d->bansos_id}}">
