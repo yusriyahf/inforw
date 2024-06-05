@@ -99,7 +99,7 @@
           </li>
 
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+          <li><a class="getstarted scrollto" href="/login">Login</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -112,10 +112,13 @@
 
     <div class="container">
       <div class="row">
+        <div class="col-lg-4 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="/landingpage/img/features-3.png" class="img-fluid" alt="">
+        </div>
+        <br><br>
         <div class="col-lg-6 d-flex flex-column justify-content-center">
           <h1 data-aos="fade-up">Revolusi Digital untuk Kemudahan Warga RW!</h1>
           <h2 data-aos="fade-up" data-aos-delay="400">InfoRW hadir untuk mendigitalisasi semua urusan di tingkat RW, membuat segala sesuatunya lebih efisien dan transparan. Dengan fitur-fitur unggulan kami, mengurus berbagai keperluan menjadi lebih mudah dan cepat.</h2>
-
           <h2 data-aos="fade-up" data-aos-delay="400">pls cek tiap kalimat! </h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
@@ -125,9 +128,6 @@
               </a>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-          <img src="/landingpage/img/features-3.png" class="img-fluid" alt="">
         </div>
       </div>
     </div>
@@ -180,29 +180,26 @@
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Ketua RW</h3>
-              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
-            </div>
-          </div>
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>Ketua RT</h3>
-              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+              <p>{{ $rw->getketuarw->nama }}</p>
+              <p>{{ $rw->getketuarw->alamat }}</p>
             </div>
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Bendahara</h3>
-              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+              <p> {{ $rw->getbendahararw->nama }}</p>
+              <p> {{ $rw->getbendahararw->alamat }}</p>
             </div>
+
           </div>
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Sekretaris</h3>
-              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+              <p>{{ $rw->getsekretarisrw->nama }}</p>
+              <p>{{ $rw->getsekretarisrw->alamat }}</p>
             </div>
           </div>
 
@@ -214,13 +211,13 @@
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Putri Diculik</h3>
-              {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
+              <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p>
             </div>
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>Warga Jalan x No. 304 Kehilangan Kucingnya</h3>
+              <h3>Warga Jalan TXT No. 304 Kehilangan Kucingnya</h3>
                 {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
             </div>
             </div>
@@ -236,19 +233,24 @@
         <div class="row">
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <a href="/login">
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Pengelolaan Data Warga</h3>
               <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p>
             </div>
+          </a>
           </div>
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+            <a href="/login">
+
             <div class="box">
               <img src="/landingpage/img/values-2.png" class="img-fluid" alt="">
               <h3>Manajemen Aset RT/RW: </h3>
               <p>Pantau dan kelola semua aset milik RT/RW secara terintegrasi.</p>
             </div>
+            </a>
           </div>
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
@@ -260,11 +262,14 @@
           </div>
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <a href="/pengumuman">
+
             <div class="box">
               <img src="/landingpage/img/values-1.png" class="img-fluid" alt="">
               <h3>Pembuatan Pengumuman RW:</h3>
               <p>Sampaikan informasi penting dan pengumuman terbaru kepada seluruh warga dengan cepat dan efisien.</p>
             </div>
+            </a>
           </div>
 
           <header class="section-header">
@@ -274,20 +279,26 @@
           </header> 
           
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+            <a href="/pengumuman">
+
             <div class="box">
               <img src="/landingpage/img/values-2.png" class="img-fluid" alt="">
               <h3>Peminjaman Aset: </h3>
               <p>Ajukan peminjaman aset milik RT melalui website kami, tanpa ribet dan lebih cepat.
               </p>
             </div>
+            </a>
           </div>
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+            <a href="/aset">
+
             <div class="box">
               <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
               <h3>Pengajuan Surat Keterangan atau Surat Pengantar:</h3>
               <p>Buat surat keterangan atau pengantar secara online. Hemat waktu dan tenaga tanpa perlu datang ke kantor RW.</p>
             </div>
+            </a>
           </div>
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
