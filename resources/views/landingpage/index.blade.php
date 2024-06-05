@@ -181,6 +181,13 @@
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Ketua RW</h3>
               <p>{{ $rw->getketuarw->nama }}</p>
+              @isset($data->getrt->getketuart->notelp)
+                                  <a href="https://wa.me/62{{ $data->getrt->getketuarw->notelp }}" target="_blank">
+                                      <span class="text-success text-xs font-weight-bold">WhatsApp</span>
+                                  </a>
+                              @else
+                              <span class="text-danger text-xs font-weight-bold">WhatsApp</span>
+                              @endisset
               <p>{{ $rw->getketuarw->alamat }}</p>
             </div>
           </div>
@@ -189,6 +196,13 @@
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Bendahara</h3>
               <p> {{ $rw->getbendahararw->nama }}</p>
+              @isset($data->getrt->getbendahararw->notelp)
+                                  <a href="https://wa.me/62{{ $data->getrt->getbendahararw->notelp }}" target="_blank">
+                                      <span class="text-success text-xs font-weight-bold">WhatsApp</span>
+                                  </a>
+                              @else
+                              <span class="text-danger text-xs font-weight-bold">WhatsApp</span>
+                              @endisset
               <p> {{ $rw->getbendahararw->alamat }}</p>
             </div>
 
@@ -199,6 +213,13 @@
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
               <h3>Sekretaris</h3>
               <p>{{ $rw->getsekretarisrw->nama }}</p>
+              @isset($data->getrt->getsekretarisrw->notelp)
+                                  <a href="https://wa.me/62{{ $data->getrt->getsekretarisrw->notelp }}" target="_blank">
+                                      <span class="text-success text-xs font-weight-bold">WhatsApp</span>
+                                  </a>
+                              @else
+                              <span class="text-danger text-xs font-weight-bold">WhatsApp</span>
+                              @endisset
               <p>{{ $rw->getsekretarisrw->alamat }}</p>
             </div>
           </div>
@@ -207,22 +228,16 @@
             <h2>Informasi</h2>
              <p>Pengumuman</p>
           </header>
+        
+          @foreach ($pengumuman as $p)    
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
               <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>Putri Diculik</h3>
-              <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p>
+              <h3>{{ $p->judul }}</h3>
+              <p>{{ $p->deskripsi }}</p>
             </div>
           </div>
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>Warga Jalan TXT No. 304 Kehilangan Kucingnya</h3>
-                {{-- <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p> --}}
-            </div>
-            </div>
-
-
+          @endforeach
         </div>
 
         <header class="section-header">
@@ -301,6 +316,7 @@
             </a>
           </div>
 
+          
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
             <div class="box">
               <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
@@ -1268,12 +1284,13 @@
       </div>
 
     </section><!-- End Recent Blog Posts Section --> --}}
+    
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
 
       <div class="container" data-aos="fade-up">
-
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31611.613483467205!2d112.65887545000001!3d-7.9521865499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd629af01bfc65d%3A0xc31929ac7dcc911!2sPandanwangi%2C%20Blimbing%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1717594413728!5m2!1sen!2sid"  width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <header class="section-header">
           <h2>Kontak</h2>
           <p>Hubungi Kami</p>
@@ -1305,49 +1322,11 @@
                   <p>info@example.com<br>contact@example.com</p>
                 </div>
               </div>
-              {{-- <div class="col-md-6">
-                <div class="info-box">
-                  <i class="bi bi-clock"></i>
-                  <h3>Open Hours</h3>
-                  <p>Monday - Friday<br>9:00AM - 05:00PM</p>
-                </div>
-              </div> --}}
+
             </div>
 
           </div>
 
-          {{-- <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Isikan Nama Anda" required>
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Isikan Email Anda" required>
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Isikan Subjek/Judul disini" required>
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Kirim Pesan</button>
-                </div>
-
-              </div>
-            </form>
-
-          </div> --}}
 
         </div>
 

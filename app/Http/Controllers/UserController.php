@@ -78,7 +78,8 @@ class UserController extends Controller
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required',
+            'alamat' => '
+            required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'notelp' => 'required',

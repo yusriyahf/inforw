@@ -392,7 +392,7 @@ Route::group(['prefix' => 'daftarBansos'], function () {
 
 Route::get('/', function () {
 
-    $pengumuman = PengumumanModel::all();
+    $pengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
     $rw = RwModel::where('rw_id', 1)->first();
     return view('landingpage.index', [
         'rw' => $rw,
