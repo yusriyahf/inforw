@@ -10,6 +10,8 @@ class AsetModel extends Model
     use HasFactory;
 
     protected $table = 'aset';
+
+
     protected $primaryKey = 'aset_id';
 
     protected $guarded = ['aset_id'];
@@ -23,3 +25,4 @@ class AsetModel extends Model
         return $this->belongsTo(RtModel::class, 'rt', 'rt_id');
     }
 }
+

@@ -46,7 +46,9 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $data->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
+
                           <span class="text-secondary text-xs font-weight-bold"><a href="/generate-pdf/sktm/{{ $data->sktm_id }}" class="text-primary" target="_blank">Cetak</a></span>
+
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold"><a href="/sktm/{{ $data->sktm_id }}"  
