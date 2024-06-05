@@ -33,6 +33,9 @@ use App\Http\Controllers\AnggotaOrganisasiController;
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\DaftarBansosController;
 
+
+use App\Http\Controllers\PdfController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -213,9 +216,11 @@ Route::get('/', function () {
     ]);
 })->middleware('auth');
 
+// Route::get('generate-pdf', [App\Http\Controllers\PdfController::class, 'index']);
+// Route::get('generate-pdf/{sp}', [App\Http\Controllers\PdfController::class, 'index']);
 
-
-
+Route::get('/generate-pdf/{sktm}/{id}', [PdfController::class, 'generatePdf']);
+Route::get('/generate-pdf/{sp}/{id}', [PdfController::class, 'generatePdf']);
 
 
 
