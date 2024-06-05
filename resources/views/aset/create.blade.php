@@ -18,9 +18,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nama_aset" class="form-control-label">Nama Aset</label>
-                                    <input class="form-control @error('nama_aset') is-invalid @enderror" type="text" name="nama_aset" id="nama_aset" value="{{ old('nama_aset') }}" autocomplete="off">
-                                    @error('nama_aset')
+                                    <label for="nama" class="form-control-label">Nama Aset</label>
+                                    <input class="form-control @error('nama') is-invalid @enderror" type="text" name="nama" id="nama" value="{{ old('nama') }}" autocomplete="off">
+                                    @error('nama')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -40,9 +40,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="kepemilikan" class="form-control-label">Kepemilikan</label>
-                                    <input class="form-control @error('kepemilikan') is-invalid @enderror" type="text" name="kepemilikan" id="kepemilikan" value="{{ old('kepemilikan') }}">
-                                    @error('kepemilikan')
+                                    <label for="rt" class="form-control-label">Kepemilikan</label>
+                                    <input class="form-control @error('rt') is-invalid @enderror" type="text" name="rt" id="rt" value="{{ old('rt') }}">
+                                    @error('rt')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

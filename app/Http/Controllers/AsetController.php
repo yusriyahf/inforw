@@ -29,8 +29,6 @@ class AsetController extends Controller
             'title' => $title,
             'rts' => $rts
         ]);
-
-        
     }
 
     /**
@@ -43,9 +41,8 @@ class AsetController extends Controller
             'list' => ['Pages', 'Aset', 'Create']
         ];
 
-        
+
         return view('aset.create', ['breadcrumb' => $breadcrumb]);
-        
     }
 
 
@@ -54,7 +51,13 @@ class AsetController extends Controller
      */
     public function store(StoreAsetRequest $request)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->validated([
+
+
+            'nama' => 'required',
+            'rt' => 'required',
+            'status' => 'required',
+        ]);
 
         AsetModel::create($validatedData);
 
@@ -76,16 +79,19 @@ class AsetController extends Controller
     public function update(UpdateAsetRequest $request, string $id)
     {
         $request->validate([
-            'nama_aset' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
-            'kepemilikan' => 'required|string|max:255',
+            // 'aset_id' => 'required',
+            'nama' => 'required',
+            // 'deskripsi' => 'required',
+            'status' => 'required',
+            'kepemilikan' => 'required',
+            // 'jenis' => 'required',
         ]);
 
         $aset = AsetModel::findOrFail($id);
         $aset->update([
-            'nama_aset' => $request->nama_aset,
+            'nama' => $request->nama_aset,
             'status' => $request->status,
-            'kepemilikan' => $request->kepemilikan,
+            'rt' => $request->kepemilikan,
         ]);
 
         return redirect('/aset')->with('success', 'Data Aset Berhasil Diubah');
@@ -106,6 +112,4 @@ class AsetController extends Controller
             return redirect('/aset')->with('error', 'Data Aset Gagal Dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
-
-
 }

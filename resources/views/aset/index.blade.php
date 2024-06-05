@@ -51,6 +51,8 @@
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Aset</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kepemilikan</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -66,10 +68,16 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $aset->nama }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->deskripsi }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->jenis }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $aset->Status }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->Kepemilikan }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->rt }}</span>
                   </td>
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="aset/{{ $aset->id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>

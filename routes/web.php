@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RtModel;
+use App\Models\RwModel;
 use App\Models\SpModel;
 use App\Models\AsetModel;
 use App\Models\SktmModel;
@@ -10,33 +11,33 @@ use App\Models\KeluargaModel;
 use App\Models\PemasukanModel;
 use App\Models\PengaduanModel;
 use App\Models\PeminjamanModel;
+use App\Models\PengumumanModel;
 use App\Models\PengeluaranModel;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
+use App\Http\Controllers\PdfController;
+
+
+use App\Http\Controllers\AsetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
-
-
+use App\Http\Controllers\BansosController;
 use App\Http\Controllers\LaporanController;
+// use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\OrganisasiController;
-// use Illuminate\Auth\Access\Gate;
+
+
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\AnggotaOrganisasiController;
-use App\Http\Controllers\BansosController;
 use App\Http\Controllers\DaftarBansosController;
-
-
-use App\Http\Controllers\PdfController;
-use App\Models\PengumumanModel;
-use App\Models\RwModel;
+use App\Http\Controllers\AnggotaOrganisasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -263,20 +264,30 @@ Route::get('/peminjaman', function () {
     ]);
 });
 
-Route::get('/aset', function () {
+// Route::get('/aset', function () {
 
-    $data = AsetModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+//     $data = AsetModel::where('rt', auth()->user()->getkeluarga->rt)->get();
 
-    $breadcrumb = (object) [
-        'title' => 'Aset',
-        'list' => ['Pages', 'Aset']
-    ];
+//     $breadcrumb = (object) [
+//         'title' => 'Aset',
+//         'list' => ['Pages', 'Aset']
+//     ];
 
-    return view('aset.warga.index', [
-        'breadcrumb' => $breadcrumb,
-        'data' => $data
-    ]);
-});
+//     return view('aset.warga.index', [
+//         'breadcrumb' => $breadcrumb,
+//         'data' => $data
+//     ]);
+// });
+
+
+
+Route::get('/aset', [AsetController::class, 'index'])->middleware('auth');
+Route::get('/aset/create', [AsetController::class, 'create']);
+Route::post('/aset/create', [AsetController::class, 'store']);
+Route::get('/aset/{id}', [AsetController::class, 'show']);
+Route::get('/aset/{id}/edit', [AsetController::class, 'edit']);
+Route::put('/aset/{id}', [AsetController::class, 'update']);
+Route::delete('/aset/{id}', [AsetController::class, 'destroy']);
 
 
 Route::get('/pengumuman', [PengumumanController::class, 'index'])->middleware('auth');

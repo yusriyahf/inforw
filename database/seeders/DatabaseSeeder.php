@@ -84,7 +84,6 @@ class DatabaseSeeder extends Seeder
         KeluargaModel::create([
             'keluarga_id' => '1',
             'no_kk' => '357304',
-            'kepala_keluarga' => 'Park Hyung Seok',
             'rw' => '1',
             'rt' => '1'
         ]);
@@ -95,6 +94,10 @@ class DatabaseSeeder extends Seeder
             'nama' => 'admin',
             'password' => bcrypt('admin'),
             'role' => '1',
+        ]);
+
+        KeluargaModel::where('keluarga_id', '1')->update([
+            'kepala_keluarga' => '1'
         ]);
 
         User::create([
