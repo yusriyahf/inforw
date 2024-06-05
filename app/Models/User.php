@@ -64,4 +64,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $fillable = [
+        'nama',
+        'nik',
+        'kk',
+        'alamat',
+        'rt',
+        'status_pernikahan',
+        'status_keluarga',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'password',
+        'role'
+    ];
 }

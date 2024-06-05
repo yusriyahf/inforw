@@ -22,7 +22,8 @@ class SuratController extends Controller
         return view('surat.index', [
             'breadcrumb' => $breadcrumb,
             'datasktm' => $datasktm,
-            'datasp' => $datasp
+            'datasp' => $datasp,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 

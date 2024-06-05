@@ -35,6 +35,8 @@ use App\Http\Controllers\DaftarBansosController;
 
 
 use App\Http\Controllers\PdfController;
+use App\Models\PengumumanModel;
+use App\Models\RwModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +62,7 @@ use App\Http\Controllers\PdfController;
 //         'data' => $data
 //     ]);
 // })->middleware('auth');
-Route::get('/', function () {
+Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
@@ -277,7 +279,7 @@ Route::get('/aset', function () {
 });
 
 
-Route::get('/pengumuman', [PengumumanController::class, 'index']);
+Route::get('/pengumuman', [PengumumanController::class, 'index'])->middleware('auth');
 Route::get('/pengumuman/create', [PengumumanController::class, 'create']);
 Route::post('/pengumuman/create', [PengumumanController::class, 'store']);
 Route::get('/pengumuman/{id}', [PengumumanController::class, 'show']);
@@ -388,3 +390,13 @@ Route::group(['prefix' => 'daftarBansos'], function(){
     Route::post('/daftar/{bansos_id}', [DaftarBansosController::class, 'store'])->name('simpan');
 });
 
+Route::get('/', function () {
+
+    $pengumuman = PengumumanModel::all();
+    $rw = RwModel::where('rw_id', 1)->first();
+    return view('landingpage.index', [
+        'rw' => $rw,
+        'pengumuman' =>$pengumuman
+    ]);
+
+})->middleware('guest');

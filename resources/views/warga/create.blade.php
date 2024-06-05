@@ -168,10 +168,12 @@
               <div class="col-md-10">
 
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-primary btn-sm ms-auto">Create</button>
-
-              </div>
+              <form action="/warga/store" method="POST">
+                @csrf
+                <!-- Form fields -->
+                <a href="/warga"  class="btn btn-primary btn-sm me-2">Buat</a>
+              </form>
+            
 
             </div>
     </div>
