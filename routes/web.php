@@ -376,15 +376,15 @@ Route::group(['prefix' => 'bansos'], function () {
     Route::post('/create/{bansos_id}/kriteria', [BansosController::class, 'storeKriteria'])->name('saveKriteria'); //simpan
     Route::get('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'addSubKriteria'])->name('addSubKriteria'); //buat sub kriteria
     Route::post('/create/{bansos_id}/kriteria/addSubKriteria', [BansosController::class, 'storeSubKriteria'])->name('saveSubKriteria'); //simpan
-    Route::get('/create/{bansos_id}/bobot',[BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
-    Route::post('/create/{bansos_id}/bobot',[BansosController::class, 'storeBobot'])->name('saveBobot');//simpan
-    Route::get('/{bansos_id}/pendaftar',[BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar');//tampil pendaftar
-    Route::post('/{bansos_id}/pendaftar',[BansosController::class, 'konfirmasi'])->name('simpanPenerima');//simpan
-    Route::get('/{bansos_id}/penerima',[BansosController::class, 'tampilPenerima'])->name('tampilPenerima');//tampil pendaftar
+    Route::get('/create/{bansos_id}/bobot', [BansosController::class, 'addBobot'])->name('addBobot'); //buat bobot
+    Route::post('/create/{bansos_id}/bobot', [BansosController::class, 'storeBobot'])->name('saveBobot'); //simpan
+    Route::get('/{bansos_id}/pendaftar', [BansosController::class, 'tampilPendaftar'])->name('tampilPendaftar'); //tampil pendaftar
+    Route::post('/{bansos_id}/pendaftar', [BansosController::class, 'konfirmasi'])->name('simpanPenerima'); //simpan
+    Route::get('/{bansos_id}/penerima', [BansosController::class, 'tampilPenerima'])->name('tampilPenerima'); //tampil pendaftar
 });
 
 //Daftar Bansos di Warga
-Route::group(['prefix' => 'daftarBansos'], function(){
+Route::group(['prefix' => 'daftarBansos'], function () {
     Route::get('/', [DaftarBansosController::class, 'index'])->middleware('auth');
     Route::get('/daftar/{bansos_id}', [DaftarBansosController::class, 'daftar'])->name('daftar');
     Route::post('/daftar/{bansos_id}', [DaftarBansosController::class, 'store'])->name('simpan');
@@ -396,7 +396,6 @@ Route::get('/', function () {
     $rw = RwModel::where('rw_id', 1)->first();
     return view('landingpage.index', [
         'rw' => $rw,
-        'pengumuman' =>$pengumuman
+        'pengumuman' => $pengumuman
     ]);
-
 })->middleware('guest');
