@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\PengaduanModel;
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class PengaduanController extends Controller
 {
@@ -27,9 +30,22 @@ class PengaduanController extends Controller
             'list' => ['Pages', 'Pengaduan']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+
         return view('pengaduan.index', [
             'breadcrumb' => $breadcrumb,
             'pengaduan' => $pengaduan,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -39,9 +55,24 @@ class PengaduanController extends Controller
             'title' => 'Pengaduan',
             'list' => ['Pages', 'Pengaduan']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         $title = 'Create';
         $pengaduan = new PengaduanModel();
-        return view('pengaduan.create', ['breadcrumb' => $breadcrumb], compact('pengaduan'));
+        return view('pengaduan.create', [
+            'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ], compact('pengaduan'));
     }
 
     /**
@@ -86,10 +117,23 @@ class PengaduanController extends Controller
             'list' => ['Pages', 'Pengaduan', 'Detail']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+
         return view('pengaduan.warga.show', [
             'breadcrumb' => $breadcrumb,
-            'pengaduan' => $pengaduan
-        ]);
+            'pengaduan' => $pengaduan,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ], compact('pengaduan'));
     }
 
     /**
@@ -103,9 +147,22 @@ class PengaduanController extends Controller
         ];
 
         $pengaduan = PengaduanModel::find($id);
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pengaduan.edit', [
             'pengaduan' => $pengaduan,
             'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 

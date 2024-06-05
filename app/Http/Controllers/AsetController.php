@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AsetModel;
-use App\Models\RtModel;
 use App\Http\Requests;
-use App\Http\Requests\UpdateAsetRequest;
+use App\Models\RtModel;
+use App\Models\SpModel;
+use App\Models\AsetModel;
+use App\Models\SktmModel;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreAsetRequest;
+use App\Http\Requests\UpdateAsetRequest;
 
 class AsetController extends Controller
 {
@@ -20,15 +25,34 @@ class AsetController extends Controller
             'title' => 'Aset',
             'list' => ['Pages', 'Aset']
         ];
-
         $data = AsetModel::all();
         $rts = RtModel::all();
-        return view('aset.index', [
-            'breadcrumb' => $breadcrumb,
-            'asets' => $data,
-            'title' => $title,
-            'rts' => $rts
-        ]);
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+            return view('aset.warga.index', [
+                'breadcrumb' => $breadcrumb,
+                'asets' => $data,
+                'title' => $title,
+                'data' => $data,
+                'rts' => $rts,
+                'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            ]);
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+            return view('aset.index', [
+                'breadcrumb' => $breadcrumb,
+                'asets' => $data,
+                'title' => $title,
+                'data' => $data,
+                'rts' => $rts,
+                'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+                'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+                'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+            ]);
+        }
     }
 
     /**
@@ -41,8 +65,22 @@ class AsetController extends Controller
             'list' => ['Pages', 'Aset', 'Create']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
 
-        return view('aset.create', ['breadcrumb' => $breadcrumb]);
+
+        return view('aset.create', [
+            'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
     }
 
 
