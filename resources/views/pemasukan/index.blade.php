@@ -19,7 +19,7 @@
                   <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
               </form>
 
-              <h6>Jumlah iuran Masuk: {{ $totalIuran }}</h6>
+              <h6>Jenis Iuran Masuk: {{ $totalIuran }}</h6>
               <h6>total saldo: {{ formatRupiah($totalSaldo) }}</h6>
               
                 @if (session()->has('success'))
