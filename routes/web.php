@@ -50,24 +50,25 @@ use App\Http\Controllers\AnggotaOrganisasiController;
 |
 */
 
-// Route::get('/', function () {
 
-//     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
-//     $breadcrumb = (object) [
-//         'title' => 'Dashboard',
-//         'list' => ['Pages', 'Dashboard']
-//     ];
-
-//     return view('welcome', [
-//         'breadcrumb' => $breadcrumb,
-//         'data' => $data
-//     ]);
-// })->middleware('auth');
 Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    $pemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+    if (Gate::allows('is-bendahara') || Gate::allows('is-rt')) {
+        $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+            ->sum('jumlah');
+        $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+            ->sum('jumlah');
+        $pemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+        $pengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+    } elseif (Gate::allows('is-rw') || Gate::allows('is-admin')) {
+        $totalPemasukan = PemasukanModel::sum('jumlah');
+        $totalPengeluaran = PengeluaranModel::sum('jumlah');
+        $pemasukan = PemasukanModel::all();
+        $pengeluaran = PengeluaranModel::all();
+    }
+
     $pemasukanGroupedByMonth = $pemasukan->groupBy(function ($item) {
         // Mengonversi string tanggal menjadi objek DateTime
         $tanggal = new DateTime($item->tanggal);
@@ -75,10 +76,7 @@ Route::get('/home', function () {
         return $tanggal->format('m');
     });
 
-    $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-        ->sum('jumlah');
-    $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-        ->sum('jumlah');
+
     $totalSaldo = $totalPemasukan - $totalPengeluaran;
 
     $pemasukanTotal = [];
@@ -90,7 +88,6 @@ Route::get('/home', function () {
     }
 
     // Mengambil data pengeluaran
-    $pengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
     $pengeluaranGroupedByMonth = $pengeluaran->groupBy(function ($item) {
         // Mengonversi string tanggal menjadi objek DateTime
         $tanggal = new DateTime($item->tanggal);
