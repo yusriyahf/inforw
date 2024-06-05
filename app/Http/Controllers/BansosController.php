@@ -38,6 +38,30 @@ class BansosController extends Controller
         ]);
     }
 
+    public function editBansos($bansos_id){
+        $breadcrumb = (object) [
+            'title' => 'Edit Bansos',
+            'list' => ['Pages', 'Bansos','Edit']
+        ];
+        $bansos = BansosModel::find($bansos_id);
+        return view('bansos.editBansos',[
+            'breadcrumb' => $breadcrumb,
+            'bansos' => $bansos
+        ]);
+    }
+
+    public function updateBansos($bansos_id, Request $request){
+        $validatedData = $request->validate([
+            'nama_bansos' => 'required',
+            'total_bantuan' => 'required',
+            'jenis_bansos' => 'required',
+            'jumlah_penerima' => 'required',
+            'tipe_penerima' => 'required',
+            'tgl_akhir_daftar' => 'required',
+            'tgl_penyaluran' => 'required',
+        ]);
+    }
+
     public function detailKriteria($bansos_id, $kriteria_id){
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria Bansos',

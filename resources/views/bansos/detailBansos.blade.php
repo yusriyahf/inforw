@@ -35,6 +35,7 @@
                   </tr>
               </tbody>
           </table>
+          <a href="{{ route('addKriteria', ['bansos_id' => $bansos->bansos_id])}}" class="btn btn-secondary">Edit</a>
       </div>
   </div>
 </div>

@@ -359,7 +359,9 @@ Route::group(['prefix' => 'kegiatan'], function () {
 Route::group(['prefix' => 'bansos'], function () {
     Route::get('/', [BansosController::class, 'index'])->middleware('auth');
     Route::get('/create', [BansosController::class, 'create'])->name('tambahBansos'); //buat data bansos
-    Route::delete('/{id}', [BansosController::class, 'destroy']);
+    Route::delete('/{bansos_id}', [BansosController::class, 'destroy']);
+    Route::get('/{bansos_id}/edit', [BansosController::class, 'editBansos'])->name('editBansos');
+    Route::put('/{bansos_id}/edit', [BansosController::class, 'updateBansos'])->name('updateBansos');
     Route::get('/{bansos_id}', [BansosController::class, 'detailBansos'])->name('detailBansos'); //lihat detail bansos
     Route::get('/{bansos_id}/kriteria/{kriteria_id}', [BansosController::class, 'detailKriteria'])->name('showSubKriteria'); //lihat detail kriteria yang berisi sub kriteria
     Route::post('/create', [BansosController::class, 'store']); //simpan data baru bansos
