@@ -50,12 +50,13 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto" href="#values">Struktur Organisasi</a></li>
+          <li><a class="nav-link scrollto" href="#info">Pengumuman  </a></li>
+          <li><a class="nav-link scrollto" href="#fitur">Fitur</a></li>
+          <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+          <li><a class="nav-link scrollto" href="#map">Lihat Lokasi</a></li>
+          {{-- <li><a href="blog.html">Blog</a></li> --}}
+          {{-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -71,9 +72,9 @@
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
             </ul>
-          </li>
+          </li> --}}
 
-          <li class="dropdown megamenu"><a href="#"><span>Mega Menu</span> <i class="bi bi-chevron-down"></i></a>
+          {{-- <li class="dropdown megamenu"><a href="#"><span>Mega Menu</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li>
                 <a href="#">Column 1 link 1</a>
@@ -96,7 +97,7 @@
                 <a href="#">Column 4 link 3</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
 
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li><a class="getstarted scrollto" href="/login">Login</a></li>
@@ -116,10 +117,10 @@
           <img src="/landingpage/img/features-3.png" class="img-fluid" alt="">
         </div>
         <br><br>
-        <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <div class="col-lg-6 offset-lg-1 d-flex flex-column justify-content-center">
           <h1 data-aos="fade-up">Revolusi Digital untuk Kemudahan Warga RW!</h1>
           <h2 data-aos="fade-up" data-aos-delay="400">InfoRW hadir untuk mendigitalisasi semua urusan di tingkat RW, membuat segala sesuatunya lebih efisien dan transparan. Dengan fitur-fitur unggulan kami, mengurus berbagai keperluan menjadi lebih mudah dan cepat.</h2>
-          <h2 data-aos="fade-up" data-aos-delay="400">pls cek tiap kalimat! </h2>
+          {{-- <h2 data-aos="fade-up" data-aos-delay="400">pls cek tiap kalimat! </h2> --}}
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
               <a href="/login" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
@@ -178,7 +179,7 @@
         <div class="row">
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <img src="/landingpage/img/man.png" class="img-fluid" alt="">
               <h3>Ketua RW</h3>
               <p>{{ $rw->getketuarw->nama }}</p>
               @isset($data->getrt->getketuart->notelp)
@@ -193,7 +194,7 @@
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <img src="/landingpage/img/woman.png" class="img-fluid" alt="">
               <h3>Bendahara</h3>
               <p> {{ $rw->getbendahararw->nama }}</p>
               @isset($data->getrt->getbendahararw->notelp)
@@ -210,7 +211,7 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
             <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+              <img src="/landingpage/img/woman.png" class="img-fluid" alt="">
               <h3>Sekretaris</h3>
               <p>{{ $rw->getsekretarisrw->nama }}</p>
               @isset($data->getrt->getsekretarisrw->notelp)
@@ -224,119 +225,132 @@
             </div>
           </div>
 
-          <header class="section-header">
-            <h2>Informasi</h2>
-             <p>Pengumuman</p>
-          </header>
-        
-          @foreach ($pengumuman as $p)    
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>{{ $p->judul }}</h3>
-              <p>{{ $p->deskripsi }}</p>
+          <section id="info" class="info">
+            <div class="container">
+              <header class="section-header">
+                <h2>Informasi</h2>
+                <p>Pengumuman</p>
+              </header>
+              <div class="row">
+                @php
+                  $pengumuman = $pengumuman->map(function ($item, $key) {
+                      $images = [
+                          '/landingpage/img/community service.jpg',
+                          '/landingpage/img/family moving in.jpg'
+                      ];
+                      $item->gambar = $images[$key % count($images)]; // Menggunakan indeks kunci untuk memilih URL gambar
+                      return $item;
+                  });
+                @endphp
+                @foreach ($pengumuman as $p)
+                  <div class="col-lg-4 col-md-6 mt-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box">
+                      <img src="{{ $p->gambar }}" class="img-fluid" alt="">
+                      <h3>{{ $p->judul }}</h3>
+                      <p>{{ $p->deskripsi }}</p>
+                    </div>
+                  </div>
+                @endforeach
+              </div>
             </div>
-          </div>
-          @endforeach
-        </div>
-
-        <header class="section-header">
-          <h2>Fitur</h2>
-           <p>Fitur-Fitur Utama Info RW:</p>
-        </header> 
-
-        <div class="row">
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <a href="/login">
-            <div class="box">
-              <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
-              <h3>Pengelolaan Data Warga</h3>
-              <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p>
-            </div>
-          </a>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-            <a href="/login">
-
-            <div class="box">
-              <img src="/landingpage/img/values-2.png" class="img-fluid" alt="">
-              <h3>Manajemen Aset RT/RW: </h3>
-              <p>Pantau dan kelola semua aset milik RT/RW secara terintegrasi.</p>
-            </div>
-            </a>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-            <div class="box">
-              <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
-              <h3>Pengelolaan Keuangan RW:</h3>
-              <p>Transparansi dalam pengelolaan dana RW. Catat dan lacak semua transaksi keuangan dengan mudah.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <a href="/pengumuman">
-
-            <div class="box">
-              <img src="/landingpage/img/values-1.png" class="img-fluid" alt="">
-              <h3>Pembuatan Pengumuman RW:</h3>
-              <p>Sampaikan informasi penting dan pengumuman terbaru kepada seluruh warga dengan cepat dan efisien.</p>
-            </div>
-            </a>
-          </div>
-
-          <header class="section-header">
-            <h2></h2>
-            <br> <br><br>
-            <p>Kemudahan untuk Warga:</p>
-          </header> 
+          </section>
           
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-            <a href="/pengumuman">
 
-            <div class="box">
-              <img src="/landingpage/img/values-2.png" class="img-fluid" alt="">
-              <h3>Peminjaman Aset: </h3>
-              <p>Ajukan peminjaman aset milik RT melalui website kami, tanpa ribet dan lebih cepat.
-              </p>
+          <section id="fitur" class="fitur">
+            <header class="section-header">
+              <h2>Fitur</h2>
+               <p>Fitur-Fitur Utama Info RW:</p>
+            </header>
+            <div class="row">
+
+              <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="/login">
+                <div class="box">
+                  <img src="/landingpage/img/hero-img.png" class="img-fluid" alt="">
+                  <h3>Pengelolaan Data Warga</h3>
+                  <p> Kelola data warga dengan mudah dan aman. Update informasi secara real-time untuk layanan yang lebih baik.</p>
+                </div>
+              </a>
+              </div>
+    
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                <a href="/login">
+    
+                <div class="box">
+                  <img src="/landingpage/img/manage assets.jpg" class="img-fluid" alt="">
+                  <h3>Manajemen Aset RT/RW: </h3>
+                  <p>Pantau dan kelola semua aset milik RT/RW secara terintegrasi.</p>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+    
+                <div class="box">
+                  <img src="/landingpage/img/financial management.jpg" class="img-fluid" alt="">
+                  <h3>Pengelolaan Keuangan RW: </h3>
+                  <p>Transparansi dalam pengelolaan dana RW. Catat dan lacak semua transaksi keuangan dengan mudah.</p>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                <a href="/pengumuman">
+                <div class="box">
+                  <img src="/landingpage/img/announcement.jpg" class="img-fluid" alt="">
+                  <h3>Pembuatan Pengumuman RW:</h3>
+                  <p>Sampaikan informasi penting dan pengumuman terbaru kepada seluruh warga dengan cepat dan efisien.</p>
+                </div>
+                </a>
+              </div>
+              
+              <header class="section-header">
+                <h2></h2>
+                <br> <br><br>
+                <p>Kemudahan untuk Warga:</p>
+              </header> 
+              
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                <a href="/pengumuman">
+    
+                <div class="box">
+                  <img src="/landingpage/img/pricing-free.png" class="img-fluid" alt="">
+                  <h3>Peminjaman Aset: </h3>
+                  <p>Ajukan peminjaman aset milik RT melalui website kami, tanpa ribet dan lebih cepat.
+                  </p>
+                </div>
+                </a>
+              </div>
+    
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                <a href="/aset">
+    
+                <div class="box">
+                  <img src="/landingpage/img/send mails.jpg" class="img-fluid" alt="">
+                  <h3>Pengajuan Surat Keterangan atau Surat Pengantar:</h3>
+                  <p>Buat surat keterangan atau pengantar secara online. Hemat waktu dan tenaga tanpa perlu datang ke kantor RW.</p>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                <div class="box">
+                  <img src="/landingpage/img/bansos.jpg" class="img-fluid" alt="">
+                  <h3>Pengajuan Bantuan Sosial (Bansos):</h3>
+                  <p>Ajukan permohonan bansos dengan proses yang lebih transparan dan mudah diakses.</p>
+                </div>
+              </div>
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                <div class="box">
+                  <img src="/landingpage/img/breaking news.jpg" class="img-fluid" alt="">
+                  <h3>Akses Pengumuman Terbaru:</h3>
+                  <p>Tetap update dengan informasi dan pengumuman penting dari RW langsung di layar Anda.</p>
+                </div>
+              </div>
             </div>
-            </a>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-            <a href="/aset">
-
-            <div class="box">
-              <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
-              <h3>Pengajuan Surat Keterangan atau Surat Pengantar:</h3>
-              <p>Buat surat keterangan atau pengantar secara online. Hemat waktu dan tenaga tanpa perlu datang ke kantor RW.</p>
-            </div>
-            </a>
-          </div>
-
-          
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-            <div class="box">
-              <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
-              <h3>Pengajuan Bantuan Sosial (Bansos):</h3>
-              <p>Ajukan permohonan bansos dengan proses yang lebih transparan dan mudah diakses.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-            <div class="box">
-              <img src="/landingpage/img/values-3.png" class="img-fluid" alt="">
-              <h3>Akses Pengumuman Terbaru:</h3>
-              <p>Tetap update dengan informasi dan pengumuman penting dari RW langsung di layar Anda.</p>
-            </div>
-          </div>
-
-        </div>
+          </section>
       </div>
 
     </section><!-- End Values Section -->
-
+      
+   
     <!-- ======= Counts Section ======= -->
     {{-- <section id="counts" class="counts">
       <div class="container" data-aos="fade-up">
@@ -386,24 +400,19 @@
         </div>
 
       </div>
-    </section><!-- End Counts Section --> --}}
+    </section>
+    <!-- End Counts Section --> --}}
 
     <!-- ======= Features Section ======= -->
     <section id="features" class="features">
-
       <div class="container" data-aos="fade-up">
-
         <header class="section-header">
-          {{-- <h2>Features</h2> --}}
-          <p>Kenapa Memilih Info RW?</p>
+          <p>Mengapa Memilih Info RW?</p>
         </header>
-
         <div class="row">
-
           <div class="col-lg-6">
             <img src="/landingpage/img/features.png" class="img-fluid" alt="">
           </div>
-
           <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
             <div class="row align-self-center gy-4">
 
@@ -427,33 +436,10 @@
                   <h3>Transparansi: Informasi dan pengelolaan dana yang jelas dan terbuka.</h3>
                 </div>
               </div>
-
-              {{-- <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Rerum omnis sint</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Alias possimus</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Repellendus mollitia</h3>
-                </div>
-              </div> --}}
-
             </div>
           </div>
-
         </div> <!-- / row -->
-
+    </section>
         <!-- Feature Tabs -->
         {{-- <div class="row feture-tabs" data-aos="fade-up">
           <div class="col-lg-6">
@@ -761,7 +747,6 @@
 
         <header class="section-header">
           <h2>F.A.Q</h2>
-          {{-- <p>Frequently Asked Questions</p> --}}
           <p>Pertanyaan yang sering ditanyakan</p>
         </header>
 
@@ -772,7 +757,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                    Bagaimana cara mendaftar di Info RW?
+                    Bagaimana cara login di InfoRW?
                   </button>
                 </h2>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
@@ -1284,13 +1269,22 @@
       </div>
 
     </section><!-- End Recent Blog Posts Section --> --}}
-    
-
+  
+    <!-- ======= Map Section ======= -->
+    <section id="map" class="map">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>Lokasi</h2>
+          <p>Peta wilayah Kelurahan Pandanwangi</p>
+        </header>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31611.613483467205!2d112.65887545000001!3d-7.9521865499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd629af01bfc65d%3A0xc31929ac7dcc911!2sPandanwangi%2C%20Blimbing%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1717594413728!5m2!1sen!2sid"  width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+  
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
 
       <div class="container" data-aos="fade-up">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31611.613483467205!2d112.65887545000001!3d-7.9521865499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd629af01bfc65d%3A0xc31929ac7dcc911!2sPandanwangi%2C%20Blimbing%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1717594413728!5m2!1sen!2sid"  width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <header class="section-header">
           <h2>Kontak</h2>
           <p>Hubungi Kami</p>
