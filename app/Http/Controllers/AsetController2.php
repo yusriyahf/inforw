@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Models\RtModel;
 use App\Models\SpModel;
 use App\Models\AsetModel;
 use App\Models\SktmModel;
-use Illuminate\Http\Request;
 use App\Models\PengaduanModel;
 use App\Models\PengumumanModel;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreAsetRequest;
+use Symfony\Component\HttpFoundation\Request;
 
-class AsetController extends Controller
+class AsetController2 extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Aset';
         $breadcrumb = (object) [
@@ -82,6 +83,7 @@ class AsetController extends Controller
         ]);
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
@@ -90,91 +92,41 @@ class AsetController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required',
             'deskripsi' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
-            'status' => 'required',
         ]);
-
-        if ($request->hasFile('gambar')) {
-            $extfile = $request->file('gambar')->getClientOriginalExtension();
-
-            $judulFormatted = strtolower(str_replace(' ', '', $request->nama));
-            $namaFile = $judulFormatted . '.' . $extfile;
-
-            $request->file('gambar')->move(public_path('gambar/aset'), $namaFile);
-            $validatedData['gambar'] = $namaFile;
-        }
 
         AsetModel::create($validatedData);
 
-        return redirect('/aset')->with('success', 'Data aset berhasil dibuat');
+        return redirect()->route('aset.index')->with('success', 'Data Aset Berhasil Ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(AsetModel $asetModel)
-    {
-        //
-    }
+    // public function show(Aset $aset)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id)
-    {
-        $breadcrumb = (object) [
-            'title' => 'Edit',
-            'list' => ['Pages', 'Aset', 'Edit']
-        ];
-
-        $aset = AsetModel::find($id);
-
-        $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
-        $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
-        $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
-
-        return view('aset.edit', [
-            'breadcrumb' => $breadcrumb,
-            'aset' => $aset,
-            'notifPengaduan' => $notifPengaduan,
-            'notifSktm' => $notifSktm,
-            'notifSp' => $notifSp,
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateAsetRequest $request, string $id)
     {
         $request->validate([
+            // 'aset_id' => 'required',
             'nama' => 'required',
-            'deskripsi' => 'required',
-            'jenis' => 'required',
+            // 'deskripsi' => 'required',
+            'status' => 'required',
+            'kepemilikan' => 'required',
+            // 'jenis' => 'required',
         ]);
 
         $aset = AsetModel::findOrFail($id);
-
-        $namaFile = $aset->gambar;
-
-        if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if ($namaFile && File::exists(public_path('gambar/aset/' . $namaFile))) {
-                File::delete(public_path('gambar/aset/' . $namaFile));
-            }
-
-            $extfile = $request->file('gambar')->getClientOriginalExtension();
-            $judulFormatted = strtolower(str_replace(' ', '', $request->nama));
-            $namaFile = $judulFormatted . '.' . $extfile;
-            $request->file('gambar')->move(public_path('gambar/aset/'), $namaFile);
-        }
-
         $aset->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'jenis' => $request->jenis,
-            'gambar' => $namaFile,
+            'nama' => $request->nama_aset,
+            'status' => $request->status,
+            'rt' => $request->kepemilikan,
         ]);
 
         return redirect('/aset')->with('success', 'Data Aset Berhasil Diubah');
@@ -185,21 +137,14 @@ class AsetController extends Controller
      */
     public function destroy(string $id)
     {
-        $check = AsetModel::find($id);
-        if (!$check) {
-            return redirect('/aset')->with('error', 'Data aset tidak ditemukan');
-        }
+        $aset = AsetModel::findOrFail($id);
 
         try {
-            if ($check->gambar && File::exists(public_path('gambar/aset/' . $check->gambar))) {
-                File::delete(public_path('gambar/aset/' . $check->gambar));
-            }
+            $aset->delete();
 
-            $check->delete();
-
-            return redirect('/aset')->with('success', 'Data aset berhasil dihapus');
-        } catch (\illuminate\Database\QueryException $e) {
-            return redirect('/aset')->with('error' . 'Data aset gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect('/aset')->with('success', 'Data Aset Berhasil Dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/aset')->with('error', 'Data Aset Gagal Dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->enum('status', ['tersedia', 'tidak tersedia']);
             $table->enum('jenis', ['barang', 'tempat']);
+            $table->string('gambar');
+
             $table->unsignedBigInteger('rw')->index();
             $table->unsignedBigInteger('rt')->index();
             $table->timestamps();

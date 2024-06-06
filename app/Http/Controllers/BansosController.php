@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use App\Models\BansosModel;
-use App\Models\KriteriaModel;
-use App\Models\PendaftarBansosModel;
-use App\Models\PenerimaModel;
-use App\Models\SubKriteriaModel;
 use Illuminate\Http\Request;
+use App\Models\KriteriaModel;
+use App\Models\PenerimaModel;
 use Ramsey\Uuid\Type\Integer;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use App\Models\SubKriteriaModel;
+use App\Models\PendaftarBansosModel;
+use Illuminate\Support\Facades\Gate;
 
 class BansosController extends Controller
 {
@@ -18,39 +23,78 @@ class BansosController extends Controller
             'title' => 'Bansos',
             'list' => ['Pages', 'Bansos']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('bansos.index', [
             'breadcrumb' => $breadcrumb,
-            'data' => BansosModel::all()
+            'data' => BansosModel::all(),
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
-    public function detailBansos($bansos_id){
+    public function detailBansos($bansos_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Detail Bansos',
-            'list' => ['Pages', 'Bansos','Detail']
+            'list' => ['Pages', 'Bansos', 'Detail']
         ];
         $bansos = BansosModel::find($bansos_id);
         $kriterias = KriteriaModel::where('bansos_id', $bansos_id)->get();
-        return view('bansos.detailBansos',[
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('bansos.detailBansos', [
             'breadcrumb' => $breadcrumb,
             'bansos' => $bansos,
-            'kriterias' => $kriterias
+            'kriterias' => $kriterias,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
-    public function editBansos($bansos_id){
+    public function editBansos($bansos_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Edit Bansos',
-            'list' => ['Pages', 'Bansos','Edit']
+            'list' => ['Pages', 'Bansos', 'Edit']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         $bansos = BansosModel::find($bansos_id);
-        return view('bansos.editBansos',[
+        return view('bansos.editBansos', [
             'breadcrumb' => $breadcrumb,
             'data' => $bansos
+
         ]);
     }
 
-    public function updateBansos($bansos_id, Request $request){
+    public function updateBansos($bansos_id, Request $request)
+    {
         $validatedData = $request->validate([
             'nama_bansos' => 'required',
             'total_bantuan' => 'required',
@@ -78,18 +122,32 @@ class BansosController extends Controller
         }
     }
 
-    public function detailKriteria($bansos_id, $kriteria_id){
+    public function detailKriteria($bansos_id, $kriteria_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Detail Kriteria Bansos',
-            'list' => ['Pages', 'Bansos','Detail','Kriteria']
+            'list' => ['Pages', 'Bansos', 'Detail', 'Kriteria']
         ];
         $kriteria = KriteriaModel::find($kriteria_id);
         $sub = SubKriteriaModel::where('kriteria_id', $kriteria_id)->get();
-        return view('bansos.detailKriteria',[
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('bansos.detailKriteria', [
             'breadcrumb' => $breadcrumb,
             'kriteria' => $kriteria,
             'sub' => $sub,
-            'bansos_id' => $bansos_id
+            'bansos_id' => $bansos_id,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -97,9 +155,24 @@ class BansosController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Create Bansos',
-            'list' => ['Pages', 'Bansos','Create']
+            'list' => ['Pages', 'Bansos', 'Create']
         ];
-        return view('bansos.create', ['breadcrumb' => $breadcrumb]);
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('bansos.create', [
+            'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
     }
 
     public function store(Request $request)
@@ -116,18 +189,36 @@ class BansosController extends Controller
 
         $bansos = BansosModel::create($validatedData);
 
-        return redirect()->route('addKriteria',['bansos_id' => $bansos->bansos_id])->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('addKriteria', ['bansos_id' => $bansos->bansos_id])->with('success', 'Data Berhasil Ditambahkan');
     }
 
-    public function addKriteria($bansos_id){
+    public function addKriteria($bansos_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Insert Kriteria',
-            'list' => ['Pages', 'Bansos','Create','Kriteria']
+            'list' => ['Pages', 'Bansos', 'Create', 'Kriteria']
         ];
-        return view('bansos.kriteria',['breadcrumb' => $breadcrumb, 'bansos_id' => $bansos_id]);
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('bansos.kriteria', [
+            'breadcrumb' => $breadcrumb,
+            'bansos_id' => $bansos_id,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
     }
 
-    public function storeKriteria(Request $request, $bansos_id){
+    public function storeKriteria(Request $request, $bansos_id)
+    {
         $validatedData = $request->validate([
             'nama_kriteria' => 'required|min:1',
             'nama_kriteria.*' => 'required|string|max:255',
@@ -142,23 +233,38 @@ class BansosController extends Controller
             ]);
         }
 
-        return redirect()->route('addSubKriteria',['bansos_id' => $bansos_id]);
+        return redirect()->route('addSubKriteria', ['bansos_id' => $bansos_id]);
     }
 
-    public function addSubKriteria($bansos_id){
+    public function addSubKriteria($bansos_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Tambah Sub-Kriteria',
-            'list' => ['Pages', 'Bansos','Create','Kriteria','Sub-Kriteria']
+            'list' => ['Pages', 'Bansos', 'Create', 'Kriteria', 'Sub-Kriteria']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         $kriterias = KriteriaModel::where('bansos_id', $bansos_id)->get();
-        return view('bansos.subkriteria',[
-            'breadcrumb'=> $breadcrumb, 
+        return view('bansos.subkriteria', [
+            'breadcrumb' => $breadcrumb,
             'bansos_id' => $bansos_id,
-            'kriterias' => $kriterias
+            'kriterias' => $kriterias,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
-    public function storeSubKriteria($bansos_id, Request $request){
+    public function storeSubKriteria($bansos_id, Request $request)
+    {
         $validatedData = $request->validate([
             'kriteria_id' => 'required|min:1',
             'nama_sub_kriteria' => 'required|min:1',
@@ -175,30 +281,32 @@ class BansosController extends Controller
         }
 
         // return redirect('/bansos')->with('success', 'Data berhasil disimpan');
-        return redirect()->route('addBobot',['bansos_id' => $bansos_id]);
+        return redirect()->route('addBobot', ['bansos_id' => $bansos_id]);
     }
 
-    public function addBobot($bansos_id){
+    public function addBobot($bansos_id)
+    {
         $breadcrumb = (object) [
             'title' => 'Bobot Kriteria',
-            'list' => ['Pages', 'Bansos','Create','Kriteria','Bobot']
+            'list' => ['Pages', 'Bansos', 'Create', 'Kriteria', 'Bobot']
         ];
         $benefitKriterias = KriteriaModel::where('bansos_id', $bansos_id)
-                                ->where('jenis_kriteria', 'benefit')
-                                ->get();
+            ->where('jenis_kriteria', 'benefit')
+            ->get();
 
         $costKriterias = KriteriaModel::where('bansos_id', $bansos_id)
-                                ->where('jenis_kriteria', 'cost')
-                                ->get();
-        return view('bansos.bobot',[
-            'breadcrumb'=> $breadcrumb, 
+            ->where('jenis_kriteria', 'cost')
+            ->get();
+        return view('bansos.bobot', [
+            'breadcrumb' => $breadcrumb,
             'bansos_id' => $bansos_id,
             'benefits' => $benefitKriterias,
             'costs' => $costKriterias
         ]);
     }
 
-    public function storeBobot($bansos_id, Request $request){
+    public function storeBobot($bansos_id, Request $request)
+    {
         // Mengambil semua data input
         $input = $request->all();
 
@@ -215,7 +323,7 @@ class BansosController extends Controller
 
                 // Mengatur nilai matriks
                 $benefitMatrix[$id1][$id1] = 1;
-                
+
 
                 if ($value == $id1) {
                     $benefitMatrix[$id1][$id2] = $nilai;
@@ -238,7 +346,7 @@ class BansosController extends Controller
 
                 // Mengatur nilai matriks
                 $costMatrix[$id1][$id1] = 1;
-               
+
 
                 if ($value == $id1) {
                     $costMatrix[$id1][$id2] = $nilai;
@@ -251,68 +359,69 @@ class BansosController extends Controller
             }
         }
 
-        if(!empty($benefitMatrix)){
+        if (!empty($benefitMatrix)) {
             $hasilB = $this->prosesAHP($benefitMatrix, 'benefit', $bansos_id);
             if ($hasilB == NULL) {
-                return redirect()->route('addBobot',['bansos_id'=> $bansos_id ])->with('errorB',"Penilaian Kriteria Benefit tidak Konsisten, Ubah Penilaian!");
+                return redirect()->route('addBobot', ['bansos_id' => $bansos_id])->with('errorB', "Penilaian Kriteria Benefit tidak Konsisten, Ubah Penilaian!");
             }
         }
-        if(!empty($costMatrix)){
+        if (!empty($costMatrix)) {
             $hasilC = $this->prosesAHP($costMatrix, 'cost', $bansos_id);
             if ($hasilC == NULL) {
-                return redirect()->route('addBobot',['bansos_id'=> $bansos_id ])->with('errorC',"Penilaian Kriteria Cost tidak Konsisten, Ubah Penilaian!");
+                return redirect()->route('addBobot', ['bansos_id' => $bansos_id])->with('errorC', "Penilaian Kriteria Cost tidak Konsisten, Ubah Penilaian!");
             }
         }
 
         if (isset($hasilB) && isset($hasilC)) {
             $bobotBen = [];
-                    $bobotCost = [];
-                    foreach ($hasilB as $key => $value) {
-                        $bobotBen[$key] = $hasilB[$key] / 2; 
-                        KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
-                    }
-                    foreach ($hasilC as $key => $value) {
-                        $bobotCost[$key] = $hasilC[$key] / 2; 
-                        KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
-                    }
-                    return redirect('/bansos')->with('success', 'Data berhasil disimpan');
-        }elseif(isset($hasilB)){
-                $bobotBen = [];
-                foreach ($hasilB as $key => $value) {
-                    $bobotBen[$key] = $hasilB[$key]; 
-                    KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
-                }
-                return redirect('/bansos')->with('success', 'Data berhasil disimpan');
-        }elseif(isset($hasilC)){
-                $bobotCost = [];
-                foreach ($hasilC as $key => $value) {
-                    $bobotCost[$key] = $hasilC[$key]; 
-                    KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
-                }
-                return redirect('/bansos')->with('success', 'Data berhasil disimpan');
-        }else {
+            $bobotCost = [];
+            foreach ($hasilB as $key => $value) {
+                $bobotBen[$key] = $hasilB[$key] / 2;
+                KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
+            }
+            foreach ($hasilC as $key => $value) {
+                $bobotCost[$key] = $hasilC[$key] / 2;
+                KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
+            }
+            return redirect('/bansos')->with('success', 'Data berhasil disimpan');
+        } elseif (isset($hasilB)) {
+            $bobotBen = [];
+            foreach ($hasilB as $key => $value) {
+                $bobotBen[$key] = $hasilB[$key];
+                KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotBen[$key]]);
+            }
+            return redirect('/bansos')->with('success', 'Data berhasil disimpan');
+        } elseif (isset($hasilC)) {
+            $bobotCost = [];
+            foreach ($hasilC as $key => $value) {
+                $bobotCost[$key] = $hasilC[$key];
+                KriteriaModel::where('kriteria_id', $key)->update(['bobot' => $bobotCost[$key]]);
+            }
+            return redirect('/bansos')->with('success', 'Data berhasil disimpan');
+        } else {
             echo "salah woy";
         }
-        
     }
 
     //AHP
 
-    private function prosesAHP($matrix, $jenis, $bansos_id){
+    private function prosesAHP($matrix, $jenis, $bansos_id)
+    {
         $normalisasi = $this->normalisasi($matrix);
         $PW = $this->hitungPW($normalisasi);
 
         if ($this->cekCR($matrix, $PW)) {
             return $PW;
-        }else{
+        } else {
             return null;
         }
     }
 
-    private function normalisasi($matrix){
+    private function normalisasi($matrix)
+    {
         $total = [];
         foreach ($matrix as $key => $value) {
-            foreach ($value as $kolom => $nilai ) {
+            foreach ($value as $kolom => $nilai) {
                 if (!isset($total[$kolom])) {
                     $total[$kolom] = 0;
                 }
@@ -329,7 +438,8 @@ class BansosController extends Controller
         return $normal;
     }
 
-    private function hitungPW($normal){
+    private function hitungPW($normal)
+    {
         $jumlah = [];
         $PW = [];
         foreach ($normal as $key => $value) {
@@ -348,7 +458,8 @@ class BansosController extends Controller
         return $PW;
     }
 
-    private function cekCR($matrix, $PW){
+    private function cekCR($matrix, $PW)
+    {
         $hasil = [];
 
         $count = 0;
@@ -356,7 +467,6 @@ class BansosController extends Controller
             $total = 0;
             foreach ($row as $kolom => $nilai) {
                 $total += $nilai * $PW[$kolom];
-                
             }
             $hasil[$key] = $total / $PW[$key];
             $count++;
@@ -367,7 +477,7 @@ class BansosController extends Controller
             $lmax += $value;
         }
         $lmax = $lmax / $count;
-        $ci = ($lmax - $count) / ($count-1);
+        $ci = ($lmax - $count) / ($count - 1);
 
         $tableRI = [
             1 => 0,
@@ -382,22 +492,22 @@ class BansosController extends Controller
             10 => 1.51
         ];
 
-        foreach ($tableRI as $n => $ri){
+        foreach ($tableRI as $n => $ri) {
             if ($n == $count) {
                 if ($ri == 0) {
                     $cr = 0;
-                }else{
+                } else {
                     $cr = $ci / $ri;
                 }
             }
         }
 
-        return ($cr <= 0.1) ? true : false; 
+        return ($cr <= 0.1) ? true : false;
     }
 
     public function destroy(string $id)
     {
-        $check = BansosModel::find($id); 
+        $check = BansosModel::find($id);
         if (!$check) {
             return redirect('/bansos')->with('error', 'Data tidak ditemukan');
         }
@@ -411,7 +521,8 @@ class BansosController extends Controller
         }
     }
 
-    public function tampilPendaftar($bansos_id){
+    public function tampilPendaftar($bansos_id)
+    {
         $bansos = BansosModel::with('getPendaftar.user')->find($bansos_id);
         $hasil = $this->prosesMabac($bansos_id);
 
@@ -423,16 +534,17 @@ class BansosController extends Controller
         }
         $breadcrumb = (object) [
             'title' => 'List Pendaftar Bansos',
-            'list' => ['Pages','Bansos', 'Pendaftar Bansos']
+            'list' => ['Pages', 'Bansos', 'Pendaftar Bansos']
         ];
-        return view('bansos.tampilPendaftar',[
+        return view('bansos.tampilPendaftar', [
             'breadcrumb' => $breadcrumb,
             'bansos' => $bansos,
             'hasil' => $hasil
         ]);
     }
 
-    public function konfirmasi($bansos_id, Request $request){ //fungsi buat menyetujui siapa saja yang akan menerima bansos
+    public function konfirmasi($bansos_id, Request $request)
+    { //fungsi buat menyetujui siapa saja yang akan menerima bansos
         // dd($request->pendaftar_id);
         $request->validate([
             'pendaftar_id' => 'required|array|min:1', // pendaftar_id adalah array dan minimal ada satu elemen
@@ -449,30 +561,31 @@ class BansosController extends Controller
                 ->whereNotIn('pendaftar_id', $request['pendaftar_id'])
                 ->update([
                     'status' => 'ditolak'
-            ]);
+                ]);
             BansosModel::where('bansos_id', $bansos_id)->update([
                 'status' => 'selesai'
             ]);
         }
-        return redirect()->route('tampilPenerima',['bansos_id' => $bansos_id])->with('success', 'Data Penerima Berhasil Disimpan');
-
+        return redirect()->route('tampilPenerima', ['bansos_id' => $bansos_id])->with('success', 'Data Penerima Berhasil Disimpan');
     }
 
-    public function tampilPenerima($bansos_id){
+    public function tampilPenerima($bansos_id)
+    {
         $bansos = BansosModel::with('getPendaftar.user')->find($bansos_id);
-    
+
         $breadcrumb = (object) [
             'title' => 'List Penerima Bansos',
             'list' => ['Pages', 'Bansos', 'Penerima Bansos']
         ];
-        return view('bansos.tampilPenerima',[
+        return view('bansos.tampilPenerima', [
             'breadcrumb' => $breadcrumb,
             'bansos' => $bansos
         ]);
     }
 
     //MABAC
-    private function prosesMabac($bansos_id){
+    private function prosesMabac($bansos_id)
+    {
         $pendaftars = PendaftarBansosModel::with(['getKriteria'])->where('bansos_id', $bansos_id)->get();
 
         $matriksKeputusan = [];
@@ -480,7 +593,6 @@ class BansosController extends Controller
             foreach ($p->getKriteria as $kriteria => $value) {
                 $matriksKeputusan[$p->pendaftar_id][$value->getSubKriteria->getKriteria->kriteria_id] = $value->getSubKriteria->nilai;
             }
-
         }
         $normal = $this->normalisasiMabac($matriksKeputusan);
         $tertimbang = $this->matriksTertimbang($normal);
@@ -492,7 +604,8 @@ class BansosController extends Controller
         return $hasil;
     }
 
-    private function normalisasiMabac($matriksKeputusan){
+    private function normalisasiMabac($matriksKeputusan)
+    {
         $nilaiMin = [];
         $nilaiMax = [];
         $normalisasi = [];
@@ -511,12 +624,12 @@ class BansosController extends Controller
         foreach ($matriksKeputusan as $baris => $value) {
             foreach ($value as $kolom => $nilai) {
                 $kriteria = KriteriaModel::find($kolom);
-                if ($nilaiMax[$kolom] == $nilaiMin[$kolom]){
+                if ($nilaiMax[$kolom] == $nilaiMin[$kolom]) {
                     $normalisasi[$baris][$kolom] = 0;
-                }else if ($kriteria->jenis_kriteria == 'benefit') {
-                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMin[$kolom]) / ($nilaiMax[$kolom]-$nilaiMin[$kolom]);
-                }else{
-                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMax[$kolom]) / ($nilaiMin[$kolom]-$nilaiMax[$kolom]);
+                } else if ($kriteria->jenis_kriteria == 'benefit') {
+                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMin[$kolom]) / ($nilaiMax[$kolom] - $nilaiMin[$kolom]);
+                } else {
+                    $normalisasi[$baris][$kolom] = ($nilai - $nilaiMax[$kolom]) / ($nilaiMin[$kolom] - $nilaiMax[$kolom]);
                 }
             }
         }
@@ -524,7 +637,8 @@ class BansosController extends Controller
         return $normalisasi;
     }
 
-    private function matriksTertimbang($normal){
+    private function matriksTertimbang($normal)
+    {
         $tertimbang = [];
 
         foreach ($normal as $baris => $b) {
@@ -537,11 +651,12 @@ class BansosController extends Controller
         return $tertimbang;
     }
 
-    private function perkiraanPerbatasan($timbang){
+    private function perkiraanPerbatasan($timbang)
+    {
         $batas = [];
         foreach ($timbang as $baris => $b) {
             foreach ($b as $kolom => $nilai) {
-                if (!isset($batas[$kolom])){
+                if (!isset($batas[$kolom])) {
                     $batas[$kolom] = 1;
                 }
                 $batas[$kolom] *= $nilai;
@@ -549,12 +664,13 @@ class BansosController extends Controller
         }
 
         foreach ($batas as $key => $value) {
-            $batas[$key] = pow($value, 1/count($timbang));
+            $batas[$key] = pow($value, 1 / count($timbang));
         }
         return $batas;
     }
 
-    private function jarakPerkiraan($tertimbang, $batas){
+    private function jarakPerkiraan($tertimbang, $batas)
+    {
         $jarak = [];
 
         foreach ($tertimbang as $baris => $val) {
@@ -566,17 +682,18 @@ class BansosController extends Controller
         return $jarak;
     }
 
-    private function perankingan($jarak) {
+    private function perankingan($jarak)
+    {
         $rank = [];
-    
+
         // Hitung jumlah elemen per baris
         foreach ($jarak as $baris => $val) {
             $rank[$baris] = array_sum($val);
         }
-    
+
         // Urutkan berdasarkan nilai (value) secara menurun, mempertahankan indeks aslinya
         arsort($rank);
-    
+
         // Tetapkan peringkat dan gabungkan dengan nilai total
         $currentRank = 1;
         foreach ($rank as $baris => $nilai) {
@@ -585,12 +702,7 @@ class BansosController extends Controller
                 'ranking' => $currentRank++
             ];
         }
-    
+
         return $rank;
     }
-    
-
-    
-    
-
 }

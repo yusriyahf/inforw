@@ -1,5 +1,6 @@
 <?php
 
+use App\Traits\Notifikasi;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RtModel;
@@ -55,7 +56,7 @@ Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    if (Gate::allows('is-bendahara') || Gate::allows('is-rt')) {
+    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga')) {
         $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
             ->sum('jumlah');
         $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
@@ -199,6 +200,15 @@ Route::get('/home', function () {
         ];
     }
 
+    if (Gate::allows('is-warga')) {
+        $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+    } elseif (Gate::allows('is-rt')) {
+        $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+        $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+        $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+    }
+
+
     return view('welcome', [
         'breadcrumb' => $breadcrumb,
         'data' => $data,
@@ -207,6 +217,10 @@ Route::get('/home', function () {
         'totalPemasukan' => $totalPemasukan,
         'totalPengeluaran' => $totalPengeluaran,
         'totalSaldo' => $totalSaldo,
+        'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+        'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+        'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+        'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         'totalWarga' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalWarga : null,
         'totalPengaduan' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPengaduan : null,
         'totalSurat' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalSurat : null,
@@ -359,10 +373,22 @@ Route::get('/keluarga', function () {
         'list' => ['Pages', 'Kartu Keluarga']
     ];
 
+    if (Gate::allows('is-warga')) {
+        $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+    } elseif (Gate::allows('is-rt')) {
+        $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+        $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+        $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+    }
+
     return view('keluarga.index', [
         'breadcrumb' => $breadcrumb,
         'data' => $data,
-        'anggota' => $anggota
+        'anggota' => $anggota,
+        'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+        'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+        'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+        'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
     ]);
 });
 Route::group(['prefix' => 'pengeluaran'], function () {

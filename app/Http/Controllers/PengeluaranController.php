@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PengeluaranModel;
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use App\Models\PengeluaranModel;
+use Illuminate\Support\Facades\Gate;
 
 class PengeluaranController extends Controller
 {
@@ -22,12 +27,25 @@ class PengeluaranController extends Controller
             'title' => 'Pengeluaran',
             'list' => ['Pages', 'Pengeluaran']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pengeluaran.index', [
             'breadcrumb' => $breadcrumb,
             'pengeluaran' => $data,
             'tanggal' => $tanggal,
             'jumlahPengeluaran' => $jumlahPengeluaran,
             'totalPengeluaran' => $totalPengeluaran,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
     public function create()
@@ -36,8 +54,22 @@ class PengeluaranController extends Controller
             'title' => 'Create',
             'list' => ['Pages', 'Pengeluaran', 'Create']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+
         return view('pengeluaran.create', [
             'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
     public function store(Request $request)
@@ -59,12 +91,22 @@ class PengeluaranController extends Controller
             'title' => 'Edit',
             'list' => ['Pages', 'Pengeluaran', 'Edit']
         ];
-
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
         $data = PengeluaranModel::find($id);
 
         return view('pengeluaran.edit', [
             'breadcrumb' => $breadcrumb,
-            'data' => $data
+            'data' => $data,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
     public function update(Request $request, string $id)

@@ -50,11 +50,12 @@
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Aset</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kepemilikan</th>
+                  {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kepemilikan</th> --}}
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                 </tr>
               </thead>
@@ -64,6 +65,19 @@
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                   </td>
+                  
+                  <td class="align-middle text-center text-sm">
+                    @if (!empty($aset->gambar))
+                        <span class="text-secondary text-xs font-weight-bold">
+                            <a href="#" class="text-decoration-none text-reset" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-url="gambar/aset/{{ $aset->gambar }}">
+                                <img src="{{ asset('gambar/aset/' . $aset->gambar) }}" alt="Image" style="height: 150px;">
+                            </a>
+                        </span>
+                    @else
+                        <span class="text-danger text-xs font-weight-bold">Tidak ada</span>
+                    @endif
+                </td>
+                
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $aset->nama }}</span>
                   </td>
@@ -74,13 +88,11 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $aset->jenis }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->Status }}</span>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $aset->rt }}</span>
+                    <span class="badge badge-sm bg-gradient-
+                    bg-gradient-{{ $aset->status == 'tersedia' ? 'success' : 'danger' }}">{{ $aset->status }}</span>
                   </td>
                   <td class="align-middle text-center">
-                    <a class="btn btn-link text-dark px-1 mb-0" href="aset/{{ $aset->id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
+                    <a class="btn btn-link text-dark px-1 mb-0" href="/aset/{{ $aset->aset_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
 
                     <form class="d-inline-block" method="POST" action="aset/{{$aset->id }}">
                         @csrf
@@ -128,5 +140,31 @@
            "responsive": true,
        });
    });
+</script>
+
+ <!-- Modal -->
+ <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+              <img id="modalImage" src="" class="img-fluid" alt="Image Preview">
+          </div>
+      </div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var imageModal = document.getElementById('imageModal');
+    imageModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var imageUrl = button.getAttribute('data-image-url'); // Extract info from data-* attributes
+        var modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+    });
+});
 </script>
 @endsection
