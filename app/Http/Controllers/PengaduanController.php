@@ -87,7 +87,6 @@ class PengaduanController extends Controller
             'user' => 'required',
             'rw' => 'required',
             'rt' => 'required',
-            'tanggal_pengaduan' => 'required',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -178,7 +177,6 @@ class PengaduanController extends Controller
             'user' => 'required',
             'rw' => 'required',
             'rt' => 'required',
-            'tanggal_pengaduan' => 'required',
         ]);
 
         $pengaduan = PengaduanModel::find($id);

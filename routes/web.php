@@ -27,7 +27,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\LaporanController;
-// use Illuminate\Auth\Access\Gate;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PemasukanController;

@@ -172,7 +172,6 @@ class DatabaseSeeder extends Seeder
             'pengumuman_id' => '1',
             'judul' => 'Beso Kerja Bakti',
             'deskripsi' => 'Semua bapak bapak wajib mengikuti jika tidak akan dikenakan sangsi yang sangat berat lo',
-            'tanggal' =>  now()->toDateString(),
             'user' => '1',
             'rt' => '1'
         ]);
@@ -181,7 +180,6 @@ class DatabaseSeeder extends Seeder
             'pengumuman_id' => '2',
             'judul' => 'Ada warga baru',
             'deskripsi' => 'Semuanya mari kita beri sambutan yang meriah kepada pak martis',
-            'tanggal' =>  now()->toDateString(),
             'user' => '1',
             'rt' => '1'
         ]);

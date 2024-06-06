@@ -45,7 +45,7 @@
                     @enderror
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
                   <label for="deskripsi" class="form-control-label">Deskripsi</label>
                   <input class="form-control @error('deskripsi') is-invalid @enderror" type="text" name="deskripsi" id="deskripsi" value="{{ old('deskripsi') }}">
@@ -56,6 +56,8 @@
                     @enderror
                 </div>
               </div>
+             
+             
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="gambar" class="form-control-label">Gambar</label>
@@ -67,17 +69,13 @@
                     @enderror
                 </div>
             </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="tanggal_pengaduan" class="form-control-label">Tanggal Pengaduan</label>
-                  <input class="form-control @error('tanggal_pengaduan') is-invalid @enderror" type="date" name="tanggal_pengaduan" id="tanggal_pengaduan" value="{{ old('tanggal_pengaduan') }}">
-                    @error('tanggal_pengaduan')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-              </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+              <div class="mt-3">
+                <img id="preview" src="#" alt="Preview Gambar" class="img-fluid" style="display: none;">
+            </div>
+            </div>
+
               <div class="col-md-10">
 
               </div>
@@ -93,4 +91,30 @@
       </div>
     </div>
   </div>
+  <script>
+    function previewImage() {
+        var preview = document.getElementById('preview');
+        var file    = document.getElementById('gambar').files[0];
+        var reader  = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+            preview.style.display = 'none';
+        }
+    }
+
+    // Additional logging for debugging
+    document.getElementById('gambar').addEventListener('change', function(event) {
+        console.log("File input changed.");
+        console.log("Selected file: ", event.target.files[0]);
+        previewImage();
+    });
+</script>
 @endsection

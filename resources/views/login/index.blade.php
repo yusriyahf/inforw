@@ -81,7 +81,7 @@
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href="#" class="btn btn-sm mb-0 me-1 btn-primary">Kecamatan Pandanwangi</a>
+                  <a href="/" class="btn btn-sm mb-0 me-1 btn-primary">Kecamatan Pandanwangi</a>
                 </li>
               </ul>
             </div>

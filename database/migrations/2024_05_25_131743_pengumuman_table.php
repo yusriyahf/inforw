@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
-            $table->date('tanggal');
             $table->unsignedBigInteger('user')->index();
             $table->unsignedBigInteger('rt')->index();
 

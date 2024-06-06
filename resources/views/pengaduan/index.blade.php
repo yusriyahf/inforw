@@ -31,7 +31,6 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengaduan</th>
                   @if (Gate::check('is-rw') || Gate::check('is-rt'))
                       
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Warga</th>
@@ -67,9 +66,6 @@
                 </td>
                 
                   
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pn->tanggal_pengaduan}}</span>
-                  </td>
                   @if (Gate::check('is-rw') || Gate::check('is-rt'))
                   <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->users->nama}}</span>
