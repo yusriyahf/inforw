@@ -314,7 +314,20 @@ Route::delete('/laporan/{id}', [LaporanController::class, 'destroy']);
 
 
 Route::get('/rt', [RtController::class, 'index']);
+Route::get('/rt/create', [RtController::class, 'create']);
+Route::post('/rt/create', [RtController::class, 'store']);
+Route::get('/rt/{id}', [RtController::class, 'show']);
+Route::get('/rt/{id}/edit', [RtController::class, 'edit']);
+Route::put('/rt/{id}', [RtController::class, 'update']);
+Route::delete('/rt/{id}', [RtController::class, 'destroy']);
+
 Route::get('/rw', [RwController::class, 'index']);
+Route::get('/rw/create', [RtController::class, 'create']);
+Route::post('/rw/create', [RtController::class, 'store']);
+Route::get('/rw/{id}', [RwController::class, 'show']);
+Route::get('/rw/{id}/edit', [RwController::class, 'edit']);
+Route::put('/rw/{id}', [RwController::class, 'update']);
+Route::delete('/rw/{id}', [RwController::class, 'destroy']);
 
 
 Route::get('/surat', [SuratController::class, 'index']);

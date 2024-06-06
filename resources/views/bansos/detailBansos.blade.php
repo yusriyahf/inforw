@@ -4,7 +4,17 @@
 
 @section('container')
 <div class="card mb-4">
+    
   <div class="card-body">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
       <h5 class="card-title">{{ $bansos->nama_bansos }}</h5>
       <div class="table-responsive">
           <table class="table">
@@ -35,7 +45,7 @@
                   </tr>
               </tbody>
           </table>
-          <a href="{{ route('addKriteria', ['bansos_id' => $bansos->bansos_id])}}" class="btn btn-secondary">Edit</a>
+          <a href="{{ route('editBansos', ['bansos_id' => $bansos->bansos_id])}}" class="btn btn-secondary">Edit</a>
       </div>
   </div>
 </div>

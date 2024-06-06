@@ -71,6 +71,36 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
+                    <label for="agama" class="form-control-label">Agama</label>
+                    <select class="form-control @error('agama') is-invalid @enderror" name="agama" id="agama">
+                        <option value="">Pilih</option>
+                        <option value="islam" {{ old('agama', $data->agama) == 'islam' ? 'selected' : '' }}>islam</option>
+                        <option value="kristen" {{ old('agama', $data->agama) == 'kristen' ? 'selected' : '' }}>kristen</option>
+                        <option value="katolik" {{ old('agama', $data->agama) == 'katolik' ? 'selected' : '' }}>katolik</option>
+                        <option value="khonghucu" {{ old('agama', $data->agama) == 'khonghucu' ? 'selected' : '' }}>khonghucu</option>
+                        <option value="budha" {{ old('agama', $data->agama) == 'budha' ? 'selected' : '' }}>budha</option>
+                        <option value="katolik" {{ old('agama', $data->agama) == 'katolik' ? 'selected' : '' }}>katolik</option>
+                    </select>
+                    @error('agama')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="alamat" class="form-control-label">Alamat</label>
+                  <input class="form-control" type="text" name="alamat" id="alamat" value="{{ old('alamat', $data->alamat) }}" required>
+                    @error('alamat')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
                     <label for="status_perkawinan" class="form-control-label">Status Perkawinan</label>
                     <select class="form-control @error('status_perkawinan') is-invalid @enderror" name="status_perkawinan" id="status_perkawinan">
                         <option value="">Pilih</option>
@@ -98,8 +128,11 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="notelp" class="form-control-label">No Telp</label>
-                  <input class="form-control @error('notelp') is-invalid @enderror" type="tel" name="notelp" id="notelp" value="{{ old('notelp', $data->notelp) }}">
-                    @error('notelp')
+                  <div class="input-group">
+                    <span class="input-group-text">+62</span>
+                    <input class="form-control @error('notelp') is-invalid @enderror" type="text" name="notelp" id="notelp" value="{{ old('notelp', $data->notelp) }}">
+                  </div>  
+                  @error('notelp')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

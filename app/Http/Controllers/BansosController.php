@@ -46,7 +46,7 @@ class BansosController extends Controller
         $bansos = BansosModel::find($bansos_id);
         return view('bansos.editBansos',[
             'breadcrumb' => $breadcrumb,
-            'bansos' => $bansos
+            'data' => $bansos
         ]);
     }
 
@@ -60,6 +60,22 @@ class BansosController extends Controller
             'tgl_akhir_daftar' => 'required',
             'tgl_penyaluran' => 'required',
         ]);
+
+        $bansos = BansosModel::where('bansos_id',$bansos_id)->update([
+            'nama_bansos' => $request->nama_bansos,
+            'total_bantuan' => $request->total_bantuan,
+            'jenis_bansos' => $request->jenis_bansos,
+            'jumlah_penerima' => $request->jumlah_penerima,
+            'tipe_penerima' => $request->tipe_penerima,
+            'tgl_akhir_daftar' => $request->tgl_akhir_daftar,
+            'tgl_penyaluran' => $request->tgl_penyaluran,
+        ]);
+
+        if ($bansos) {
+            return redirect()->route('detailBansos',['bansos_id'=>$bansos_id])->with('success','Data berhasil diupdate');
+        }else{
+            return redirect()->route('detailBansos',['bansos_id'=>$bansos_id])->with('error','Data gagal diupdate');
+        }
     }
 
     public function detailKriteria($bansos_id, $kriteria_id){
