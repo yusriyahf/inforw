@@ -211,6 +211,87 @@ class DatabaseSeeder extends Seeder
             'rw' => '1',
             'rt' => '1',
         ]);
+        AsetModel::create([
+            'aset_id' => '4',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '5',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '6',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '7',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '8',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '9',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '10',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '11',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '12',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
 
         PemasukanModel::create([
             'pemasukan_id' => '1',

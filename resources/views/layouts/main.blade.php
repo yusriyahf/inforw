@@ -236,6 +236,20 @@
   <script src="/js/argon-dashboard.min.js?v=2.0.4"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   @stack('js')
+
+  {{-- DATATABLES --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js" defer></script>
+  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+  <script>
+
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+    </script>
 </body>
 
 </html>

@@ -45,7 +45,7 @@
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
+            <table class="table tables align-items-center mb-0">
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
@@ -163,46 +163,7 @@
     </div>
   </div>
   </div>
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-<!-- DataTables JS -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
-<!-- Custom CSS -->
-<style>
-    table.dataTable.no-footer {
-        border-bottom: 1px solid #e0e0e0; /* Change this color to the desired border color */
-    }
-    div.dataTables_wrapper div.dataTables_filter {
-        text-align: left;
-    }
-    div.dataTables_wrapper div.dataTables_filter input {
-        margin-left: 0.5em;
-    }
-    div.dataTables_wrapper div.dataTables_info {
-        text-align: right;
-    }
-</style>
-
-<script>
-  $(document).ready(function() {
-      var table = $('#assetTable').DataTable({ // Ensure it targets the correct ID or class
-          "paging": true,
-          "lengthChange": true,
-          "searching": true,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false,
-          "responsive": true,
-      });
-
-      $('#rtFilter').on('change', function() {
-          table.column(3).search(this.value).draw();   
-      });
-  });
-</script>
+  
+   
 @endsection
