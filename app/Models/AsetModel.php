@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class AsetModel extends Model
 {
@@ -24,5 +25,10 @@ class AsetModel extends Model
     {
         return $this->belongsTo(RtModel::class, 'rt', 'rt_id');
     }
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($image) => url('/gambar/aset/' . $image),
+        );
+    }
 }
-
