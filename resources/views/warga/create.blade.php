@@ -166,12 +166,8 @@
               </div>
 
               <div class="col-md-10">
-
+                <button type="submit" class="btn btn-primary btn-sm me-2">Buat</button>
               </div>
-              <form action="/warga/store" method="POST">
-                @csrf
-                <!-- Form fields -->
-                <a href="/warga"  class="btn btn-primary btn-sm me-2">Buat</a>
               </form>
             
 

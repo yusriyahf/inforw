@@ -174,7 +174,7 @@
 
               </div>
               <div class="col-md-2">
-                <button class="btn btn-primary btn-sm ms-auto" type="submit">Create</button>
+                <button class="btn btn-primary btn-sm ms-auto" type="submit">Save</button>
 
               </div>
 

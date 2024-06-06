@@ -42,13 +42,25 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->getketuart->nama }} </span>
+                          @empty($d->getketuart)
+                            <span class="text-danger text-xs font-weight-bold">(belum diinput)</span>
+                          @else
+                            <span class="text-secondary text-xs font-weight-bold">{{ $d->getketuart->nama }} </span>
+                          @endempty
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->getsekretarisrt->nama }} </span>
+                          @empty($d->getsekretarisrt)
+                            <span class="text-danger text-xs font-weight-bold">(belum diinput)</span>
+                          @else
+                            <span class="text-secondary text-xs font-weight-bold">{{ $d->getsekretarisrt->nama }} </span>
+                          @endempty
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->getbendaharart->nama }} </span>
+                          @empty($d->getbendaharart)
+                            <span class="text-danger text-xs font-weight-bold">(belum diinput)</span>
+                          @else
+                            <span class="text-secondary text-xs font-weight-bold">{{ $d->getbendaharart->nama }} </span>
+                          @endempty
                         </td>
                         <td class="align-middle text-center">
                             <a class="btn btn-link text-dark px-1 mb-0" href="/rt/{{ $d->rt_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>

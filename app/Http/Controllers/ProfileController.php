@@ -89,18 +89,22 @@ class ProfileController extends Controller
         $request->validate([
             'nama' => 'required',
             'nik' => 'required',
+            'alamat'=> 'required',
+            'agama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'pekerjaan' => 'required',
-            'notelp' => 'required',
+            'notelp' => 'required|min:10',
 
         ]);
 
         User::find(auth()->user()->user_id)->update([
             'nama' => $request->nama,
             'nik' => $request->nik,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'status_perkawinan' => $request->status_perkawinan,

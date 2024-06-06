@@ -47,8 +47,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="notelp" class="form-control-label">No Telp</label>
-                  <input class="form-control" type="text" name="notelp" id="notelp" value="{{ old('notelp', $data->notelp) }}" readonly>
+                  <label for="pekerjaan" class="form-control-label">Alamat</label>
+                  <input class="form-control" type="text" name="alamat" id="alamat" value="{{ old('alamat', $data->alamat) }}" readonly>
                 </div>
               </div>
               <div class="col-md-6">
@@ -77,8 +77,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="pekerjaan" class="form-control-label">Pekerjaan</label>
-                  <input class="form-control" type="text" name="pekerjaan" id="pekerjaan" value="{{ old('pekerjaan', $data->pekerjaan) }}" readonly>
+                  <label for="pekerjaan" class="form-control-label">Agama</label>
+                  <input class="form-control" type="text" name="pekerjaan" id="agama" value="{{ old('agama', $data->agama) }}" readonly>
                 </div>
               </div>
               <div class="col-md-6">
