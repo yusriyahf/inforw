@@ -5,7 +5,7 @@
 @section('container')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Kriteria Bansos {{ $bansos_id }}</h5>
+        <h5 class="mb-0">Tambah Kriteria</h5>
         <button class="btn btn-primary btn-sm" id="addKriteria">Add</button>
     </div>
     <div class="table-responsive">

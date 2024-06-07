@@ -13,4 +13,13 @@ class BansosModel extends Model
     protected $primaryKey = 'bansos_id';
 
     protected $guarded = ['bansos_id'];
+
+    public function kriteria()
+    {
+        return $this->hasMany(KriteriaModel::class, 'bansos_id', 'bansos_id');
+    }
+    public function getPendaftar()
+    {
+        return $this->hasMany(PendaftarBansosModel::class, 'bansos_id', 'bansos_id');
+    }
 }
