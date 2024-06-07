@@ -30,6 +30,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Kelamin</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tempat Lahir</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Lahir</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Agama</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pekerjaan</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Perkawinan</th>
                 </tr>
@@ -54,6 +55,9 @@
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal_lahir }}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $d->agama }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $d->pekerjaan }}</span>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PengumumanModel;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\File;
 
 class PengumumanController extends Controller
 {
@@ -66,6 +67,16 @@ class PengumumanController extends Controller
             'user' => 'required',
         ]);
 
+        if ($request->hasFile('gambar')) {
+            $extfile = $request->file('gambar')->getClientOriginalExtension();
+
+            $judulFormatted = strtolower(str_replace(' ', '', $request->judul));
+            $namaFile = $judulFormatted . '.' . $extfile;
+
+            $request->file('gambar')->move(public_path('gambar/pengumuman'), $namaFile);
+            $validatedData['gambar'] = $namaFile;
+        }
+
         PengumumanModel::create($validatedData);
 
         return redirect('/pengumuman')->with('success', 'Pengumuman berhasil dibuat');
@@ -117,9 +128,25 @@ class PengumumanController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        PengumumanModel::find($id)->update([
+        $pengumuman = PengumumanModel::find($id);
+        $namaFile = $pengumuman->gambar;
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($namaFile && File::exists(public_path('gambar/pengumuman/' . $namaFile))) {
+                File::delete(public_path('gambar/pengumuman/' . $namaFile));
+            }
+
+            $extfile = $request->file('gambar')->getClientOriginalExtension();
+            $judulFormatted = strtolower(str_replace(' ', '', $request->judul));
+            $namaFile = $judulFormatted . '.' . $extfile;
+            $request->file('gambar')->move(public_path('gambar/pengumuman/'), $namaFile);
+        }
+
+        $pengumuman->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
+            'gambar' => $namaFile
         ]);
 
         return redirect('/pengumuman')->with('success', 'Data Pengumuman berhasil diubah');
@@ -136,7 +163,11 @@ class PengumumanController extends Controller
         }
 
         try {
-            PengumumanModel::destroy($id);
+            if ($check->gambar && File::exists(public_path('gambar/pengumuman/' . $check->gambar))) {
+                File::delete(public_path('gambar/pengumuman/' . $check->gambar));
+            }
+
+            $check->delete();
 
             return redirect('/pengumuman')->with('success', 'Data pengumuman berhasil dihapus');
         } catch (\illuminate\Database\QueryException $e) {
