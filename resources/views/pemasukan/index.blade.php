@@ -3,17 +3,13 @@
 @section('container')
 <div class="container-fluid py-4">
     <div class="row">
-        <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
-            <h2 class="text-white">Pemasukan Keuangan</h2>
-            <h6 class="text-white">Buat Pemasukan Keuangan untuk warga dengan solusi digital</h6>
-           
-        </div>
-        {{-- SKTM --}}
         <div class="col-12 mt-1">
             <div class="card mb-4">
               <div class="card-header pb-0">
                 <h6>Riwayat Pemasukan Keuangan</h6>
+                @can('is-bendahara')
                 <a href="/pemasukan/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+                @endcan
                 <form action="/pemasukan" method="GET" style="display: flex; align-items: flex-start;">
                   @csrf
                   <div class="form-group" style="margin-right: 10px;">
@@ -22,7 +18,56 @@
                   </div>
                   <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
               </form>
-              
+              <div class="row">
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                                            Total Iuran
+                                        </p>
+                                        <h5 class="font-weight-bolder">{{ $totalIuran }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fas fa-mail-bulk text-lg opacity-10" style="color: #ffffff;"></i>
+                                        {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-uppercase font-weight-bold">
+                                            Total Saldo
+                                        </p>
+                                        <h5 class="font-weight-bolder">{{ formatRupiah($totalSaldo) }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fas fa-mail-bulk text-lg opacity-10" style="color: #ffffff;"></i>
+                                        {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+ 
+              {{-- <h6>Jenis Iuran Masuk: {{ $totalIuran }}</h6> --}}
+              {{-- <h6>total saldo: {{ formatRupiah($totalSaldo) }}</h6> --}}
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('success') }}
@@ -39,7 +84,9 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                        @can('is-bendahara')
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                        @endcan
                       </tr>
                     </thead>
                     <tbody>
@@ -52,17 +99,15 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->jumlah }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ formatRupiah($d->jumlah) }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->users->nama }} </span>
                         </td>
-                        {{-- <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->getrt }} </span>
-                        </td> --}}
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal }} </span>
                         </td>
+                        @can('is-bendahara')
                         <td class="align-middle text-center">
                             <a class="btn btn-link text-dark px-1 mb-0" href="/pemasukan/{{ $d->pemasukan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
         
@@ -75,6 +120,7 @@
                             </form>
                             
                           </td>
+                          @endcan
                       </tr>
                       @endforeach
                       
@@ -90,4 +136,5 @@
         
     </div>
 </div>
+
 @endsection

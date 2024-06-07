@@ -29,16 +29,27 @@
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                    <label for="jumlah" class="form-control-label">Jumlah</label>
-                    <textarea class="form-control @error('jumlah') is-invalid @enderror" name="jumlah" id="jumlah">{{ old('jumlah', $data->jumlah) }}</textarea>
-                    @error('jumlah')
+                  <label for="jumlah" class="form-control-label">Jumlah</label>
+                  <input class="form-control @error('jumlah') is-invalid @enderror" type="number" name="jumlah" id="jumlah" value="{{ old('jumlah', $data->jumlah) }}" autocomplete="off">
+                  @error('jumlah')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+              </div>
+             
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="tanggal" class="form-control-label">Tanggal</label>
+                <input class="form-control @error('tanggal') is-invalid @enderror" type="date" name="tanggal" id="tanggal" value="{{ old('tanggal', $data->tanggal) }}" autocomplete="off">
+                @error('tanggal')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
+              </div>
             </div>
-            
               
              <div class="col-md-10">
 

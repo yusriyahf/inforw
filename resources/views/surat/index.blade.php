@@ -9,7 +9,7 @@
         </div>
         <div class="col-12 mt-1">
             
-            <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary me-2">SKTM</a>
+            <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary">SKTM</a>
             <a href="/sp" class="btn btn-white btn-sm ms-auto text-primary">SP</a>
         </div>
 
@@ -31,6 +31,7 @@
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pendaftar</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PDF</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Surat</th>
                       </tr>
@@ -45,7 +46,13 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $data->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold"><a href="/sktm/{{ $data->sktm_id }}" class="text-primary">Cetak</a></span>
+
+                          <span class="text-secondary text-xs font-weight-bold"><a href="/generate-pdf/sktm/{{ $data->sktm_id }}" class="text-primary" target="_blank">Cetak</a></span>
+
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-secondary text-xs font-weight-bold"><a href="/sktm/{{ $data->sktm_id }}"  
+                             class="text-primary">Detail</a></span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>
@@ -80,6 +87,7 @@
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pendaftar</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PDF</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Surat</th>
                       </tr>
@@ -94,7 +102,10 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $data->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold"><a href="/sp/{{ $data->sp_id }}" class="text-primary">Cetak</a></span>
+                          <span class="text-secondary text-xs font-weight-bold"><a href="/generate-pdf/sp/{{ $data->sp_id }}" class="text-primary">Cetak</a></span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="text-secondary text-xs font-weight-bold"><a href="/sp/{{ $data->sp_id }}" class="text-primary">Detail</a></span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>

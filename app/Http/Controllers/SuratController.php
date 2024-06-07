@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SktmModel;
 use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use Illuminate\Support\Facades\Gate;
 
 class SuratController extends Controller
 {
@@ -19,10 +22,23 @@ class SuratController extends Controller
             'list' => ['Pages', 'Surat']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('surat.index', [
             'breadcrumb' => $breadcrumb,
             'datasktm' => $datasktm,
-            'datasp' => $datasp
+            'datasp' => $datasp,
+            'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 

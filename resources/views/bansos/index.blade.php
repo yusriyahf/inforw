@@ -58,6 +58,11 @@
                   </td>
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/bansos/{{ $d->bansos_id }}"><i class="fas fa-info-circle text-dark me-2" aria-hidden="true"></i></a>
+                    @if ($d->status == 'proses')
+                    <a class="btn btn-link text-dark px-1 mb-0" href="{{ route('tampilPendaftar', ['bansos_id'=>$d->bansos_id])}}"><i class="fas fa-users text-dark me-2" aria-hidden="true"></i></a>
+                    @elseif ($d->status == 'selesai')
+                    <a class="btn btn-link text-dark px-1 mb-0" href="{{ route('tampilPenerima', ['bansos_id'=>$d->bansos_id])}}"><i class="fas fa-users text-dark me-2" aria-hidden="true"></i></a>
+                    @endif
                     {{-- <a class="btn btn-link text-dark px-1 mb-0" href="/bansos/{{ $d->bansos_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a> --}}
                     
                     <form class="d-inline-block" method="POST" action="/bansos/{{$d->bansos_id}}">

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
+use App\Models\PengaduanModel;
 use App\Models\PengumumanModel;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 
 class PengumumanController extends Controller
@@ -13,9 +17,20 @@ class PengumumanController extends Controller
      */
     public function index()
     {
+
+
+
         if (Gate::allows('is-rt')) {
 
             $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+
+            if (Gate::allows('is-warga')) {
+                $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+            } elseif (Gate::allows('is-rt')) {
+                $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+                $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+                $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+            }
 
             $breadcrumb = (object) [
                 'title' => 'Pengumuman',
@@ -24,18 +39,36 @@ class PengumumanController extends Controller
 
             return view('pengumuman.admin.index', [
                 'breadcrumb' => $breadcrumb,
-                'data' => $data
+                'data' => $data,
+                'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+                'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+                'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+                'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
             ]);
-        } else {
-
+        } elseif (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
             $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
             $breadcrumb = (object) [
                 'title' => 'Pengumuman',
                 'list' => ['Pages', 'Pengumuman']
             ];
+
+            if (Gate::allows('is-warga')) {
+                $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+            } elseif (Gate::allows('is-rt')) {
+                $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+                $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+                $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+            }
+
+
             return view('pengumuman.warga.index', [
                 'breadcrumb' => $breadcrumb,
-                'data' => $data
+                'data' => $data,
+                'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+                'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+                'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+                'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
             ]);
         }
     }
@@ -49,8 +82,21 @@ class PengumumanController extends Controller
             'title' => 'Create',
             'list' => ['Pages', 'Pengumuman', 'Create']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pengumuman.admin.create', [
             'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -66,6 +112,16 @@ class PengumumanController extends Controller
             'user' => 'required',
         ]);
 
+        if ($request->hasFile('gambar')) {
+            $extfile = $request->file('gambar')->getClientOriginalExtension();
+
+            $judulFormatted = strtolower(str_replace(' ', '', $request->judul));
+            $namaFile = $judulFormatted . '.' . $extfile;
+
+            $request->file('gambar')->move(public_path('gambar/pengumuman'), $namaFile);
+            $validatedData['gambar'] = $namaFile;
+        }
+
         PengumumanModel::create($validatedData);
 
         return redirect('/pengumuman')->with('success', 'Pengumuman berhasil dibuat');
@@ -77,15 +133,29 @@ class PengumumanController extends Controller
     public function show(String $id)
     {
         $data = PengumumanModel::where('pengumuman_id', $id)->first();
+        $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
 
         $breadcrumb = (object) [
             'title' => 'Detail',
             'list' => ['Pages', 'Pengumuman', 'Detail']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pengumuman.warga.show', [
             'breadcrumb' => $breadcrumb,
-            'data' => $data
+            'data' => $data,
+            'notifPengumuman' => $notifPengumuman,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -101,9 +171,21 @@ class PengumumanController extends Controller
 
         $data = PengumumanModel::find($id);
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pengumuman.admin.edit', [
             'breadcrumb' => $breadcrumb,
-            'data' => $data
+            'data' => $data,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -117,9 +199,25 @@ class PengumumanController extends Controller
             'deskripsi' => 'required',
         ]);
 
-        PengumumanModel::find($id)->update([
+        $pengumuman = PengumumanModel::find($id);
+        $namaFile = $pengumuman->gambar;
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($namaFile && File::exists(public_path('gambar/pengumuman/' . $namaFile))) {
+                File::delete(public_path('gambar/pengumuman/' . $namaFile));
+            }
+
+            $extfile = $request->file('gambar')->getClientOriginalExtension();
+            $judulFormatted = strtolower(str_replace(' ', '', $request->judul));
+            $namaFile = $judulFormatted . '.' . $extfile;
+            $request->file('gambar')->move(public_path('gambar/pengumuman/'), $namaFile);
+        }
+
+        $pengumuman->update([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
+            'gambar' => $namaFile
         ]);
 
         return redirect('/pengumuman')->with('success', 'Data Pengumuman berhasil diubah');
@@ -136,7 +234,11 @@ class PengumumanController extends Controller
         }
 
         try {
-            PengumumanModel::destroy($id);
+            if ($check->gambar && File::exists(public_path('gambar/pengumuman/' . $check->gambar))) {
+                File::delete(public_path('gambar/pengumuman/' . $check->gambar));
+            }
+
+            $check->delete();
 
             return redirect('/pengumuman')->with('success', 'Data pengumuman berhasil dihapus');
         } catch (\illuminate\Database\QueryException $e) {

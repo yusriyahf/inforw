@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('pengumuman_id');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->date('tanggal');
+            $table->string('gambar')->nullable();
             $table->unsignedBigInteger('user')->index();
             $table->unsignedBigInteger('rt')->index();
 

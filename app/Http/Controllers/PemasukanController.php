@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
 use App\Models\PemasukanModel;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use Illuminate\Support\Facades\Gate;
 
 class PemasukanController extends Controller
 {
@@ -18,15 +23,32 @@ class PemasukanController extends Controller
             ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
             ->get();
 
+        $totalIuran = $data->count();
+        $totalSaldo = $data->sum('jumlah');
+
         $breadcrumb = (object) [
             'title' => 'Pemasukan',
             'list' => ['Pages', 'Pemasukan']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pemasukan.index', [
             'breadcrumb' => $breadcrumb,
             'data' => $data,
             'tanggal' => $tanggal,
+            'totalIuran' => $totalIuran,
+            'totalSaldo' => $totalSaldo,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -39,8 +61,21 @@ class PemasukanController extends Controller
             'title' => 'Create',
             'list' => ['Pages', 'pemasukan', 'Create']
         ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         return view('pemasukan.create', [
             'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -80,11 +115,23 @@ class PemasukanController extends Controller
             'list' => ['Pages', 'Pemasukan', 'Edit']
         ];
 
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
         $data = PemasukanModel::find($id);
 
         return view('pemasukan.edit', [
             'breadcrumb' => $breadcrumb,
-            'data' => $data
+            'data' => $data,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
         ]);
     }
 
@@ -96,11 +143,13 @@ class PemasukanController extends Controller
         $request->validate([
             'jumlah' => 'required',
             'deskripsi' => 'required',
+            'tanggal' => 'required',
         ]);
 
         PemasukanModel::find($id)->update([
             'jumlah' => $request->jumlah,
             'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
         ]);
 
         return redirect('/pemasukan')->with('success', 'Data Pemasukan berhasil diubah');

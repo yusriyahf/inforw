@@ -67,6 +67,12 @@
             </div>
       @endif
       <table class="table align-items-center mb-3">
+        <thead>
+          <tr>
+            <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">Pilih yang Lebih Penting</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Skala (1-9)</th>
+          </tr>
+        </thead>
         @if ($costs->count() > 1)
           @foreach ($costs as $index1 => $kriteria1)
             @foreach ($costs as $index2 => $kriteria2)

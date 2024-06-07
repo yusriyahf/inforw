@@ -84,7 +84,6 @@ class DatabaseSeeder extends Seeder
         KeluargaModel::create([
             'keluarga_id' => '1',
             'no_kk' => '357304',
-            'kepala_keluarga' => 'Park Hyung Seok',
             'rw' => '1',
             'rt' => '1'
         ]);
@@ -95,6 +94,10 @@ class DatabaseSeeder extends Seeder
             'nama' => 'admin',
             'password' => bcrypt('admin'),
             'role' => '1',
+        ]);
+
+        KeluargaModel::where('keluarga_id', '1')->update([
+            'kepala_keluarga' => '1'
         ]);
 
         User::create([
@@ -169,7 +172,6 @@ class DatabaseSeeder extends Seeder
             'pengumuman_id' => '1',
             'judul' => 'Beso Kerja Bakti',
             'deskripsi' => 'Semua bapak bapak wajib mengikuti jika tidak akan dikenakan sangsi yang sangat berat lo',
-            'tanggal' =>  now()->toDateString(),
             'user' => '1',
             'rt' => '1'
         ]);
@@ -178,7 +180,6 @@ class DatabaseSeeder extends Seeder
             'pengumuman_id' => '2',
             'judul' => 'Ada warga baru',
             'deskripsi' => 'Semuanya mari kita beri sambutan yang meriah kepada pak martis',
-            'tanggal' =>  now()->toDateString(),
             'user' => '1',
             'rt' => '1'
         ]);
@@ -203,6 +204,87 @@ class DatabaseSeeder extends Seeder
         ]);
         AsetModel::create([
             'aset_id' => '3',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '4',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '5',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '6',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '7',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '8',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '9',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '10',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '11',
+            'nama' => 'Sound System',
+            'deskripsi' => 'Suara setara auman singa',
+            'status' =>  'tersedia',
+            'jenis' => 'barang',
+            'rw' => '1',
+            'rt' => '1',
+        ]);
+        AsetModel::create([
+            'aset_id' => '12',
             'nama' => 'Sound System',
             'deskripsi' => 'Suara setara auman singa',
             'status' =>  'tersedia',

@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">
+          <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -26,6 +26,16 @@
             <span class="nav-link-text ms-1">Warga</span>
           </a>
         </li>
+        @endif
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+          <li class="nav-item">
+              <a class="nav-link {{ Request::is('aset') ? 'active' : '' }}" href="/aset">
+                  <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="fas fa-hand-holding-usd text-warning text-sm opacity-10"></i>
+                  </div>
+                  <span class="nav-link-text ms-1">Aset</span>
+              </a>
+          </li>
         @endif
         {{-- <li class="nav-item">
           <a class="nav-link " href="../pages/tables.html">
@@ -134,6 +144,16 @@
           </a>
         </li>
         @endcan
+        @can('is-warga')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/daftarBansos">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Daftar Bansos</span>
+          </a>
+        </li>
+        @endcan
         @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
@@ -176,7 +196,7 @@
         </li> --}}
         
 
-        @can('is-bendahara')
+        
             
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Keuangan</h6>
@@ -207,7 +227,6 @@
             <span class="nav-link-text ms-1">Laporan</span>
           </a>
         </li>
-        @endcan
 
         @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga') || Gate::allows('is-bendahara'))
         <li class="nav-item mt-3">

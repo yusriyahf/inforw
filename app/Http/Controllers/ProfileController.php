@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SpModel;
+use App\Models\SktmModel;
 use Illuminate\Http\Request;
+use App\Models\PengaduanModel;
+use App\Models\PengumumanModel;
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -19,7 +24,22 @@ class ProfileController extends Controller
             'list' => ['Pages', 'Profile']
         ];
 
-        return view('profile.index', ['data' => $data, 'breadcrumb' => $breadcrumb]);
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        return view('profile.index', [
+            'data' => $data,
+            'breadcrumb' => $breadcrumb,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
     }
 
     /**
@@ -69,18 +89,22 @@ class ProfileController extends Controller
         $request->validate([
             'nama' => 'required',
             'nik' => 'required',
+            'alamat'=> 'required',
+            'agama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'pekerjaan' => 'required',
-            'notelp' => 'required',
+            'notelp' => 'required|min:10',
 
         ]);
 
         User::find(auth()->user()->user_id)->update([
             'nama' => $request->nama,
             'nik' => $request->nik,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'status_perkawinan' => $request->status_perkawinan,
