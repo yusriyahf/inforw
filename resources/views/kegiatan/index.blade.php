@@ -4,24 +4,28 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
-            <h2 class="text-white">Penngajuan Kegiatan</h2>
+            <h2 class="text-white">Pengajuan Kegiatan</h2>
             <h6 class="text-white">Buat Pengajuan Kegiatan untuk warga dengan solusi digital</h6>
         </div>
         {{-- SKTM --}}
-        <div class="col-12 mt-1">
-            <div class="card mb-4">
-              <div class="card-header pb-0">
+        <div class="row">
+          <div class="col-12 mt-1">
+            <div class="card pl-2 p-4 mb-4">
+              <div class="card-header p-0">
                 <h6>Riwayat Pengajuan Kegiatan</h6>
+                @can('is-warga')
                 <a href="/kegiatan/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Kegiatan</a>
+                @endcan
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">
                     {{ session('success') }}
                   </div>
+            </div>
                 @endif
-              </div>
+              
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
+                  <table class="table tables align-items-center mb-0">
                     <thead>
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
@@ -103,6 +107,7 @@
               </div>
             </div>
          </div>
+        </div>
     </div>
 </div>
 @endsection

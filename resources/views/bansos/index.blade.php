@@ -2,8 +2,8 @@
 
 @section('container')
 <div class="row">
-    <div class="col-12">
-      <div class="card mb-4">
+  <div class="col-12 mt-1">
+    <div class="card pl-2 p-4 mb-4">
         <div class="card-header pb-0">
           <h6>Tabel Data {{ $breadcrumb->title }}</h6>
           <a href="{{ route('tambahBansos')}}" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>

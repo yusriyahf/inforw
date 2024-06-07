@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
     //         [
     //             'user_id' => 3,
     //             'nik' => '2241720172',
-    //             'nama' => 'Putri Ayu',
+    //             'nama' => 'Putri Ayu',pp
     //             'password' => bcrypt('12345'),
     //             'rt_id' => '3',
     //             'role_id' => '3',

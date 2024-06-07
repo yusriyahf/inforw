@@ -1,20 +1,24 @@
 @extends('layouts.main')
 
 @section('container')
+<div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
+    <h2 class="text-white">Daftar Bansos</h2>
+    <h6 class="text-white">Daftar Bansos untuk warga yang ingin menerima bansos</h6>
+</div>
 <div class="row">
-    <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-header pb-0">
+    <div class="col-12 mt-1">
+      <div class="card pl-2 p-4 mb-4">
+            
                 <h6>Tabel Data {{ $breadcrumb->title }}</h6>
                 @if (session()->has('success'))
                     <div class="alert alert-success col-lg-8" role="alert">
                         {{ session('success') }}
                     </div>
                 @endif
-            </div>
+            
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0">
+                    <table class="table tables align-items-center mb-0">
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>

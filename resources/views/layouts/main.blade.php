@@ -238,18 +238,35 @@
   @stack('js')
 
   {{-- DATATABLES --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
-  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js" defer></script>
-  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-  <script>
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- Custom CSS -->
+<style>
+    table.dataTable.no-footer {
+        border-bottom: 1px solid #e0e0e0; /* Change this color to the desired border color */
+    }
+</style>
+
+<script>
     $(document).ready(function() {
-        $('.table').DataTable();
+        $('.tables').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
-    </script>
+</script>
 </body>
 
 </html>
