@@ -60,7 +60,6 @@
                           </td>
                         <td class="align-middle text-center">
                             <a class="btn btn-link text-dark px-1 mb-0" href="/kegiatan/{{ $d->kegiatan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
-        
                             <form class="d-inline-block" method="POST" action="/kegiatan/{{$d->kegiatan_id}}">
                                 @csrf
                                 @method('DELETE')
@@ -68,6 +67,7 @@
                                     <i class="far fa-trash-alt me-2"></i>
                                 </button>
                             </form>
+                            <a class="btn btn-link text-dark px-1 mb-0" href="/generate-pdf/kegiatan/{{ $d->kegiatan_id }}"><i class="fas fa-print text-dark me-2" aria-hidden="true"></i></a> 
                             
                           </td>
                       </tr>

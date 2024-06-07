@@ -220,7 +220,7 @@ Route::get('/', function () {
 
 Route::get('/generate-pdf/{sktm}/{id}', [PdfController::class, 'generatePdf']);
 Route::get('/generate-pdf/{sp}/{id}', [PdfController::class, 'generatePdf']);
-
+Route::get('/generate-pdf/{kegiatan}/{id}', [PdfController::class, 'generatePdf']);
 
 
 
@@ -323,6 +323,8 @@ Route::get('/pengaduan/create', [PengaduanController::class, 'create']);
 Route::post('/pengaduan/create', [PengaduanController::class, 'store']);
 Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit']);
 Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']);
+Route::patch('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus']);
+
 
 
 Route::get('/keluarga', function () {

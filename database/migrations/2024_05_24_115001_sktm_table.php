@@ -21,9 +21,9 @@ return new class extends Migration
             $table->enum('status_perkawinan', ['kawin', 'belum kawin']);
             $table->string('pekerjaan');
             $table->string('keperluan');
-            $table->string('status')->default('proses');
+            $table->enum('status', ['proses', 'disetujui', 'ditolak']);
             $table->unsignedBigInteger('rt')->index();
-
+            
             $table->timestamps();
             $table->foreign('rt')->references('rt_id')->on('rt');
             $table->foreign('user')->references('user_id')->on('users');

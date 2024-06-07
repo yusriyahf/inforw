@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KegiatanModel;
 use App\Models\SktmModel;
 use App\Models\SpModel;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class PdfController extends Controller
              ];
     $pdf = Pdf::loadView('surat.sktm.generate-product-pdf', $data);
     return $pdf->download('Surat Keterangan Tidak Mampu.pdf');
-    } else {
+    } elseif($type == 'sp') {
         $sp = SpModel::findOrFail($id);
             $data = [
                 'title' => 'Surat Pengantar',
@@ -42,6 +43,18 @@ class PdfController extends Controller
              ];
     $pdf = Pdf::loadView('surat.sp.generate-product-pdf', $data);
     return $pdf->download('Surat Pengantar.pdf');
+    } else{
+        $kg = KegiatanModel::findOrFail($id);
+        $data = [
+            'title' => 'Surat Pengantar',
+            'date' => date('m/d/y'),
+            'kg' => $kg,
+            'nama' =>$kg->nama,
+            'nama_kegiatan' => $kg ->nama_kegiatan,
+            'tanggal'=> $kg->tanggal,
+         ];
+$pdf = Pdf::loadView('kegiatan.generate-product-pdf', $data);
+return $pdf->download('Surat Kegiatan.pdf');
     }
 }
 public function boot()
