@@ -15,13 +15,13 @@ class BansosSeeder extends Seeder
     {
         $data = [
                     [
-                        'nama_bansos' => 'bantuan langsung tunai',
+                        'nama_bansos' => 'bantuan tunai bank bri',
                         'total_bantuan' => 10000000,
                         'jenis_bansos'  => 'tunai',
                         'jumlah_penerima' => 10,
                         'tipe_penerima' => 'individu',
-                        'tgl_akhir_daftar' => '2024-05-20',
-                        'tgl_penyaluran' => '2024-05-23'
+                        'tgl_akhir_daftar' => '2024-06-20',
+                        'tgl_penyaluran' => '2024-06-23'
                     ],        
                     [
                         'nama_bansos' => 'bantuan sembako',
@@ -29,8 +29,8 @@ class BansosSeeder extends Seeder
                         'jenis_bansos'  => 'non-tunai',
                         'jumlah_penerima' => 15,
                         'tipe_penerima' => 'individu',
-                        'tgl_akhir_daftar' => '2024-05-20',
-                        'tgl_penyaluran' => '2024-05-25'
+                        'tgl_akhir_daftar' => '2024-06-20',
+                        'tgl_penyaluran' => '2024-06-25'
                     ],        
                     [
                         'nama_bansos' => 'bantuan tunai pendidikan',
@@ -38,8 +38,26 @@ class BansosSeeder extends Seeder
                         'jenis_bansos'  => 'tunai',
                         'jumlah_penerima' => 9,
                         'tipe_penerima' => 'individu',
-                        'tgl_akhir_daftar' => '2024-05-20',
-                        'tgl_penyaluran' => '2024-05-26'
+                        'tgl_akhir_daftar' => '2024-06-20',
+                        'tgl_penyaluran' => '2024-06-26'
+                    ],
+                    [
+                        'nama_bansos' => 'bantuan tunai presiden',
+                        'total_bantuan' => 20000000,
+                        'jenis_bansos'  => 'tunai',
+                        'jumlah_penerima' => 10,
+                        'tipe_penerima' => 'individu',
+                        'tgl_akhir_daftar' => '2024-06-25',
+                        'tgl_penyaluran' => '2024-06-30'
+                    ],
+                    [
+                        'nama_bansos' => 'bantuan tunai DPR',
+                        'total_bantuan' => 15000000,
+                        'jenis_bansos'  => 'tunai',
+                        'jumlah_penerima' => 7,
+                        'tipe_penerima' => 'individu',
+                        'tgl_akhir_daftar' => '2024-06-15',
+                        'tgl_penyaluran' => '2024-06-14'
                     ],        
                 ];
                 DB::table('bansos')->insert($data);
