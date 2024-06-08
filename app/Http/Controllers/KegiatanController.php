@@ -46,7 +46,7 @@ class KegiatanController extends Controller
     {
         $validatedData = $request->validate([
             'tanggal' => 'required',
-            'nama_kegiatan' => 'required',
+            'nama_kegiatan' => 'required|max:50',
         ]);
         $validatedData['rt'] = auth()->user()->getkeluarga->rt;
         $validatedData['user'] = auth()->user()->user_id;
@@ -91,7 +91,7 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'nama_kegiatan' => 'required',
+            'nama_kegiatan' => 'required|max:50',
         ]);
 
         KegiatanModel::find($id)->update([

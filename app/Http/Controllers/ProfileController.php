@@ -67,14 +67,14 @@ class ProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'nama' => 'required',
-            'nik' => 'required',
+            'nama' => 'required|max:30',
+            'nik' => 'required|numeric|digits:12',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
-            'pekerjaan' => 'required',
-            'notelp' => 'required',
+            'pekerjaan' => 'required|max:30',
+            'notelp' => 'required|numeric',
 
         ]);
 

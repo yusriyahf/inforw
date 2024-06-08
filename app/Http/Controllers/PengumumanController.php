@@ -61,8 +61,12 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required|max:50',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
             'rt' => 'required',
             'user' => 'required',
         ]);
@@ -124,8 +128,12 @@ class PengumumanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required|max:50',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
         ]);
 
         $pengumuman = PengumumanModel::find($id);
