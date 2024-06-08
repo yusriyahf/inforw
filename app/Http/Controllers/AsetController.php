@@ -24,11 +24,15 @@ class AsetController extends Controller
             'title' => 'Aset',
             'list' => ['Pages', 'Aset']
         ];
-        $data = AsetModel::all();
+
         $rts = RtModel::all();
 
         if (Gate::allows('is-warga')) {
             $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $data = AsetModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->orWhereNull('rt')
+                ->orderBy('aset_id', 'desc')
+                ->get();
             return view('aset.warga.index', [
                 'breadcrumb' => $breadcrumb,
                 'asets' => $data,
@@ -41,6 +45,25 @@ class AsetController extends Controller
             $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+            $data = AsetModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->orWhereNull('rt')
+                ->orderBy('aset_id', 'desc')
+                ->get();
+            return view('aset.index', [
+                'breadcrumb' => $breadcrumb,
+                'asets' => $data,
+                'title' => $title,
+                'data' => $data,
+                'rts' => $rts,
+                'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+                'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+                'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+            ]);
+        } elseif (Gate::allows('is-rw')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+            $data = AsetModel::orderBy('aset_id', 'desc')->get();
             return view('aset.index', [
                 'breadcrumb' => $breadcrumb,
                 'asets' => $data,
@@ -87,13 +110,19 @@ class AsetController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
             'status' => 'required',
-        ]);
+        ];
+
+        if (Gate::allows('is-rt')) {
+            $rules['rt'] = 'required';
+        } elseif (Gate::allows('is-rw')) {
+            $rules['rw'] = 'required';
+        }
+
+        $validatedData = $request->validate($rules);
 
         if ($request->hasFile('gambar')) {
             $extfile = $request->file('gambar')->getClientOriginalExtension();

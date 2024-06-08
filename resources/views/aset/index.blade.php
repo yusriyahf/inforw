@@ -55,6 +55,10 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                  @can('is-rw')
+                      
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rt</th>
+                  @endcan
                   {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kepemilikan</th> --}}
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                 </tr>
@@ -91,6 +95,18 @@
                     <span class="badge badge-sm bg-gradient-
                     bg-gradient-{{ $aset->status == 'tersedia' ? 'success' : 'danger' }}">{{ $aset->status }}</span>
                   </td>
+                  @can('is-rw')
+
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">
+                    @if(!empty($aset->getrt->nama))
+                    {{ $aset->getrt->nama }}</span>
+                    @else 
+                    semua
+                    @endif
+
+                  </td>
+                  @endcan
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/aset/{{ $aset->aset_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
 
