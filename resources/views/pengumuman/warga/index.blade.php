@@ -21,7 +21,9 @@
                     <div class="d-flex flex-column w-100">
                         <div class="d-flex align-items-center">
                             <h6 class="mb-0 text-sm me-3">{{ $d->judul }}</h6>
-                            <span class="mb-0 text-xs">By : {{ $d->users->nama }} - {{ $d->created_at->translatedFormat('l, j F Y - H:i') }}</span>
+                            <span class="mb-0 text-xs">By @if (isset($d->rt))
+                               Ketua RT @else Ketua RW 
+                            @endif {{ $d->users->nama }} - {{ $d->created_at->translatedFormat('l, j F Y - H:i') }}</span>
                         </div>
                         <span class="text-xs mt-2">{{ $d->deskripsi }}</span>
                     </div>

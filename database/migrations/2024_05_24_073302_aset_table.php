@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('jenis', ['barang', 'tempat']);
             $table->string('gambar')->nullable();
 
-            $table->unsignedBigInteger('rw')->index();
-            $table->unsignedBigInteger('rt')->index();
+            $table->unsignedBigInteger('rw')->index()->nullable();
+            $table->unsignedBigInteger('rt')->index()->nullable();
             $table->timestamps();
 
             $table->foreign('rw')->references('rw_id')->on('rw');

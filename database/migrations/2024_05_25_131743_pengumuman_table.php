@@ -17,11 +17,13 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
             $table->unsignedBigInteger('user')->index();
-            $table->unsignedBigInteger('rt')->index();
+            $table->unsignedBigInteger('rt')->index()->nullable();
+            $table->unsignedBigInteger('rw')->index()->nullable();
 
             $table->timestamps();
             $table->foreign('user')->references('user_id')->on('users');
             $table->foreign('rt')->references('rt_id')->on('rt');
+            $table->foreign('rw')->references('rw_id')->on('rw');
         });
     }
 
