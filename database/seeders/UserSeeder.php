@@ -12,47 +12,49 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    // public function run(): void
-    // {
-    //     $data = [
-    //         [
-    //             'user_id' => 1,
-    //             'nik' => '2241720178',
-    //             'nama' => 'Yusriyah Firjatullah',
-    //             'password' => bcrypt('12345'),
-    //             'rt_id' => '1',
-    //             'role_id' => '1',
-    //             'kartu_keluarga_id' => '1'
+    public function run(): void
+    {
+        $data = [
+            // [
+            //     'user_id' => 1,
+            //     'nik' => '2241720178',
+            //     'nama' => 'Yusriyah Firjatullah',
+            //     'password' => bcrypt('12345'),
+            //     'rt_id' => '1',
+            //     'role_id' => '1',
+            //     'kartu_keluarga_id' => '1'
 
-    //         ],
-    //         [
-    //             'user_id' => 2,
-    //             'nik' => '2241720171',
-    //             'nama' => 'Asti Nurin',
-    //             'password' => bcrypt('12345'),
-    //             'rt_id' => '2',
-    //             'role_id' => '2',
-    //             'kartu_keluarga_id' => '1'
-    //         ],
-    //         [
-    //             'user_id' => 3,
-    //             'nik' => '2241720172',
-    //             'nama' => 'Putri Ayu',pp
-    //             'password' => bcrypt('12345'),
-    //             'rt_id' => '3',
-    //             'role_id' => '3',
-    //             'kartu_keluarga_id' => '2'
-    //         ],
-    //         [
-    //             'user_id' => 4,
-    //             'nik' => '2241720173',
-    //             'nama' => 'Maulita',
-    //             'password' => bcrypt('12345'),
-    //             'rt_id' => '4',
-    //             'role_id' => '4',
-    //             'kartu_keluarga_id' => '2'
-    //         ],
-    //     ];
-    //     DB::table('users')->insert($data);
-    // }
+            // ],
+            [
+                'nik' => '2241720131',
+                'nama' => 'Asti N.',
+                'password' => bcrypt('12345'),
+                'role' => '4',
+                'keluarga' => '1'
+            ],
+            [
+                'nik' => '2241720132',
+                'nama' => 'Putri A.',
+                'password' => bcrypt('12345'),
+                'role' => '4',
+                'keluarga' => '1'
+            ],
+            [
+                'nik' => '2241720133',
+                'nama' => 'Maulana A.',
+                'password' => bcrypt('12345'),
+                'role' => '4',
+                'keluarga' => '1'
+            ],
+            [
+                'nik' => '2241720134',
+                'nama' => 'Dido I.',
+                'password' => bcrypt('12345'),
+                'role' => '4',
+                'keluarga' => '1'
+            ],
+            
+        ];
+        DB::table('users')->insert($data);
+    }
 }

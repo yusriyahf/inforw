@@ -125,9 +125,9 @@
             </div>
         </div>
         @endif
-            <div class="card pl-2 p-4 mb-4">
-                <div class="col-12 mt-1">
-                <div class="card-header pb-1 pt-0">
+        <div class="col-12 mt-1">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
                     <h6>Struktur Jabatan RT {{ $data->getrt->nama }} dan RW {{ $data->getrw->nama }} Pandanwangi</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
