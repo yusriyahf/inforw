@@ -406,7 +406,12 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::post('/create', [KegiatanController::class, 'store']);
     Route::get('/{id}/edit', [KegiatanController::class, 'edit']);
     Route::put('/{id}', [KegiatanController::class, 'update']);
+    
 });
+// routes/web.php
+Route::get('/kegiatan/{id}/approve', [KegiatanController::class, 'approve'])->name('kegiatan.approve');
+Route::get('/kegiatan/{id}/reject', [KegiatanController::class, 'reject'])->name('kegiatan.reject');
+
 
 
 //BANSOS di RW

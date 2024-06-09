@@ -17,7 +17,7 @@
             <input type="hidden" value="{{ auth()->user()->user_id }}" name="user">
             <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label for="judul" class="form-control-label">Judul</label>
                   <input class="form-control @error('judul') is-invalid @enderror" type="text" name="judul" id="judul" value="{{ old('judul') }}" autocomplete="off">
@@ -28,7 +28,19 @@
                     @enderror
                 </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label for="gambar" class="form-control-label">Gambar</label>
+                    <input class="form-control @error('gambar') is-invalid @enderror" type="file" name="gambar" id="gambar">
+                    @error('gambar')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    
+                </div>
+            </div>
+              <div class="col-md-6">
                 <div class="form-group">
                     <label for="deskripsi" class="form-control-label">Deskripsi</label>
                     <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="deskripsi">{{ old('deskripsi') }}</textarea>
@@ -68,4 +80,30 @@
       </div>
     </div>
   </div>
+  <script>
+    function previewImage() {
+        var preview = document.getElementById('preview');
+        var file    = document.getElementById('gambar').files[0];
+        var reader  = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+            preview.style.display = 'none';
+        }
+    }
+
+    // Additional logging for debugging
+    document.getElementById('gambar').addEventListener('change', function(event) {
+        console.log("File input changed.");
+        console.log("Selected file: ", event.target.files[0]);
+        previewImage();
+    });
+</script>
 @endsection

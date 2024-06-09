@@ -20,7 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user')->index();
             $table->unsignedBigInteger('rw')->index();
             $table->unsignedBigInteger('rt')->index();
-            $table->date('tanggal_pengaduan');
             $table->timestamps();
 
             $table->foreign('user')->references('user_id')->on('users');
