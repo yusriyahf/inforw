@@ -126,7 +126,7 @@ class KegiatanController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'nama_kegiatan' => 'required',
+            'nama_kegiatan' => 'required|max:50',
         ]);
 
         KegiatanModel::find($id)->update([

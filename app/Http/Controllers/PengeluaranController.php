@@ -76,8 +76,12 @@ class PengeluaranController extends Controller
     {
         $validatedData = $request->validate([
             'rt' => 'required',
-            'deskripsi' => 'required',
-            'jumlah' => 'required',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
+            'jumlah' => 'required|numeric',
             'tanggal' => 'required',
         ]);
 
@@ -112,8 +116,12 @@ class PengeluaranController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'deskripsi' => 'required',
-            'jumlah' => 'required',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
+            'jumlah' => 'required|numeric',
         ]);
 
         PengeluaranModel::find($id)->update([

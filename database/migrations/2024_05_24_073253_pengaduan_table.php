@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rw')->index();
             $table->unsignedBigInteger('rt')->index();
             $table->timestamps();
+            $table->enum('status', ['proses', 'disetujui','ditolak']);
 
             $table->foreign('user')->references('user_id')->on('users');
             $table->foreign('rw')->references('rw_id')->on('rw');

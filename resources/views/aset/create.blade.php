@@ -15,7 +15,10 @@
                         @csrf
                         <div class="row">
                             <input type="hidden" name="status" value="tersedia">
+                            @can('is-rt')
+                                
                             <input type="hidden" name="rt" value="{{ auth()->user()->getkeluarga->getrt->rt_id }}">
+                            @endcan
                             <input type="hidden" name="rw" value="1">
                             <div class="col-md-6">
                                 <div class="form-group">

@@ -32,7 +32,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                     <label for="jumlah" class="form-control-label">Jumlah</label>
-                    <input class="form-control @error('jumlah') is-invalid @enderror" type="number" name="jumlah" id="jumlah" value="{{ old('jumlah') }}" autocomplete="off">
+                    <input class="form-control @error('jumlah') is-invalid @enderror" type="text" name="jumlah" id="jumlah" value="{{ old('jumlah') }}" autocomplete="off">
                   @error('jumlah')
                         <div class="invalid-feedback">
                             {{ $message }}

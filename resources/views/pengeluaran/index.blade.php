@@ -19,7 +19,7 @@
             <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
         </form>
         <div class="row">
-          <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
               <div class="card">
                   <div class="card-body p-3">
                       <div class="row">
@@ -41,7 +41,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-xl-5 col-sm-6 mb-xl-0 mb-4">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
               <div class="card">
                   <div class="card-body p-3">
                       <div class="row">
@@ -120,6 +120,11 @@
                 @endforeach
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
           </div>
         </div>
       </div>

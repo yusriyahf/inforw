@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nik');
             $table->enum('status_perkawinan', ['kawin', 'belum kawin']);
             $table->string('keperluan');
-            $table->string('status')->default('proses');
+            $table->enum('status', ['proses', 'disetujui', 'ditolak']);
             $table->unsignedBigInteger('rt')->index();
 
             $table->timestamps();

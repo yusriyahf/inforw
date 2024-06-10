@@ -85,8 +85,12 @@ class PemasukanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'jumlah' => 'required',
-            'deskripsi' => 'required',
+            'jumlah' => 'required|numeric',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
             'rt' => 'required',
             'user' => 'required',
             'tanggal' => 'required',
@@ -141,8 +145,12 @@ class PemasukanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'jumlah' => 'required',
-            'deskripsi' => 'required',
+            'jumlah' => 'required|numeric',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
             'tanggal' => 'required',
         ]);
 

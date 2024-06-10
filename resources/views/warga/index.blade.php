@@ -7,9 +7,9 @@
     <h2 class="text-white">Tabel Data Warga</h2>
     <h6 class="text-white">Ini semua data warga</h6>
 </div>
-<div class="col-12 mt-1">
-  <div class="card pl-2 p-4 mb-4">
-    <div class="card-header pb-1 pt-0">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
           <h6>Tabel Data {{ $breadcrumb->title }}</h6>
           <a href="/warga/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
           @if (Gate::check('is-rw') || Gate::check('is-admin'))

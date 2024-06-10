@@ -22,7 +22,7 @@ class RwSeeder extends Seeder
                 // 'sekretaris'=>24,
                 // 'bendahara'=>22
             ],
-           
+
         ];
         DB::table('rw')->insert($data);
     }

@@ -17,20 +17,17 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-
-
-
         if (Gate::allows('is-rt')) {
 
-            $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orderBy('pengumuman_id', 'desc')->get();
+            $data = PengumumanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->orWhereNull('rt')
+                ->orderBy('pengumuman_id', 'desc')
+                ->get();
 
-            if (Gate::allows('is-warga')) {
-                $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-            } elseif (Gate::allows('is-rt')) {
-                $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
-            }
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+
 
             $breadcrumb = (object) [
                 'title' => 'Pengumuman',
@@ -40,64 +37,42 @@ class PengumumanController extends Controller
             return view('pengumuman.admin.index', [
                 'breadcrumb' => $breadcrumb,
                 'data' => $data,
-                'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
                 'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
                 'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
                 'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
             ]);
-        } elseif (Gate::allows('is-warga')) {
-            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-            $data = PengumumanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->orwhere(auth()->user()->rw_id)->orderBy('pengumuman_id', 'desc')->get();
+        } elseif (Gate::allows('is-rw')) {
+            $data = PengumumanModel::orderBy('pengumuman_id', 'desc')->get();
+
             $breadcrumb = (object) [
                 'title' => 'Pengumuman',
                 'list' => ['Pages', 'Pengumuman']
             ];
 
-            if (Gate::allows('is-warga')) {
-                $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-            } elseif (Gate::allows('is-rt')) {
-                $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
-            }
+            return view('pengumuman.admin.index', [
+                'breadcrumb' => $breadcrumb,
+                'data' => $data,
+            ]);
+        } elseif (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $data = PengumumanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->orWhereNull('rt')
+                ->orderBy('pengumuman_id', 'desc')
+                ->get();
+
+            $breadcrumb = (object) [
+                'title' => 'Pengumuman',
+                'list' => ['Pages', 'Pengumuman']
+            ];
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+
 
 
             return view('pengumuman.warga.index', [
                 'breadcrumb' => $breadcrumb,
                 'data' => $data,
                 'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
-                'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
-                'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
-                'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
             ]);
-        }elseif (Gate::allows('is-rw')) {
-
-            $data = PengumumanModel::orderBy('pengumuman_id', 'desc')->get();
-
-            if (Gate::allows('is-rw')) {
-                if (Gate::allows('is-warga')) {
-                    $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-                }
-            
-                $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
-                $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
-            }
-            
-            $breadcrumb = (object) [
-                'title' => 'Pengumuman',
-                'list' => ['Pages', 'Pengumuman']
-            ];
-            
-            return view('pengumuman.admin.index', [
-                'breadcrumb' => $breadcrumb,
-                'data' => $data,
-                'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
-                'notifPengaduan' => (Gate::allows('is-rw')) ? $notifPengaduan : null,
-                'notifSktm' => (Gate::allows('is-rw')) ? $notifSktm : null,
-                'notifSp' => (Gate::allows('is-rw')) ? $notifSp : null,
-            ]);
-            
         }
     }
 
@@ -138,11 +113,23 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required|max:50',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
             'rt' => 'required',
             'user' => 'required',
-        ]);
+        ];
+
+        if (Gate::allows('is-rt')) {
+            $rules['rt'] = 'required';
+        } elseif (Gate::allows('is-rw')) {
+            $rules['rw'] = 'required';
+        }
+
+        $validatedData = $request->validate($rules);
 
         if ($request->hasFile('gambar')) {
             $extfile = $request->file('gambar')->getClientOriginalExtension();
@@ -227,8 +214,12 @@ class PengumumanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'judul' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required|max:50',
+            'deskripsi' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
         ]);
 
         $pengumuman = PengumumanModel::find($id);

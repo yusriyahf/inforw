@@ -19,7 +19,9 @@
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
                     <h6 class="mb-2 text-xl">{{ $data->judul }}</h6>
-                    <span class="mb-4 text-xs">Di Posting oleh: {{ $data->users->nama }} - {{ $data->created_at->translatedFormat('l, j F Y - H:i') }}</span>
+                    <span class="mb-4 text-xs">Di Posting oleh:@if (isset($d->rt))
+                      Ketua RT @else Ketua RW 
+                   @endif {{ $data->users->nama }} - {{ $data->created_at->translatedFormat('l, j F Y - H:i') }}</span>
             
                     @if (!empty($data->gambar))
                         <img src="{{ asset('gambar/pengumuman/' . $data->gambar) }}" alt="Image" style="width: 40%;">

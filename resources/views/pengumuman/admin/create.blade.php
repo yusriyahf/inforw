@@ -15,7 +15,12 @@
                   @csrf
             
             <input type="hidden" value="{{ auth()->user()->user_id }}" name="user">
-            <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">z
+            @can('is-rt')
+            <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">
+            @endcan
+            @can('is-rw')
+            <input type="hidden" value="{{ auth()->user()->getkeluarga->rw }}" name="rw">
+            @endcan
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">

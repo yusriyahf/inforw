@@ -55,7 +55,7 @@ Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga')) {
+    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga') || Gate::allows('is-sekretaris')) {
         $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
             ->sum('jumlah');
         $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
@@ -141,7 +141,7 @@ Route::get('/home', function () {
     }
 
     // umur chart
-    if (Gate::allows('is-rt')) {
+    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
         $users = User::whereHas('getkeluarga.getrt', function ($query) {
             $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
         })->get();
@@ -150,7 +150,7 @@ Route::get('/home', function () {
     }
 
     // Inisialisasi variabel untuk menyimpan jumlah pengguna dalam setiap kelompok umur
-    if (Gate::allows('is-rt') || Gate::allows('is-rw')) {
+    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
         $anakAnakCount = 0;
         $remajaCount = 0;
         $dewasaCount = 0;
@@ -201,7 +201,7 @@ Route::get('/home', function () {
 
     if (Gate::allows('is-warga')) {
         $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-    } elseif (Gate::allows('is-rt')) {
+    } elseif (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
         $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
         $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
         $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
@@ -224,8 +224,8 @@ Route::get('/home', function () {
         'totalPengaduan' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPengaduan : null,
         'totalSurat' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalSurat : null,
         'totalPeminjaman' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPeminjaman : null,
-        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $umurChartData : null,
-        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
+        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris')) ? $umurChartData : null,
+        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-sekretaris') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
     ]);
 })->middleware('auth');
 
@@ -234,7 +234,7 @@ Route::get('/home', function () {
 
 Route::get('/generate-pdf/{sktm}/{id}', [PdfController::class, 'generatePdf']);
 Route::get('/generate-pdf/{sp}/{id}', [PdfController::class, 'generatePdf']);
-
+Route::get('/generate-pdf/{kegiatan}/{id}', [PdfController::class, 'generatePdf']);
 
 
 
@@ -360,6 +360,8 @@ Route::get('/pengaduan/create', [PengaduanController::class, 'create']);
 Route::post('/pengaduan/create', [PengaduanController::class, 'store']);
 Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit']);
 Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']);
+Route::patch('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus']);
+
 
 
 Route::get('/keluarga', function () {

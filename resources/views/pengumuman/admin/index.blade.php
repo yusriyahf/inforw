@@ -27,7 +27,12 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                        @can('is-rw')
+                  
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
+                        @endcan
+
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>  
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                       </tr>
                     </thead>
@@ -57,7 +62,19 @@
                               </span>
                               @endif
                       </td>
+                      @can('is-rw')
                       
+                      <td class="align-middle text-center text-sm">
+                          @if(!empty($d->getrt->nama))
+                          <span class="text-secondary text-xs font-weight-bold">{{ 
+                          $d->getrt->nama }} </span>
+                          @else
+                          <span class="text-secondary text-xs font-weight-bold">semua </span>
+                          @endif
+                        </td>
+
+                      @endcan
+
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->created_at }} </span>
                         </td>

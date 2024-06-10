@@ -20,7 +20,7 @@
               </div>
               <div class="card-body px-0 pt-0 pb-2">
                   <div class="table-responsive p-0">
-                    <table class="table tables align-items-center mb-0 " id="assetTable">
+                    <table class="table align-items-center mb-0 " id="assetTable">
                       <thead>
                         <tr>
                           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
@@ -80,32 +80,6 @@
         
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-              <img id="modalImage" src="" class="img-fluid" alt="Image Preview">
-          </div>
-      </div>
-  </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-    var imageModal = document.getElementById('imageModal');
-    imageModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget; // Button that triggered the modal
-        var imageUrl = button.getAttribute('data-image-url'); // Extract info from data-* attributes
-        var modalImage = document.getElementById('modalImage');
-        modalImage.src = imageUrl;
-    });
-});
-</script>
 
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">

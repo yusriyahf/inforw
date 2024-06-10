@@ -21,7 +21,12 @@ class PengumumanModel extends Model
 
     public function getrt()
     {
-        return $this->belongsTo(User::class, 'rt', 'rt_id');
+        return $this->belongsTo(RtModel::class, 'rt', 'rt_id');
+    }
+
+    public function getrw()
+    {
+        return $this->belongsTo(RwModel::class, 'rw', 'rw_id');
     }
     public function getrw()
     {
