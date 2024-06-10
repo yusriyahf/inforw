@@ -9,7 +9,7 @@
         </div>
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h6>Tabel Data {{ $breadcrumb->title }}</h6>
+                <h6>{{ $breadcrumb->title }}</h6>
                 @if (session()->has('success'))
                     <div class="alert alert-success col-lg-8" role="alert">
                         {{ session('success') }}
@@ -28,45 +28,37 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Bansos</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Akhir Pendaftaran</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Penyaluran</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $iteration = 1; @endphp
-                            @foreach ($data as $d)
-                            @if ($pendaftar->isEmpty() || !$pendaftar->contains('bansos_id', $d->bansos_id))                            
-                            @if($d->tipe_penerima == 'keluarga' && $kepala || $d->tipe_penerima == 'individu')
+                            @foreach ($pendaftar as $d)
                             <tr>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $iteration }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->nama_bansos }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->nama_bansos }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->total_bantuan / $d->jumlah_penerima }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->total_bantuan / $d->getBansos->jumlah_penerima }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->jumlah_penerima }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->jumlah_penerima }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->jenis_bansos }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->jenis_bansos }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->tgl_akhir_daftar }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->tgl_akhir_daftar }}</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->tgl_penyaluran }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->tgl_penyaluran }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    {{-- @if ($pendaftar->isEmpty() || !$pendaftar->contains('bansos_id', $d->bansos_id)) --}}
-                                        <a href="{{ route('daftar', ['bansos_id' => $d->bansos_id])}}" class="btn btn-sm btn-primary">Daftar</a>
-                                    {{-- @endif --}}
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $d->status }}</span>
                                 </td>
                             </tr>
-                            @php $iteration++; @endphp
-                            @endif
-                            @endif
                             @endforeach
                         </tbody>
                     </table>

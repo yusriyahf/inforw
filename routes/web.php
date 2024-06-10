@@ -56,7 +56,7 @@ Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga') || Gate::allows('is-sekretaris')) {
+    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga')) {
         $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
             ->sum('jumlah');
         $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
@@ -142,7 +142,7 @@ Route::get('/home', function () {
     }
 
     // umur chart
-    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
+    if (Gate::allows('is-rt')) {
         $users = User::whereHas('getkeluarga.getrt', function ($query) {
             $query->where('rt_id', auth()->user()->getkeluarga->getrt->rt_id);
         })->get();
@@ -151,7 +151,9 @@ Route::get('/home', function () {
     }
 
     // Inisialisasi variabel untuk menyimpan jumlah pengguna dalam setiap kelompok umur
+
     if (Gate::allows('is-rt') || Gate::allows('is-sekretaris') || Gate::allows('is-rw')) {
+
         $anakAnakCount = 0;
         $remajaCount = 0;
         $dewasaCount = 0;
@@ -202,7 +204,7 @@ Route::get('/home', function () {
 
     if (Gate::allows('is-warga')) {
         $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
-    } elseif (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
+    } elseif (Gate::allows('is-rt')) {
         $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
         $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
         $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
@@ -225,8 +227,8 @@ Route::get('/home', function () {
         'totalPengaduan' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPengaduan : null,
         'totalSurat' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalSurat : null,
         'totalPeminjaman' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $totalPeminjaman : null,
-        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris')) ? $umurChartData : null,
-        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-sekretaris') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
+        'umurChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $umurChartData : null,
+        'jenisKelaminChartData' => (Gate::allows('is-rt') || Gate::allows('is-rw')) ? $jenisKelaminChartData : null,
     ]);
 })->middleware('auth');
 
@@ -235,7 +237,7 @@ Route::get('/home', function () {
 
 Route::get('/generate-pdf/{sktm}/{id}', [PdfController::class, 'generatePdf']);
 Route::get('/generate-pdf/{sp}/{id}', [PdfController::class, 'generatePdf']);
-Route::get('/generate-pdf/{kegiatan}/{id}', [PdfController::class, 'generatePdf']);
+
 
 
 
@@ -416,10 +418,6 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::get('/{id}/edit', [KegiatanController::class, 'edit']);
     Route::put('/{id}', [KegiatanController::class, 'update']);
 });
-// routes/web.php
-Route::get('/kegiatan/{id}/approve', [KegiatanController::class, 'approve'])->name('kegiatan.approve');
-Route::get('/kegiatan/{id}/reject', [KegiatanController::class, 'reject'])->name('kegiatan.reject');
-
 
 
 //BANSOS di RW
@@ -445,7 +443,8 @@ Route::group(['prefix' => 'bansos'], function () {
 
 //Daftar Bansos di Warga
 Route::group(['prefix' => 'daftarBansos'], function () {
-    Route::get('/', [DaftarBansosController::class, 'index'])->middleware('auth');
+    Route::get('/', [DaftarBansosController::class, 'index'])->name('listBansosWarga')->middleware('auth');
+    Route::get('/riwayat', [DaftarBansosController::class, 'riwayat'])->name('riwayatBansos');
     Route::get('/daftar/{bansos_id}', [DaftarBansosController::class, 'daftar'])->name('daftar');
     Route::post('/daftar/{bansos_id}', [DaftarBansosController::class, 'store'])->name('simpan');
 });
