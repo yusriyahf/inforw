@@ -12,7 +12,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Beranda</span>
           </a>
@@ -21,7 +21,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('warga') ? 'active' : '' }}" href="/warga">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="fas fa-users text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Warga</span>
           </a>
@@ -31,7 +31,7 @@
           <li class="nav-item">
               <a class="nav-link {{ Request::is('aset') ? 'active' : '' }}" href="/aset">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i class="fas fa-hand-holding-usd text-warning text-sm opacity-10"></i>
+                      <i class="fas fa-hand-holding-usd text-sm opacity-10 " style="color: #6b6ae3;"></i>
                   </div>
                   <span class="nav-link-text ms-1">Aset</span>
               </a>
@@ -49,7 +49,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pengaduan*') ? 'active' : '' }}" href="/pengaduan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="ni ni-chat-round text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Pengaduan</span>
           </a>
@@ -77,7 +77,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pengumuman*') ? 'active' : '' }}" href="/pengumuman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-notification-70 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Pengumuman</span>
           </a>
@@ -87,7 +87,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('rt*') ? 'active' : '' }}" href="/rt">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-align-left-2 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">RT</span>
           </a>
@@ -97,7 +97,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('rw*') ? 'active' : '' }}" href="/rw">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-align-left-2 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">RW</span>
           </a>
@@ -108,7 +108,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pengumuman*') ? 'active' : '' }}" href="/pengumuman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-notification-70 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Pengumuman</span>
           </a>
@@ -118,7 +118,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('surat') ? 'active' : '' }}" href="/surat">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-email-83 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Surat</span>
           </a>
@@ -138,7 +138,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/aset">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="fas fa-hand-holding-usd text-sm opacity-10 " style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Aset</span>
           </a>
@@ -148,7 +148,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/daftarBansos">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="fas fa-hands text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Daftar Bansos</span>
           </a>
@@ -158,7 +158,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="fas fa-hands text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Bansos</span>
           </a>
@@ -180,7 +180,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('kegiatan*') ? 'active' : '' }}" href="/kegiatan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
+              <i class="fas fa-running text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Kegiatan Warga</span>
           </a>
@@ -205,7 +205,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pemasukan*') ? 'active' : '' }}" href="/pemasukan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-money-coins text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Pemasukan</span>
           </a>
@@ -214,7 +214,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pengeluaran*') ? 'active' : '' }}" href="/pengeluaran">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <<i class="ni ni-money-coins text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Pengeluaran</span>
           </a>
@@ -222,7 +222,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('laporan*') ? 'active' : '' }}" href="/laporan">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-single-copy-04 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Laporan</span>
           </a>
@@ -237,7 +237,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="/profile">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              <i class="ni ni-single-02 text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
           </a>
@@ -245,7 +245,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('keluarga*') ? 'active' : '' }}" href="/keluarga">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              <i class="fas fa-house-user text-sm opacity-10" style="color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Keluarga</span>
           </a>

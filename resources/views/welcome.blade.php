@@ -45,11 +45,11 @@
                             </div>
                         </div>
                         <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle" style="margin-bottom: -10px;">
                                 <i class="fas fa-users text-lg opacity-10" style="color: #ffffff;"></i>
-                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
+                        
                     </div>
                 </div>
               </a>
@@ -70,8 +70,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i class="fas fa-question text-lg opacity-10" style="color: #ffffff;"></i>
-                                {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
+                                <i class="ni ni-chat-round text-lg opacity-10" style="color: #ffffff;"></i>
                             </div>
                         </div>
                     </div>
@@ -115,7 +114,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                
+                                <i class="ni ni-bullet-list-67 text-lg opacity-10" style="color: #ffffff;"></i>
                                 {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
@@ -317,6 +316,7 @@
                           <div class="col-4 text-end">
                               <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
                                   <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                  {{-- <i class="fas fa-sack-dollar text-lg opacity-10" style="color: #ffffff;"></i> --}}
                               </div>
                           </div>
                       </div>

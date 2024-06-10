@@ -14,6 +14,7 @@
             </div>
         @endif
         <div class="table-responsive">
+            
             <p>Jumlah Pendaftar : {{ $bansos->getPendaftar->count() }}</p>
             <p>Kuota Penerima : {{ $bansos->jumlah_penerima }}</p>
             <form action="{{ route('simpanPenerima',['bansos_id'=>$bansos->bansos_id]) }}" method="POST">

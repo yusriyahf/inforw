@@ -56,7 +56,7 @@ Route::get('/home', function () {
     $data = KeluargaModel::with(['getrw', 'getrt'])->first();
 
     // Mengambil data pemasukan
-    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga')) {
+    if (Gate::allows('is-bendahara') || Gate::allows('is-rt') || Gate::allows('is-warga') || Gate::allows('is-sekretaris')) {
         $totalPemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
             ->sum('jumlah');
         $totalPengeluaran = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)

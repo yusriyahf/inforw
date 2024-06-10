@@ -9,6 +9,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            
             <p>Bansos : {{ $bansos->nama_bansos }}</p>
             <p>Tipe Penerima : {{ $bansos->tipe_penerima }}</p>
             <p>Kuota Awal Penerima : {{ $bansos->jumlah_penerima }}</p>
