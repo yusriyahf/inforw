@@ -54,6 +54,35 @@ class DaftarBansosController extends Controller
         ]);
     }
 
+    public function riwayat()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Riwayat Bansos',
+            'list' => ['Pages', 'Riwayat Pengajuan Bansos',]
+        ];
+
+        if (Gate::allows('is-warga')) {
+            $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-rt')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        // $data = BansosModel::where('tgl_akhir_daftar', '>=', $tglSaatIni)->get();
+        $pendaftar = PendaftarBansosModel::with(['getBansos'])->where('user_id', Auth::id())->get();
+        // dd($pendaftar);
+
+        return view('daftarBansos.riwayat', [
+            'breadcrumb' => $breadcrumb,
+            'pendaftar' => $pendaftar,
+            'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
+            'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
+            'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
+            'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
+    }
+
     public function daftar($bansos_id)
     {
         // dd($bansos_id);

@@ -18,6 +18,8 @@ use App\Models\AsetModel;
 use App\Models\PemasukanModel;
 use App\Models\PengeluaranModel;
 use App\Models\PengumumanModel;
+use PendaftarKriteriaSeeder;
+use PendaftarSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,17 +28,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $this->call([
-            RolesSeeder::class,
-            RtSeeder::class,
-            RwSeeder::class,
-            KartuKeluargaSeeder::class,  
-            UserSeeder::class,
-            UpdateRwRtSeeder::class,
-            UpdateKeluargaSeeder::class,
-        ]);
-
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -46,138 +37,138 @@ class DatabaseSeeder extends Seeder
 
 
 
-        // RolesModel::create([
-        //     'role_id' => '1',
-        //     'nama' => 'admin',
-        // ]);
-        // RolesModel::create([
-        //     'role_id' => '2',
-        //     'nama' => 'rw',
-        // ]);
-        // RolesModel::create([
-        //     'role_id' => '3',
-        //     'nama' => 'rt',
-        // ]);
-        // RolesModel::create([
-        //     'role_id' => '4',
-        //     'nama' => 'warga',
-        // ]);
-        // RolesModel::create([
-        //     'role_id' => '5',
-        //     'nama' => 'sekretaris',
-        // ]);
-        // RolesModel::create([
-        //     'role_id' => '6',
-        //     'nama' => 'bendahara',
-        // ]);
+        RolesModel::create([
+            'role_id' => '1',
+            'nama' => 'admin',
+        ]);
+        RolesModel::create([
+            'role_id' => '2',
+            'nama' => 'rw',
+        ]);
+        RolesModel::create([
+            'role_id' => '3',
+            'nama' => 'rt',
+        ]);
+        RolesModel::create([
+            'role_id' => '4',
+            'nama' => 'warga',
+        ]);
+        RolesModel::create([
+            'role_id' => '5',
+            'nama' => 'sekretaris',
+        ]);
+        RolesModel::create([
+            'role_id' => '6',
+            'nama' => 'bendahara',
+        ]);
 
-        // RtModel::create([
-        //     'rt_id' => '1',
-        //     'nama' => '01'
-        // ]);
-        // RtModel::create([
-        //     'rt_id' => '2',
-        //     'nama' => '02'
-        // ]);
-        // RtModel::create([
-        //     'rt_id' => '3',
-        //     'nama' => '03'
-        // ]);
-        // RtModel::create([
-        //     'rt_id' => '4',
-        //     'nama' => '04'
-        // ]);
-        // RwModel::create([
-        //     'rw_id' => '1',
-        //     'nama' => '13'
-        // ]);
+        RtModel::create([
+            'rt_id' => '1',
+            'nama' => '01'
+        ]);
+        RtModel::create([
+            'rt_id' => '2',
+            'nama' => '02'
+        ]);
+        RtModel::create([
+            'rt_id' => '3',
+            'nama' => '03'
+        ]);
+        RtModel::create([
+            'rt_id' => '4',
+            'nama' => '04'
+        ]);
+        RwModel::create([
+            'rw_id' => '1',
+            'nama' => '13'
+        ]);
 
-        // KeluargaModel::create([
-        //     'keluarga_id' => '1',
-        //     'no_kk' => '357304',
-        //     'rw' => '1',
-        //     'rt' => '1'
-        // ]);
+        KeluargaModel::create([
+            'keluarga_id' => '1',
+            'no_kk' => '357304',
+            'rw' => '1',
+            'rt' => '1'
+        ]);
 
-        // User::create([
-        //     'user_id' => '1',
-        //     'nik' => 'admin',
-        //     'nama' => 'admin',
-        //     'password' => bcrypt('admin'),
-        //     'role' => '1',
-        // ]);
+        User::create([
+            'user_id' => '1',
+            'nik' => 'admin',
+            'nama' => 'admin',
+            'password' => bcrypt('admin'),
+            'role' => '1',
+        ]);
 
-        // KeluargaModel::where('keluarga_id', '1')->update([
-        //     'kepala_keluarga' => '1'
-        // ]);
+        KeluargaModel::where('keluarga_id', '1')->update([
+            'kepala_keluarga' => '1'
+        ]);
 
-        // User::create([
-        //     'user_id' => '2',
-        //     'nik' => '2241720171',
-        //     'nama' => 'Kim Gimyung',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '4',
-        //     'keluarga' => '1'
-        // ]);
-        // User::create([
-        //     'user_id' => '3',
-        //     'nik' => '2241720172',
-        //     'nama' => 'Zin Lee',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '2',
-        //     'keluarga' => '1'
-        // ]);
-        // User::create([
-        //     'user_id' => '4',
-        //     'nik' => '2241720173',
-        //     'nama' => 'Vasko',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '3',
-        //     'keluarga' => '1'
-        // ]);
-        // User::create([
-        //     'user_id' => '5',
-        //     'nik' => '2241720178',
-        //     'nama' => 'Yusriyah Firjatullah',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '4',
-        //     'keluarga' => '1'
-        // ]);
-        // User::create([
-        //     'user_id' => '6',
-        //     'nik' => '2241720179',
-        //     'nama' => 'Sung Jin Woo',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '6',
-        //     'keluarga' => '1'
-        // ]);
-        // User::create([
-        //     'user_id' => '7',
-        //     'nik' => '2241720180',
-        //     'nama' => 'Cha Hae In',
-        //     'password' => bcrypt('12345'),
-        //     'role' => '5',
-        //     'keluarga' => '1'
-        // ]);
+        User::create([
+            'user_id' => '2',
+            'nik' => '2241720171',
+            'nama' => 'Kim Gimyung',
+            'password' => bcrypt('12345'),
+            'role' => '4',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '3',
+            'nik' => '2241720172',
+            'nama' => 'Zin Lee',
+            'password' => bcrypt('12345'),
+            'role' => '2',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '4',
+            'nik' => '2241720173',
+            'nama' => 'Vasko',
+            'password' => bcrypt('12345'),
+            'role' => '3',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '5',
+            'nik' => '2241720178',
+            'nama' => 'Yusriyah Firjatullah',
+            'password' => bcrypt('12345'),
+            'role' => '4',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '6',
+            'nik' => '2241720179',
+            'nama' => 'Sung Jin Woo',
+            'password' => bcrypt('12345'),
+            'role' => '6',
+            'keluarga' => '1'
+        ]);
+        User::create([
+            'user_id' => '7',
+            'nik' => '2241720180',
+            'nama' => 'Cha Hae In',
+            'password' => bcrypt('12345'),
+            'role' => '5',
+            'keluarga' => '1'
+        ]);
 
 
 
-        // RtModel::where('rt_id', '1')->update([
-        //     'ketua' => '2',
-        //     'sekretaris' => '3',
-        //     'bendahara' => '1',
-        // ]);
-        // RtModel::where('rt_id', '2')->update([
-        //     'ketua' => '2',
-        //     'sekretaris' => '3',
-        //     'bendahara' => '1',
-        // ]);
+        RtModel::where('rt_id', '1')->update([
+            'ketua' => '2',
+            'sekretaris' => '3',
+            'bendahara' => '1',
+        ]);
+        RtModel::where('rt_id', '2')->update([
+            'ketua' => '2',
+            'sekretaris' => '3',
+            'bendahara' => '1',
+        ]);
 
-        // RwModel::where('rw_id', '1')->update([
-        //     'ketua' => '1',
-        //     'sekretaris' => '2',
-        //     'bendahara' => '3',
-        // ]);
+        RwModel::where('rw_id', '1')->update([
+            'ketua' => '1',
+            'sekretaris' => '2',
+            'bendahara' => '3',
+        ]);
 
         PengumumanModel::create([
             'pengumuman_id' => '1',
@@ -723,6 +714,13 @@ class DatabaseSeeder extends Seeder
         //     'user_id' => '3',
         //     'organisasi_id' => '1'
         // ]);
-        $this->call(BansosSeeder::class);
+
+        $this->call(
+            BansosSeeder::class,
+            // KriteriaBansosSeeder::class,
+            // SubKriteriaSeeder::class,
+            // PendaftarSeeder::class,
+            // PendaftarKriteriaSeeder::class
+        );
     }
 }

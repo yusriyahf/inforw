@@ -21,4 +21,8 @@ class PendaftarBansosModel extends Model
     public function getKriteria(){
         return $this->hasMany(PendaftarKriteria::class, 'pendaftar_id', 'pendaftar_id');
     }
+
+    public function getBansos(){
+        return $this->belongsTo(BansosModel::class, 'bansos_id', 'bansos_id');
+    }
 }
