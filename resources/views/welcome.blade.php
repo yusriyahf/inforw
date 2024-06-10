@@ -14,6 +14,8 @@
                   Ketua RT {{ $data->getrt->nama }},
               @elseif (Gate::check('is-bendahara'))
                   Bendahara RT {{ Auth::user()->role }},
+              @elseif (Gate::check('is-sekretaris'))
+                  Sekretaris RT {{ Auth::user()->role }},
               @elseif (Gate::check('is-warga'))
                   Warga RT {{ $data->getrt->nama }},
               @endif  
@@ -21,6 +23,7 @@
           </h6>
           
         </div>
+        <iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
         @can('is-warga')
             
         <div class="col-12 mt-1">
@@ -371,7 +374,7 @@
                 </a>
               </div>
     </div>
-    <div class="row mt-3">
+   <div class="row mt-3">
         <div class="col-lg-6 mb-lg-0 mb-4">
             <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
@@ -396,10 +399,10 @@
                 </div>
             </div>
         </div>
-        </div>
+        </div> 
     <!-- End of financial information -->
 
-    @if (Gate::allows('is-rt') || Gate::allows('is-rw'))
+    @if (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
     <div class="row mt-3">
       <div class="col-lg-6 mb-lg-0 mb-4">
         <div class="card z-index-2 h-100">
@@ -478,7 +481,7 @@
     });
 </script>
 
-@if (Gate::allows('is-rt') || Gate::allows('is-rw'))
+@if (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris'))
   <script>
     // Umur Chart
     var ctx3 = document.getElementById('umurChart').getContext('2d');
@@ -546,8 +549,8 @@
             }
         }
     });
-  </script>
-@endif
+  </script> --}}
+{{-- @endif
 
 
 @endsection

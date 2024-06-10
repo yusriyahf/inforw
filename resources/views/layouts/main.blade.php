@@ -250,6 +250,9 @@
         $('.table').DataTable();
     });
     </script>
+
+
+  
 </body>
 
 </html>
