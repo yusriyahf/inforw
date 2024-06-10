@@ -18,7 +18,10 @@ class KegiatanController extends Controller
 
     if (auth()->user()->roles->nama === 'warga') {
         $data = KegiatanModel::where('user', auth()->user()->user_id)->get();
-    }else{
+    }elseif(auth()->user()->roles->nama === 'rt'){
+        $data = KegiatanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
+    }
+    else{
         $data = KegiatanModel::all();
     }
     
@@ -27,7 +30,7 @@ class KegiatanController extends Controller
         'list' => ['Pages', 'Kegiatan']
     ];
 
-    return view('kegiatan.index', [
+    return view('kegiatan.index', [`
         'breadcrumb' => $breadcrumb,
         'data' => $data
     ]);
@@ -78,9 +81,11 @@ class KegiatanController extends Controller
         $validatedData = $request->validate([
             'tanggal' => 'required',
             'nama_kegiatan' => 'required',
+            'alamat'=>'required',
         ]);
         $validatedData['rt'] = auth()->user()->getkeluarga->rt;
         $validatedData['user'] = auth()->user()->user_id;
+        $validatedData['status'] = 'proses';
 
 
         KegiatanModel::create($validatedData);

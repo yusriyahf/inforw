@@ -23,6 +23,10 @@ class PengumumanModel extends Model
     {
         return $this->belongsTo(User::class, 'rt', 'rt_id');
     }
+    public function getrw()
+    {
+        return $this->belongsTo(User::class, 'rw', 'rw_id');
+    }
 
     protected function image(): Attribute
     {

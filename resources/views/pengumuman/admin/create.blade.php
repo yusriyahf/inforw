@@ -15,7 +15,7 @@
                   @csrf
             
             <input type="hidden" value="{{ auth()->user()->user_id }}" name="user">
-            <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">
+            <input type="hidden" value="{{ auth()->user()->getkeluarga->rt }}" name="rt">z
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
