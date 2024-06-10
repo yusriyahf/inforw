@@ -9,8 +9,8 @@
         </div>
 
         <div class="col-12 mt-1">
-            <div class="card mb-4">
-              <div class="card-header pb-0">
+          <div class="card pl-2 p-4 mb-4">
+            <div class="card-header pb-1 pt-0">
                 <h6>Daftar Aset yang dimiliki</h6>
                 @if (session()->has('success'))
                   <div class="alert alert-success col-lg-8" role="alert">

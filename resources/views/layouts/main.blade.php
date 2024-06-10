@@ -26,13 +26,14 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
-  <link href="/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet" />
+  <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> --}}
 
   {{-- CHART --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -128,12 +129,12 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="/js/plugins/flatpickr.min.js"></script>
-  <script src="/js/core/popper.min.js"></script>
-  <script src="/js/core/bootstrap.min.js"></script>
-  <script src="/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="/js/plugins/chartjs.min.js"></script>
+  <script src="{{ asset('/js/plugins/flatpickr.min.js') }}"></script>
+  <script src="{{ asset('/js/core/popper.min.js') }}"></script>
+  <script src="{{ asset('/js/core/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('/js/plugins/chartjs.min.js') }}"></script>
   <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
@@ -238,21 +239,35 @@
   @stack('js')
 
   {{-- DATATABLES --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
-  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js" defer></script>
-  <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-  <script>
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- Custom CSS -->
+<style>
+    table.dataTable.no-footer {
+        border-bottom: 1px solid #e0e0e0; /* Change this color to the desired border color */
+    }
+</style>
+
+<script>
     $(document).ready(function() {
-        $('.table').DataTable();
+        $('.tables').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
-    </script>
-
-
-  
+</script>
 </body>
 
 </html>

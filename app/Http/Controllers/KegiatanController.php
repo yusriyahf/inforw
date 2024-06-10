@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KegiatanModel;
+use App\Models\RolesModel;
+use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
 {
@@ -12,19 +15,47 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $data = KegiatanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
 
-        $breadcrumb = (object) [
-            'title' => 'Kegiatan',
-            'list' => ['Pages', 'Kegiatan']
-        ];
+    if (auth()->user()->roles->nama === 'warga') {
+        $data = KegiatanModel::where('user', auth()->user()->user_id)->get();
+    }else{
+        $data = KegiatanModel::all();
+    }
+    
+    $breadcrumb = (object) [
+        'title' => 'Kegiatan',
+        'list' => ['Pages', 'Kegiatan']
+    ];
 
-        return view('kegiatan.index', [
-            'breadcrumb' => $breadcrumb,
-            'data' => $data
-        ]);
+    return view('kegiatan.index', [
+        'breadcrumb' => $breadcrumb,
+        'data' => $data
+    ]);
     }
 
+    public function approve($id)
+    {
+        if ('is-rw') {
+            $kegiatan = KegiatanModel::find($id);
+            if ($kegiatan) {
+                $kegiatan->update(['status' => 'disetujui']);
+                return redirect('/kegiatan')->with('success', 'Kegiatan berhasil disetujui');
+            }
+        }
+        return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');
+    }
+
+    public function reject($id)
+    {
+        if ('is-rw') {
+            $kegiatan = KegiatanModel::find($id);
+            if ($kegiatan) {
+                $kegiatan->update(['status' => 'ditolak']);
+                return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditolak');
+            }
+        }
+        return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -50,7 +81,6 @@ class KegiatanController extends Controller
         ]);
         $validatedData['rt'] = auth()->user()->getkeluarga->rt;
         $validatedData['user'] = auth()->user()->user_id;
-        $validatedData['status'] = 'proses pengajuan';
 
 
         KegiatanModel::create($validatedData);

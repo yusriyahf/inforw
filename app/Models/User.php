@@ -28,6 +28,7 @@ class User extends Authenticatable
     protected $primaryKey = 'user_id';
     protected $guarded = ['user_id'];
 
+
     public function getkeluarga(): BelongsTo
     {
         return $this->belongsTo(KeluargaModel::class, 'keluarga', 'keluarga_id');

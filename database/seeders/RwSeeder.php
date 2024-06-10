@@ -18,11 +18,11 @@ class RwSeeder extends Seeder
             [
                 'rw_id' => 1,
                 'nama' => '03',
-                'ketua'=>2,
-                'sekretaris'=>24,
-                'bendahara'=>22
+                // 'ketua'=>2,
+                // 'sekretaris'=>24,
+                // 'bendahara'=>22
             ],
-           
+
         ];
         DB::table('rw')->insert($data);
     }
