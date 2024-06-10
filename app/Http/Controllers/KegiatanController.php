@@ -44,6 +44,12 @@ class KegiatanController extends Controller
                 $kegiatan->update(['status' => 'disetujui']);
                 return redirect('/kegiatan')->with('success', 'Kegiatan berhasil disetujui');
             }
+        }elseif('is-rt'){
+            $kegiatan = KegiatanModel::find($id);
+            if ($kegiatan) {
+                $kegiatan->update(['status' => 'disetujui']);
+                return redirect('/kegiatan')->with('success', 'Kegiatan berhasil disetujui');
+            }
         }
         return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');
     }
@@ -55,6 +61,14 @@ class KegiatanController extends Controller
             if ($kegiatan) {
                 $kegiatan->update(['status' => 'ditolak']);
                 return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditolak');
+            }
+        }elseif('is-rt'){
+            if ('is-rw') {
+                $kegiatan = KegiatanModel::find($id);
+                if ($kegiatan) {
+                    $kegiatan->update(['status' => 'ditolak']);
+                    return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditolak');
+                }
             }
         }
         return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');

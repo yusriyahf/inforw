@@ -15,7 +15,7 @@
         }
         .container {
             width: 100%;
-            height: 80%;
+            height: 97%;
             margin: auto;
             background: #fff;
             padding: 15px;
@@ -52,6 +52,9 @@
         }
         .indent {
         text-indent: 50px;
+        }
+        .indent2 {
+        text-indent: 25px;
         }
         .content .date2{
 
@@ -104,6 +107,7 @@
             text-align: center;
             padding-right: 5px;
             margin-left: 4px;
+            padding-top: 1cm;
             
         }
         .info-table3 .value {
@@ -135,7 +139,7 @@
     <div class="container">
         <div class="header">
             <img src="img/kecamatanpandanwangi.png" alt="Logo" style='position: absolute; top: 20px; left: 20px; width: 100px;'>
-            <h1>SURAT PENGANTAR</h1>
+            <h1>SURAT PENGAJUAN KEGIATAN</h1>
             <h3>KETUA RW. 013 DESA PANDANWANGI</h3>
             <h3>KECAMATAN PANDANWANGI - MALANG JAWA TIMUR</h3>
             <h2>______________________________________________________________</h2>
@@ -159,20 +163,28 @@
             </table>
             <p></p>
             <p>Kepada Yth.</p>
-            <p>{{ $kg->nama }}</p>
-            <p class="indent">Yang bertanda tangan di bawah ini Ketua RW. 013 Desa Pandanwangi Kecamatan Pandanwangi Kabupaten Kota Malang dengan ini menerangkan bahwa:</p>
+            <p class="indent2">{{ $kg->users->nama }}</p>
+            <p class="indent">Yang bertanda tangan di bawah ini, Ketua RW 013 Desa Pandanwangi Kecamatan Pandanwangi Kabupaten Kota Malang, dengan ini menyetujui kegiatan yang diajukan sebagai berikut:</p>
             <table class="info-table">
                 {{-- <tr>
                     <td class="label">Nama Lengkap</td>
                     <td class="value">: {{ $kg->nama }}</td>
                 </tr> --}}
                 <tr>
-                    <td class="label">Nama Kegiatan</td>
-                    <td class="value">: {{ $kg->nama_kegiatan }}</td>
+                    <td class="label">Tanggal</td>
+                    <td class="value">: {{ date('d-m-Y', strtotime($kg->tanggal)) }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Tanggal</td>
-                    <td class="value">: {{ $kg->tanggal }}-Selesai</td>
+                    <td class="label">Waktu</td>
+                    <td class="value">: {{ date('H:i', strtotime($kg->tanggal)) }} - Selesai</td>
+                </tr>
+                <tr>
+                    <td class="label">Alamat</td>
+                    <td class="value">: {{ $kg->alamat }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Nama Kegiatan</td>
+                    <td class="value">: {{ $kg->nama_kegiatan }}</td>
                 </tr>
                 {{-- <tr>
                     <td class="label">Status Perkawinan</td>
@@ -187,24 +199,30 @@
                     <td class="value">: {{ $sp->keperluan }}</td> --}}
                 </tr>
             </table>
-            <p>Dengan pernyataan diatas, merupakan pengantar yang kami berikan. Surat pengantar ini dibuat sebagai kelengkapan pengurusan Surat Pengantar.</p>
-            <p>Demikian surat pengantar ini kami buat, untuk dapat diterima sebagaimana mestinya.</p>
+            <p>Dengan pernyataan di atas, kami <strong>MENYETUJUI</strong> pengajuan yang telah disampaikan. Surat persetujuan ini dibuat sebagai bagian dari proses persetujuan kegiatan yang diajukan.</p>
+            <p>Demikian surat persetujuan ini kami buat, untuk dapat digunakan sebagaimana mestinya.</p>
             <table class="info-table3">
                 <tr>
                     <td class="label">
-                        <p class="date2">Malang, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
                         <p></p>
                         <p></p>
                         <p></p>
-                        <p>{{ $kg->nama }}</p>
+                        <p>Penanggung Jawab</p>
+                        <p> Kegiatan</p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p>{{ $kg->users->nama }}</p>
                     </td>
                     <td class="value">
+                    <p>Malang, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
+                    <p></p>
+                    <p>Ketua RW 013</p>
+                    <p>Pandanwangi</p>
+                       <p></p>
+                       <p></p>
+                       <p></p>
                        <p >Vasko</p>
-                       <p></p>
-                       <p></p>
-                       <p></p>
-                       <p>Ketua RW 013</p>
-                       <p>Pandanwangi</p>
                     </td>
                 </tr>
             </table>
