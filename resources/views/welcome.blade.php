@@ -23,7 +23,21 @@
           </h6>
           
         </div>
-        <iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        @can('is-rw')
+            
+        <iframe 
+        width="600" 
+        height="930" 
+        src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" 
+        frameborder="0" 
+        style="border:none; background:none;" 
+        allowfullscreen 
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+    
+        <iframe width="600" height="930" src="https://lookerstudio.google.com/embed/reporting/96ff07bb-4241-44ee-9f6b-a40857b82fff/page/P3i2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        @endcan
+
         @can('is-warga')
             
         <div class="col-12 mt-1">

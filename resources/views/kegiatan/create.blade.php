@@ -25,6 +25,16 @@
                                         </div>
                                     @enderror
                                 </div>
+                            </div><div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="form-control-label">Alamat Kegiatan</label>
+                                    <input class="form-control @error('alamat') is-invalid @enderror" type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" autocomplete="off">
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">

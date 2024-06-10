@@ -29,6 +29,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="alamat" class="form-control-label">Alamat Kegiatan</label>
+                                    <input class="form-control @error('alamat') is-invalid @enderror" type="text" name="alamat" id="alamat" value="{{ old('alamat', $data->alamat) }}" autocomplete="off">
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="tanggal" class="form-control-label">Tanggal</label>
                                     <input class="form-control @error('tanggal') is-invalid @enderror" type="datetime-local" name="tanggal" id="tanggal" value="{{ old('tanggal', $data->tanggal) }}" min="{{ date('Y-m-d') }}">
                                     @error('tanggal')

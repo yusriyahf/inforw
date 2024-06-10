@@ -117,7 +117,7 @@ class PengumumanController extends Controller
             }],
             'rt' => 'required',
             'user' => 'required',
-        ];
+        ]);
 
         if (Gate::allows('is-rt')) {
             $rules['rt'] = 'required';

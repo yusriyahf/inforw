@@ -1,6 +1,5 @@
 <?php
 
-use App\Traits\Notifikasi;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RtModel;
@@ -8,6 +7,7 @@ use App\Models\RwModel;
 use App\Models\SpModel;
 use App\Models\AsetModel;
 use App\Models\SktmModel;
+use App\Traits\Notifikasi;
 use App\Models\KeluargaModel;
 use App\Models\PemasukanModel;
 use App\Models\PengaduanModel;
@@ -16,11 +16,12 @@ use App\Models\PengumumanModel;
 use App\Models\PengeluaranModel;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KkController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
+
+
 use App\Http\Controllers\PdfController;
-
-
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -31,9 +32,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengaduanController;
+
+
 use App\Http\Controllers\OrganisasiController;
-
-
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\DaftarBansosController;
@@ -150,7 +151,7 @@ Route::get('/home', function () {
     }
 
     // Inisialisasi variabel untuk menyimpan jumlah pengguna dalam setiap kelompok umur
-    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
+    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris') || Gate::allows('is-rw')) {
         $anakAnakCount = 0;
         $remajaCount = 0;
         $dewasaCount = 0;
@@ -362,6 +363,13 @@ Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit']);
 Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']);
 Route::patch('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus']);
 
+Route::get('/kk', [KkController::class, 'index']);
+Route::get('/kk/create', [KkController::class, 'create']);
+Route::post('/kk/create', [KkController::class, 'store']);
+Route::get('/kk/{id}', [KkController::class, 'show']);
+Route::get('/kk/{id}/edit', [KkController::class, 'edit']);
+Route::put('/kk/{id}', [KkController::class, 'update']);
+Route::delete('/kk/{id}', [KkController::class, 'destroy']);
 
 
 Route::get('/keluarga', function () {
@@ -407,7 +415,6 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::post('/create', [KegiatanController::class, 'store']);
     Route::get('/{id}/edit', [KegiatanController::class, 'edit']);
     Route::put('/{id}', [KegiatanController::class, 'update']);
-    
 });
 // routes/web.php
 Route::get('/kegiatan/{id}/approve', [KegiatanController::class, 'approve'])->name('kegiatan.approve');

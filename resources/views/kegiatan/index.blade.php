@@ -54,16 +54,16 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->users->nama }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->users->alamat }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->alamat }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                             @if ($d->status == 'disetujui')
-                                <a href="/kegiatan/{{ $d->kegiatan_id }}/pdf" class="text-secondary text-xs font-weight-bold">{{ $d->status }}</a>
+                                <a href="/kegiatan/{{ $d->kegiatan_id }}/pdf" class="text-success text-xs font-weight-bold">{{ $d->status }}</a>
                             @else
-                                <span class="text-secondary text-xs font-weight-bold">{{ $d->status }}</span>
+                                <span class="text-danger text-xs font-weight-bold">{{ $d->status }}</span>
                             @endif
                         </td>
                         @can('is-warga')

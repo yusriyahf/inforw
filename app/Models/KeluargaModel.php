@@ -22,4 +22,9 @@ class KeluargaModel extends Model
     {
         return $this->belongsTo(RtModel::class, 'rt', 'rt_id');
     }
+
+    public function getkepala()
+    {
+        return $this->belongsTo(User::class, 'kepala_keluarga', 'user_id');
+    }
 }

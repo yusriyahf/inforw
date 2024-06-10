@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('kegiatan_id');
             $table->dateTime('tanggal');
             $table->string('nama_kegiatan');
+            $table->string('alamat');
             $table->unsignedBigInteger('rt')->index();
             $table->unsignedBigInteger('user')->index();
             $table->enum('status', ['proses', 'disetujui', 'ditolak']);
