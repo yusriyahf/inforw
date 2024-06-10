@@ -58,12 +58,16 @@ class SuratController extends Controller
     {
         $validatedData = $request->validate([
             'user' => 'required',
-            'nama' => 'required',
+            'nama' => 'required|max:30',
             'jenis_kelamin' => 'required',
-            'pekerjaan' => 'required',
-            'nik' => 'required',
+            'pekerjaan' => 'required|max:30',
+            'nik' => 'required|numeric|digits:12',
             'status_perkawinan' => 'required',
-            'keperluan' => 'required',
+            'keperluan' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
             'rt' => 'required',
         ]);
 
@@ -116,15 +120,19 @@ class SuratController extends Controller
     public function storesktm(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|max:30',
             'user' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|numeric|digits:12',
             'rt' => 'required',
-            'no_kk' => 'required',
+            'no_kk' => 'required|numeric|digits:12',
             'jenis_kelamin' => 'required',
             'status_perkawinan' => 'required',
-            'pekerjaan' => 'required',
-            'keperluan' => 'required',
+            'pekerjaan' => 'required|max:30',
+            'keperluan' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 225) {
+                    $fail('The ' . $attribute . ' must not exceed 225 words.');
+                }
+            }],
         ]);
 
         SktmModel::create($validatedData);

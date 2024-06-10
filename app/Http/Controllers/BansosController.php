@@ -178,10 +178,10 @@ class BansosController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_bansos' => 'required',
-            'total_bantuan' => 'required',
+            'nama_bansos' => 'required|max:50',
+            'total_bantuan' => 'required|numeric',
             'jenis_bansos' => 'required',
-            'jumlah_penerima' => 'required',
+            'jumlah_penerima' => 'required|numeric',
             'tipe_penerima' => 'required',
             'tgl_akhir_daftar' => 'required',
             'tgl_penyaluran' => 'required',

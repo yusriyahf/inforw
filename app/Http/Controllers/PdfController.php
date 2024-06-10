@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KegiatanModel;
 use App\Models\SktmModel;
 use App\Models\SpModel;
 use Illuminate\Http\Request;

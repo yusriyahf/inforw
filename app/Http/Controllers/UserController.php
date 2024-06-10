@@ -102,16 +102,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => 'required',
-            'nama' => 'required',
-            'pekerjaan' => 'required',
+            'nik' => 'required|numeric|digits:12',
+            'nama' => 'required|max:30',
+            'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required',
+            'alamat' => 'required|max:30',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'notelp' => '|required|min:10',
+            'notelp' => 'required|numeric',
         ]);
 
         $validatedData['keluarga'] = 1;
@@ -167,16 +167,16 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nik' => 'required',
-            'nama' => 'required',
-            'pekerjaan' => 'required',
-            'notelp' => 'required',
+            'nik' => 'required|numeric|digits:12',
+            'nama' => 'required|max:30',
+            'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required',
+            'alamat' => 'required|max:30',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'notelp' => 'required|numeric',
         ]);
 
 

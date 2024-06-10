@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_kegiatan');
             $table->unsignedBigInteger('rt')->index();
             $table->unsignedBigInteger('user')->index();
-            $table->string('status');
+            $table->enum('status', ['proses', 'disetujui', 'ditolak']);
 
             $table->timestamps();
 
