@@ -139,8 +139,32 @@
                     @enderror
                 </div>
               </div>
-              
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">Ganti Password</p>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="password_lama" class="form-control-label">Password Lama</label>
+                  <input class="form-control" type="text" name="password_lama" id="password_lama" required>
+                    @error('password_lama')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="password" class="form-control-label">Password Baru</label>
+                  <input class="form-control" type="text" name="password" id="password" required>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+              </div>
               <div class="col-md-10">
+                
 
               </div>
               <div class="col-md-2">
