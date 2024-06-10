@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KegiatanModel;
 use App\Models\RolesModel;
-use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
@@ -16,9 +16,9 @@ class KegiatanController extends Controller
     public function index()
     {
 
-    if (auth()->user()->roles->nama === 'warga') {
+    if (Gate::allows('is-warga')) {
         $data = KegiatanModel::where('user', auth()->user()->user_id)->get();
-    }elseif(auth()->user()->roles->nama === 'rt'){
+    }elseif(Gate::allows('is-rt')){
         $data = KegiatanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
     }
     else{
@@ -30,7 +30,7 @@ class KegiatanController extends Controller
         'list' => ['Pages', 'Kegiatan']
     ];
 
-    return view('kegiatan.index', [`
+    return view('kegiatan.index', [
         'breadcrumb' => $breadcrumb,
         'data' => $data
     ]);
@@ -85,7 +85,6 @@ class KegiatanController extends Controller
         ]);
         $validatedData['rt'] = auth()->user()->getkeluarga->rt;
         $validatedData['user'] = auth()->user()->user_id;
-        $validatedData['status'] = 'proses';
 
 
         KegiatanModel::create($validatedData);
@@ -127,11 +126,14 @@ class KegiatanController extends Controller
         $request->validate([
             'tanggal' => 'required',
             'nama_kegiatan' => 'required|max:50',
+            'alamat' => 'required|max:50',
         ]);
 
         KegiatanModel::find($id)->update([
             'tanggal' => $request->tanggal,
             'nama_kegiatan' => $request->nama_kegiatan,
+            'alamat' => $request->alamat,
+
         ]);
 
         return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil diubah');

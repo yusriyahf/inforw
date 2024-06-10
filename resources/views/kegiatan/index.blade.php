@@ -61,9 +61,11 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                             @if ($d->status == 'disetujui')
-                                <a href="/kegiatan/{{ $d->kegiatan_id }}/pdf" class="text-success text-xs font-weight-bold">{{ $d->status }}</a>
+                                <a href="generate-pdf/kegiatan/{{ $d->kegiatan_id }}" class="text-success text-xs font-weight-bold">{{ $d->status }}</a>
                             @elseif ($d->status == 'ditolak')
                                 <span class="text-danger text-xs font-weight-bold">{{ $d->status }}</span>
+                            @else
+                            <span class="text-secondary text-xs font-weight-bold">{{ $d->status }}</span>
                             @endif
                         </td>
                         @can('is-warga')
@@ -80,7 +82,7 @@
                         </td>
                     @endcan
                         <td class="align-middle text-center text-sm">
-                          @if ($d->status == 'diproses')
+                          @if ($d->status == 'proses')
                               @can('is-rt')
                                   <a href="{{ route('kegiatan.approve', $d->kegiatan_id) }}" class="btn btn-success btn-sm px-1 mb-0" onclick="return confirm('Apakah Anda yakin menyetujui kegiatan ini?');">
                                       <i class="fas fa-check"></i>

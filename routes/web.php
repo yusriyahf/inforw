@@ -150,7 +150,7 @@ Route::get('/home', function () {
     }
 
     // Inisialisasi variabel untuk menyimpan jumlah pengguna dalam setiap kelompok umur
-    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris')) {
+    if (Gate::allows('is-rt') || Gate::allows('is-sekretaris') || Gate::allows('is-rw')) {
         $anakAnakCount = 0;
         $remajaCount = 0;
         $dewasaCount = 0;
@@ -407,7 +407,6 @@ Route::group(['prefix' => 'kegiatan'], function () {
     Route::post('/create', [KegiatanController::class, 'store']);
     Route::get('/{id}/edit', [KegiatanController::class, 'edit']);
     Route::put('/{id}', [KegiatanController::class, 'update']);
-    
 });
 // routes/web.php
 Route::get('/kegiatan/{id}/approve', [KegiatanController::class, 'approve'])->name('kegiatan.approve');
