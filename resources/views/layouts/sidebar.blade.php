@@ -112,6 +112,76 @@
       </li>
       @endcan
 
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('pengumuman*') ? 'active' : '' }}" href="/pengumuman">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Pengumuman</span>
+          </a>
+        </li>
+        @endif
+        @if(Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('surat') ? 'active' : '' }}" href="/surat">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Surat</span>
+          </a>
+        </li>
+        @endif
+        {{-- @can('is-warga')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('organisasi') ? 'active' : '' }}" href="/pengaduan">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Pengaduan</span>
+          </a>
+        </li>
+        @endcan --}}
+        @can('is-warga')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/aset">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Aset</span>
+          </a>
+        </li>
+        @endcan
+        @can('is-warga')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/daftarBansos">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Daftar Bansos</span>
+          </a>
+        </li>
+        @endcan
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Bansos</span>
+          </a>
+        </li>
+        @endif
+        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('peminjaman') ? 'active' : '' }}" href="/peminjaman">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Peminjaman</span>
+          </a>
+        </li>
+        @endif
       @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
       <li class="nav-item">
         <a class="nav-link {{ Request::is('pengumuman*') ? 'active' : '' }}" href="/pengumuman">
