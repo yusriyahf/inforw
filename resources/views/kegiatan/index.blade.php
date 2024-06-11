@@ -58,6 +58,7 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->alamat }} </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{ $d->alamat }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->tanggal }} </span>
@@ -83,7 +84,7 @@
                         </td>
                     @endcanany
                         <td class="align-middle text-center text-sm">
-                          @if ($d->status == 'diproses')
+                          @if ($d->status == 'proses')
                               @can('is-rt')
                                   <a href="{{ route('kegiatan.approve', $d->kegiatan_id) }}" class="btn btn-success btn-sm px-1 mb-0" onclick="return confirm('Apakah Anda yakin menyetujui kegiatan ini?');">
                                       <i class="fas fa-check"></i>

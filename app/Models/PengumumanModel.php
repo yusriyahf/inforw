@@ -24,11 +24,6 @@ class PengumumanModel extends Model
         return $this->belongsTo(RtModel::class, 'rt', 'rt_id');
     }
 
-    public function getrw()
-    {
-        return $this->belongsTo(RwModel::class, 'rw', 'rw_id');
-    }
-
     protected function image(): Attribute
     {
         return Attribute::make(

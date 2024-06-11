@@ -139,8 +139,8 @@
         <img src="img/kecamatanpandanwangi.png" alt="Logo" style='position: absolute; top: 20px; left: 20px; width: 100px;'>
         <div class="header">
             <h1>SURAT KETERANGAN TIDAK MAMPU</h1>
-            <h3>KETUA RW. 013 DESA PANDANWANGI</h3>
-            <h3>KECAMATAN PANDANWANGI - MALANG JAWA TIMUR</h3>
+            <h3>KETUA RW. 13 KELURAHAN PANDANWANGI</h3>
+            <h3>KECAMATAN BLIMBING - MALANG JAWA TIMUR</h3>
             <h2>___________________________________________________________</h2>
         </div>
         <div class="content">
@@ -163,7 +163,7 @@
             <p></p>
             <p>Kepada Yth.</p>
             <p>{{ $sktm->nama }}</p>
-            <p class="indent">Yang bertanda tangan di bawah ini Ketua RW. 013 Desa Pandanwangi Kecamatan Pandanwangi Kabupaten Kota Malang dengan ini menerangkan bahwa:</p>
+            <p class="indent">Yang bertanda tangan di bawah ini Ketua RW. 13 Kelurahan Pandanwangi Kecamatan Blimbing Kota Malang dengan ini menerangkan bahwa:</p>
             <table class="info-table">
                 <tr>
                     <td class="label">Nama Lengkap</td>

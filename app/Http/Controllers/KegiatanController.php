@@ -19,10 +19,15 @@ class KegiatanController extends Controller
         if (Gate::allows('is-warga')) {
             $data = KegiatanModel::where('user', auth()->user()->user_id)->get();
         } elseif (Gate::allows('is-rt')) {
-            $data = KegiatanModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+            $data = KegiatanModel::where('rt',  auth()->user()->getkeluarga->getrt->rt_id)->get();
         } else {
             $data = KegiatanModel::all();
         }
+
+        $breadcrumb = (object) [
+            'title' => 'Kegiatan',
+            'list' => ['Pages', 'Kegiatan']
+        ];
 
         $breadcrumb = (object) [
             'title' => 'Kegiatan',
@@ -43,6 +48,12 @@ class KegiatanController extends Controller
                 $kegiatan->update(['status' => 'disetujui']);
                 return redirect('/kegiatan')->with('success', 'Kegiatan berhasil disetujui');
             }
+        } elseif ('is-rt') {
+            $kegiatan = KegiatanModel::find($id);
+            if ($kegiatan) {
+                $kegiatan->update(['status' => 'disetujui']);
+                return redirect('/kegiatan')->with('success', 'Kegiatan berhasil disetujui');
+            }
         }
         return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');
     }
@@ -54,6 +65,14 @@ class KegiatanController extends Controller
             if ($kegiatan) {
                 $kegiatan->update(['status' => 'ditolak']);
                 return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditolak');
+            }
+        } elseif ('is-rt') {
+            if ('is-rw') {
+                $kegiatan = KegiatanModel::find($id);
+                if ($kegiatan) {
+                    $kegiatan->update(['status' => 'ditolak']);
+                    return redirect('/kegiatan')->with('success', 'Kegiatan berhasil ditolak');
+                }
             }
         }
         return redirect('/kegiatan')->with('error', 'Aksi tidak diizinkan');

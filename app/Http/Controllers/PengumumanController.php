@@ -92,6 +92,10 @@ class PengumumanController extends Controller
             $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        }elseif (Gate::allows('is-rw')) {
+            $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
+            $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
         }
 
         return view('pengumuman.admin.create', [
@@ -116,7 +120,7 @@ class PengumumanController extends Controller
                 }
             }],
             'user' => 'required',
-        ];
+        ]);
 
         // Menambahkan aturan validasi dinamis
         if (Gate::allows('is-rt')) {
