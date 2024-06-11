@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PengaduanModel;
 use App\Models\PengumumanModel;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -95,10 +96,13 @@ class ProfileController extends Controller
             'jenis_kelamin' => 'required',
             'pekerjaan' => 'required|max:30',
             'notelp' => 'required|numeric',
-
+            'password_lama' => 'nullable|required_with:password,password_confirmation',
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
-        User::find(auth()->user()->user_id)->update([
+        $user = User::find(auth()->user()->user_id);
+
+        $user->update([
             'nama' => $request->nama,
             'nik' => $request->nik,
             'alamat' => $request->alamat,
@@ -110,6 +114,15 @@ class ProfileController extends Controller
             'pekerjaan' => $request->pekerjaan,
             'notelp' => $request->notelp
         ]);
+
+        if ($request->filled('password_lama') && $request->filled('password')) {
+            if (Hash::check($request->password_lama, $user->password)) {
+                $user->update(['password' => Hash::make($request->password)]);
+                return redirect('/profile')->with('success', 'Data Profile dan Password berhasil diubah');
+            } else {
+                return redirect('/profile')->withErrors(['password_lama' => 'Password lama tidak sesuai']);
+            }
+        }
 
         return redirect('/profile')->with('success', 'Data Profile berhasil diubah');
     }

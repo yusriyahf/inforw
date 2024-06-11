@@ -143,26 +143,43 @@
               <p class="text-uppercase text-sm">Ganti Password</p>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="password_lama" class="form-control-label">Password Lama</label>
-                  <input class="form-control" type="text" name="password_lama" id="password_lama" required>
+                    <label for="password_lama" class="form-control-label">Password Lama</label>
+                    <input class="form-control @error('password_lama') is-invalid @enderror" type="password" name="password_lama" id="password_lama">
                     @error('password_lama')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
-              </div>
-              <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
-                  <label for="password" class="form-control-label">Password Baru</label>
-                  <input class="form-control" type="text" name="password" id="password" required>
+                    <label for="password" class="form-control-label">Password Baru</label>
+                    <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" id="password">
+                    <div id="passwordHelpBlock" class="form-text">
+                        Password harus memiliki setidaknya 8 karakter.
+                    </div>
                     @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
-              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-control-label">Konfirmasi Password Baru</label>
+                    <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" id="password_confirmation">
+                    <div id="passwordMatchFeedback" class="form-text">
+                        Password harus sesuai dengan konfirmasi password.
+                    </div>
+                    @error('password_confirmation')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
               <div class="col-md-10">
                 
 
@@ -180,4 +197,38 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const password = document.getElementById('password');
+        const passwordConfirmation = document.getElementById('password_confirmation');
+        const passwordHelpBlock = document.getElementById('passwordHelpBlock');
+        const passwordMatchFeedback = document.getElementById('passwordMatchFeedback');
+    
+        function validatePassword() {
+            if (password.value.length >= 8) {
+                passwordHelpBlock.textContent = 'Password memenuhi syarat.';
+                passwordHelpBlock.classList.remove('text-danger');
+                passwordHelpBlock.classList.add('text-success');
+            } else {
+                passwordHelpBlock.textContent = 'Password harus memiliki setidaknya 8 karakter.';
+                passwordHelpBlock.classList.remove('text-success');
+                passwordHelpBlock.classList.add('text-danger');
+            }
+    
+            if (password.value === passwordConfirmation.value) {
+                passwordMatchFeedback.textContent = 'Password sesuai.';
+                passwordMatchFeedback.classList.remove('text-danger');
+                passwordMatchFeedback.classList.add('text-success');
+            } else {
+                passwordMatchFeedback.textContent = 'Password harus sesuai dengan konfirmasi password.';
+                passwordMatchFeedback.classList.remove('text-success');
+                passwordMatchFeedback.classList.add('text-danger');
+            }
+        }
+    
+        password.addEventListener('input', validatePassword);
+        passwordConfirmation.addEventListener('input', validatePassword);
+    });
+    </script>
 @endsection
