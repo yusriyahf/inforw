@@ -6,94 +6,105 @@
         <div class="col-xl-12 col-sm-12 mb-xl-0 mb-3">
             <h2 class="text-white">Peminjaman Aset</h2>
             <h6 class="text-white">Peminjaman aset digital yang mudah dan tidak ribet, tidak perlu repot mengatur jadwal ketemu dengan pak rt</h6>
+            <div class="col-12 mt-2">
+                <a href="/aset" class="btn btn-white btn-sm ms-auto text-primary">Daftar Aset</a>
+                <a href="/aset/riwayatPeminjaman" class="btn btn-white btn-sm ms-auto text-primary">Riwayat Peminjaman</a>
+            </div>
         </div>
 
         <div class="col-12 mt-1">
-          <div class="card pl-2 p-4 mb-4">
-            <div class="card-header pb-1 pt-0">
-                <h6>Daftar Aset yang dimiliki</h6>
-                @if (session()->has('success'))
-                  <div class="alert alert-success col-lg-8" role="alert">
-                    {{ session('success') }}
-                  </div>
-                @endif
-              </div>
-              <div class="card-body px-0 pt-0 pb-2">
-                  <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0 " id="assetTable">
-                      <thead>
-                        <tr>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Aset</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">deskripsi</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          @foreach ($data as $d)       
-                        <tr>
-                          <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }} </span>
-                          </td>
-                          <td class="align-middle text-center text-sm">
-                            @if (!empty($d->gambar))
-                                <span class="text-secondary text-xs font-weight-bold">
+            <div class="card pl-2 p-4 mb-4">
+                <div class="card-header pb-1 pt-0">
+                    @if (session()->has('success'))
+                    <div class="alert alert-success col-lg-8" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @elseif (session()->has('error'))
+                    <div class="alert alert-danger col-lg-8" role="alert">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="row">
+                        @foreach ($data as $d)
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100 position-relative">
+                                <div class="card-img-top-wrapper" style="height: 200px; overflow: hidden;">
+                                    @if (!empty($d->gambar))
                                     <a href="#" class="text-decoration-none text-reset" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-url="gambar/aset/{{ $d->gambar }}">
-                                        <img src="{{ asset('gambar/aset/' . $d->gambar) }}" alt="Image" style="height: 150px;">
+                                        <img src="{{ asset('gambar/aset/' . $d->gambar) }}" class="card-img-top" alt="Image" style="height: 100%; width: auto; object-fit: cover;">
                                     </a>
-                                </span>
-                            @else
-                                <span class="text-danger text-xs font-weight-bold">Tidak ada</span>
-                            @endif
-                        </td>
-                          <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $d->nama }}</span>
-                            <td class="align-middle text-center text-sm">
-                                <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }}</span>
-                              </td>
-                          </td>
-                            <td class="align-middle text-center text-sm">
-                                <span class="text-secondary text-xs font-weight-bold">{{ $d->jenis }}</span>
-                              </td>
-                            <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-
-                                bg-gradient-{{ $d->status == 'tersedia' ? 'success' : 'danger' }}">{{ $d->status }}</span>
-                              </td>
-                          </td>
-                          <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold"><a href="#" class="text-primary">Pinjam</a></span>
-                          </td>
-                        </tr>
+                                    {{-- @else --}}
+                                    {{-- <img src="{{ asset('default-image.png') }}" class="card-img-top" alt="No Image" style="height: 100%; width: auto; object-fit: cover;"> --}}
+                                    @endif
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $d->nama }}</h5>
+                                    <p class="card-text">{{ $d->deskripsi }}</p>
+                                    <p class="card-text"><small class="text-muted">Jenis: {{ $d->jenis }}</small></p>
+                                    <p class="card-text">
+                                        <span class="badge bg-gradient-{{ $d->status == 'tersedia' ? 'success' : 'danger' }}">{{ $d->status }}</span>
+                                    </p>
+                                </div>
+                                @if ($d->status == 'tersedia')
+                                <div class="position-absolute top-0 end-0 m-2">
+                                  <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pinjamModal{{ $d->aset_id }}">
+                                    Pinjam
+                                  </button>
+                                    {{-- <a href="{{ route('pinjam', ['aset_id' => $d->aset_id]) }}" class="btn btn-primary btn-sm">Pinjam</a> --}}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="modal fade" id="pinjamModal{{ $d->aset_id }}" tabindex="-1" aria-labelledby="pinjamModalLabel{{ $d->aset_id }}" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                  <!-- Modal header -->
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="pinjamModalLabel{{ $d->aset_id }}">Form Peminjaman</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                      <!-- Form to input tanggal pinjam dan keterangan -->
+                                      <form action="{{ route('pinjam', ['aset_id' => $d->aset_id]) }}" method="POST">
+                                          @csrf
+                                          <div class="mb-3">
+                                              <label for="tanggal_pinjam" class="form-label">Tanggal Pinjam</label>
+                                              <input type="date" class="form-control" id="tanggal_pinjam" name="tanggal_pinjam" required>
+                                          </div>
+                                          <div class="mb-3">
+                                              <label for="keterangan" class="form-label">Keterangan</label>
+                                              <textarea class="form-control" id="keterangan" name="keterangan" rows="3" required></textarea>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Submit</button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                         @endforeach
-                        
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-
-              
+                    </div>
+                </div>
             </div>
-         </div>
-        
+        </div>
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-              <img id="modalImage" src="" class="img-fluid" alt="Image Preview">
-          </div>
-      </div>
-  </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid" alt="Image Preview">
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', (event) => {

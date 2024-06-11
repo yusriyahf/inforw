@@ -293,12 +293,18 @@ Route::get('/peminjaman', function () {
 
 Route::get('/aset', [AsetController::class, 'index'])->middleware('auth');
 Route::get('/aset/create', [AsetController::class, 'create']);
+Route::get('/aset/riwayatPeminjaman', [AsetController::class, 'riwayat']);
 Route::post('/aset/create', [AsetController::class, 'store']);
 Route::get('/aset/{id}', [AsetController::class, 'show']);
 Route::get('/aset/{id}/edit', [AsetController::class, 'edit']);
 Route::put('/aset/{id}', [AsetController::class, 'update']);
 Route::delete('/aset/{id}', [AsetController::class, 'destroy']);
+Route::post('/aset/pinjam/{aset_id}', [AsetController::class, 'pinjam'])->name('pinjam');
 
+Route::group(['prefix' => 'peminjaman'], function () {
+    Route::get('/', [AsetController::class, 'peminjaman'])->middleware('auth');
+    Route::get('/{peminjaman_id}/{status}', [AsetController::class, 'setujui']);
+});
 
 Route::get('/pengumuman', [PengumumanController::class, 'index'])->middleware('auth');
 Route::get('/pengumuman/create', [PengumumanController::class, 'create']);
