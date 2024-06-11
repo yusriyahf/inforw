@@ -36,11 +36,11 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Warga</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
                   @endif
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                  {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> --}}
 
-                  {{-- @can('is-warga') --}}
+                  @can('is-warga')
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                  {{-- @endcan --}}
+                  @endcan
                 </tr>
               </thead>
               <tbody>
@@ -75,9 +75,9 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->getrt->nama   }}</span>
                   </td>
                   @endif
-                  <td class="align-middle text-center text-sm">
+                  {{-- <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->status }}</span>
-                  </td>
+                  </td> --}}
                   @can('is-warga')
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/pengaduan/{{ $pn->pengaduan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
@@ -102,7 +102,7 @@
                     </form>                   
                   </td>
                   @endcan
-                  @can('is-rw')
+                  @can('is-warga')
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/pengaduan/{{ $pn->pengaduan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
                     <form class="d-inline-block" method="POST" action="/pengaduan/{{$pn->pengaduan_id}}">

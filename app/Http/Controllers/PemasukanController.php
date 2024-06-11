@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\SpModel;
 use App\Models\SktmModel;
 use Illuminate\Http\Request;
@@ -17,11 +18,29 @@ class PemasukanController extends Controller
      */
     public function index(Request $request)
     {
+
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
-        $data = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-            ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
-            ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
-            ->get();
+
+        if (Gate::allows('is-rw')) {
+            $daftarRT = RtModel::all();
+            $rt = $request->input('rt');
+            if ($rt) {
+                $data = PemasukanModel::where('rt', $rt)
+                    ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                    ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                    ->get();
+            } else {
+                $data = PemasukanModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                    ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                    ->get();
+            }
+        } else {
+            $data = PemasukanModel::where('rt', auth()->user()->getkeluarga->rt)
+                ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                ->get();
+        }
+
 
         $totalIuran = $data->count();
         $totalSaldo = $data->sum('jumlah');
@@ -45,6 +64,7 @@ class PemasukanController extends Controller
             'tanggal' => $tanggal,
             'totalIuran' => $totalIuran,
             'totalSaldo' => $totalSaldo,
+            'daftarRT' => $daftarRT,
             'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,

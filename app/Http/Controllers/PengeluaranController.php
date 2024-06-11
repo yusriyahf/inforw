@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RtModel;
 use App\Models\SpModel;
 use App\Models\SktmModel;
 use Illuminate\Http\Request;
@@ -14,11 +15,30 @@ class PengeluaranController extends Controller
 {
     public function index(Request $request)
     {
+        $daftarRT = RtModel::all();
+
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
-        $data = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
-            ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
-            ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
-            ->get();
+
+        if (Gate::allows('is-rw')) {
+            $daftarRT = RtModel::all();
+            $rt = $request->input('rt');
+            if ($rt) {
+                $data = PengeluaranModel::where('rt', $rt)
+                    ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                    ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                    ->get();
+            } else {
+                $data = PengeluaranModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                    ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                    ->get();
+            }
+        } else {
+            $data = PengeluaranModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
+                ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                ->get();
+        }
+
 
         $jumlahPengeluaran = $data->count();
         $totalPengeluaran = $data->sum('jumlah');
@@ -40,6 +60,7 @@ class PengeluaranController extends Controller
             'breadcrumb' => $breadcrumb,
             'pengeluaran' => $data,
             'tanggal' => $tanggal,
+            'daftarRT' => $daftarRT,
             'jumlahPengeluaran' => $jumlahPengeluaran,
             'totalPengeluaran' => $totalPengeluaran,
             'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,

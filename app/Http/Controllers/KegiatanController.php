@@ -19,7 +19,7 @@ class KegiatanController extends Controller
         if (Gate::allows('is-warga')) {
             $data = KegiatanModel::where('user', auth()->user()->user_id)->get();
         } elseif (Gate::allows('is-rt')) {
-            $data = KegiatanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)->get();
+            $data = KegiatanModel::where('rt', auth()->user()->getkeluarga->rt)->get();
         } else {
             $data = KegiatanModel::all();
         }

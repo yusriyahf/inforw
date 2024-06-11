@@ -108,32 +108,38 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $baseRules = [
             'judul' => 'required|max:50',
             'deskripsi' => ['required', function ($attribute, $value, $fail) {
                 if (str_word_count($value) > 225) {
                     $fail('The ' . $attribute . ' must not exceed 225 words.');
                 }
             }],
-            'rt' => 'required',
             'user' => 'required',
-        ]);
+        ];
 
+        // Menambahkan aturan validasi dinamis
         if (Gate::allows('is-rt')) {
-            $rules['rt'] = 'required';
+            $baseRules['rt'] = 'required';
         } elseif (Gate::allows('is-rw')) {
-            $rules['rw'] = 'required';
+            $baseRules['rw'] = 'required';
         }
+
+        $rules = array_merge($baseRules, [
+            'gambar' => 'sometimes|file|mimes:jpg,png,jpeg,gif|max:2048', // Validasi file gambar
+        ]);
 
         $validatedData = $request->validate($rules);
 
         if ($request->hasFile('gambar')) {
-            $extfile = $request->file('gambar')->getClientOriginalExtension();
+            $file = $request->file('gambar');
+            $extfile = $file->getClientOriginalExtension();
 
+            // Menangani nama file yang lebih aman
             $judulFormatted = strtolower(str_replace(' ', '', $request->judul));
-            $namaFile = $judulFormatted . '.' . $extfile;
+            $namaFile = $judulFormatted . $extfile;
 
-            $request->file('gambar')->move(public_path('gambar/pengumuman'), $namaFile);
+            $file->move(public_path('gambar/pengumuman'), $namaFile);
             $validatedData['gambar'] = $namaFile;
         }
 
@@ -141,6 +147,7 @@ class PengumumanController extends Controller
 
         return redirect('/pengumuman')->with('success', 'Pengumuman berhasil dibuat');
     }
+
 
     /**
      * Display the specified resource.

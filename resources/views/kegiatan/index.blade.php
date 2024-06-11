@@ -35,7 +35,10 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                        @canany(['is-rt', 'is-rw'])
+                            
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                        @endcanany
                       </tr>
                     </thead>
                     <tbody>
@@ -66,7 +69,7 @@
                                 <span class="text-danger text-xs font-weight-bold">{{ $d->status }}</span>
                             @endif
                         </td>
-                        @can('is-warga')
+                        @canany(['is-rt', 'is-rw'])
                         <td class="align-middle text-center">
                           <a class="btn btn-link text-dark px-1 mb-0" href="/kegiatan/{{ $d->kegiatan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
       
@@ -78,7 +81,7 @@
                               </button>
                           </form>
                         </td>
-                    @endcan
+                    @endcanany
                         <td class="align-middle text-center text-sm">
                           @if ($d->status == 'diproses')
                               @can('is-rt')

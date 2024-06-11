@@ -27,11 +27,9 @@ class KkController extends Controller
             $data = KeluargaModel::all();
             $rt = $request->input('rt');
 
-            // Check if 'rt' is set and not empty, if so, filter the data
             if ($rt) {
                 $data = KeluargaModel::where('rt', $rt)->get();
             } else {
-                // Otherwise, get all data
                 $data = KeluargaModel::all();
             }
         } elseif (Gate::allows('is-rt')) {

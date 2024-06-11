@@ -10,6 +10,27 @@
           @can('is-bendahara')
           <a href="/pengeluaran/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
           @endcan
+          @if (Gate::check('is-rw') || Gate::check('is-admin'))
+              
+          <form action="/pengeluaran" method="GET" class="row">
+          <label for="rt">Pilih RT:</label>
+          <div class="col-sm-1">
+            <div class="form-group">
+                  <select name="rt" id="rt" class="form-control">
+                      <option value="">All</option>
+                      @foreach($daftarRT as $rt)
+                          <option value="{{ $rt->rt_id }}" @if(request('rt') == $rt->rt_id) selected @endif>{{ $rt->nama }}</option>
+                      @endforeach
+                  </select>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">Filter</button>
+              </div>
+          </div>
+        </form>
+      @endif
           <form action="/pengeluaran" method="GET" style="display: flex; align-items: flex-start;">
             @csrf
             <div class="form-group" style="margin-right: 10px;">
@@ -82,6 +103,9 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah</th>  
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                  @can('is-rw')
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT</th>
+                  @endcan
                   @can('is-bendahara')
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   @endcan
@@ -102,6 +126,11 @@
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pgl->tanggal }}</span>
                   </td>
+                  @can('is-rw')
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $pgl->getrt->nama }}</span>
+                    </td>
+                  @endcan
                   @can('is-bendahara')
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="pengeluaran/{{ $pgl->pengeluaran_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
