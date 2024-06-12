@@ -177,7 +177,7 @@
           <a class="nav-link {{ Request::is('peminjaman') ? 'active' : '' }}" href="/peminjaman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               {{-- <i class="ni ni-credit-card text-success text-sm opacity-10"></i> --}}
-              <i class="fas fa-handshake text-success text-sm opacity-10" style= "color: #6b6ae3 ;"></i>
+              <i class="fas fa-handshake text-sm opacity-10" style= "color: #6b6ae3;"></i>
             </div>
             <span class="nav-link-text ms-1">Peminjaman</span>
           </a>
