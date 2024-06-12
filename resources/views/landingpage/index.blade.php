@@ -218,49 +218,40 @@
         <header class="section-header">
            <p>Profile RW 03 Pandanwangi</p>
         </header>
-        <div class="row gy-4">
+        <div class="row gy-4 d-flex justify-content-center">
 
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah RT</p>
+              <div class="count-box">
+                  <i class="bi bi-emoji-smile"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalRt}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah RT</p>
+                  </div>
               </div>
-            </div>
           </div>
-
+      
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah KK</p>
+              <div class="count-box">
+                  <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalKk}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah KK</p>
+                  </div>
               </div>
-            </div>
           </div>
-
+      
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-headset" style="color: #15be56;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah Penduduk</p>
+              <div class="count-box">
+                  <i class="bi bi-headset" style="color: #15be56;"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalWarga}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah Penduduk</p>
+                  </div>
               </div>
-            </div>
           </div>
-
-          {{-- <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-people" style="color: #bb0852;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Hard Workers</p>
-              </div>
-            </div>
-          </div> --}}
-
-        </div>
+      
+      </div>
+      
       </div>
     </section>
     <!-- End Counts Section -->
@@ -581,7 +572,7 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="member">
               <div class="member-img">
-                <img src="/landingpage/img/maol.jpeg" class="img-fluid" alt="">
+                <img src="/landingpage/img/maul.jpg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>

@@ -463,10 +463,20 @@ Route::group(['prefix' => 'daftarBansos'], function () {
 
 Route::get('/', function () {
 
-    $pengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
+    $totalWarga = User::count() - 1;
+    $totalRt = RtModel::count();
+    $totalKk = KeluargaModel::count();
+    $pengumuman = PengumumanModel::whereNull('rt')
+                             ->orderBy('created_at', 'desc')
+                             ->take(3)
+                             ->get();
+
     $rw = RwModel::where('rw_id', 1)->first();
     return view('landingpage.index', [
         'rw' => $rw,
-        'pengumuman' => $pengumuman
+        'pengumuman' => $pengumuman,
+        'totalRt' => $totalRt,
+        'totalKk' => $totalKk,
+        'totalWarga' => $totalWarga,
     ]);
 })->middleware('guest');

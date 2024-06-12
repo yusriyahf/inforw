@@ -25,13 +25,15 @@
         </div>
         @can('is-rw')
             
-        <div class="iframe-container">
-            <iframe 
-                src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" 
-                allowfullscreen 
-                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-            </iframe>
-        </div>
+        <iframe 
+        width="600" 
+        height="900" 
+        src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" 
+        frameborder="0" 
+        style="border:none; background:none;" 
+        allowfullscreen 
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
     
         <iframe width="600" height="900" src="https://lookerstudio.google.com/embed/reporting/96ff07bb-4241-44ee-9f6b-a40857b82fff/page/P3i2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
         @endcan
@@ -130,7 +132,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                
+                                <i class="fas fa-archive opacity-10" style="color: #ffffff;"></i>
                                 {{-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> --}}
                             </div>
                         </div>
@@ -512,7 +514,7 @@
     <!-- End of financial information -->
     @endif
 
-    @if (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris'))
+    @if (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
     <div class="row mt-3">
       <div class="col-lg-6 mb-lg-0 mb-4">
         <div class="card z-index-2 h-100">
@@ -664,24 +666,3 @@
 
 
 @endsection
-
-@push('css')
-    <style>
-        .iframe-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 900px;
-            padding-top: 56.25%; /* Rasio aspek 16:9 */
-        }
-        
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-@endpush
