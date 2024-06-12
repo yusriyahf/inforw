@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KeluargaModel;
 use App\Models\User;
 use App\Models\RtModel;
 use App\Models\SpModel;
@@ -78,6 +79,9 @@ class UserController extends Controller
             'title' => 'Create',
             'list' => ['Pages', 'Warga', 'Create']
         ];
+        $keluarga = KeluargaModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+
+
 
         if (Gate::allows('is-warga')) {
             $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
@@ -93,6 +97,7 @@ class UserController extends Controller
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
             'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+            'keluarga' => $keluarga
         ]);
     }
 
@@ -141,6 +146,8 @@ class UserController extends Controller
             'list' => ['Pages', 'Warga', 'Edit']
         ];
 
+        $keluarga = KeluargaModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+
         if (Gate::allows('is-warga')) {
             $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
         } elseif (Gate::allows('is-rt')) {
@@ -154,6 +161,7 @@ class UserController extends Controller
         return view('warga.edit', [
             'warga' => $warga,
             'breadcrumb' => $breadcrumb,
+            'keluarga' => $keluarga,
             'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,

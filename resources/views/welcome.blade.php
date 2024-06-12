@@ -11,13 +11,13 @@
               @elseif (Gate::check('is-rw'))
                   Ketua
               @elseif (Gate::check('is-rt'))
-                  Ketua RT {{ $data->getrt->nama }},
+                  Ketua RT {{ auth()->user()->getkeluarga->getrt->nama }},
               @elseif (Gate::check('is-bendahara'))
-                  Bendahara RT {{ Auth::user()->role }},
+                  Bendahara RT {{ auth()->user()->getkeluarga->getrt->nama }},
               @elseif (Gate::check('is-sekretaris'))
-                  Sekretaris RT {{ Auth::user()->role }},
+                  Sekretaris RT {{ auth()->user()->getkeluarga->getrt->nama }},
               @elseif (Gate::check('is-warga'))
-                  Warga RT {{ $data->getrt->nama }},
+                  Warga RT {{ auth()->user()->getkeluarga->getrt->nama }},
               @endif  
               RW {{ $data->getrw->nama }} Kecamatan Pandanwangi
           </h6>
@@ -27,7 +27,7 @@
             
         <iframe 
         width="600" 
-        height="930" 
+        height="900" 
         src="https://lookerstudio.google.com/embed/reporting/9454f5d0-64ab-4e05-b912-2980fcfa1ae7/page/mtg2D" 
         frameborder="0" 
         style="border:none; background:none;" 
@@ -35,7 +35,7 @@
         sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
     </iframe>
     
-        <iframe width="600" height="930" src="https://lookerstudio.google.com/embed/reporting/96ff07bb-4241-44ee-9f6b-a40857b82fff/page/P3i2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        <iframe width="600" height="900" src="https://lookerstudio.google.com/embed/reporting/96ff07bb-4241-44ee-9f6b-a40857b82fff/page/P3i2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
         @endcan
 
         @can('is-warga')
@@ -142,6 +142,13 @@
             </div>
         </div>
         @endif
+        @can('is-admin')
+        <div class="col-md-1 mt-1 d-flex align-items-center">
+            <a href="/rt" class="btn btn-white btn-sm text-primary me-2" type="submit">RT</a>
+            <a href="/rw" class="btn btn-white btn-sm text-primary" type="submit">RW</a>
+        </div>
+        
+        @endcan
         <div class="col-12 mt-1">
             <div class="card mb-4">
                 <div class="card-header pb-0">
@@ -149,6 +156,8 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
+                        @if (Gate::denies('is-admin'))
+
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
@@ -233,6 +242,8 @@
                               </td>
                               
                               </tr>
+
+                              
                               <tr>
                                 <td class="align-middle text-center text-sm">
                                   <span class="text-secondary text-xs font-weight-bold">4 </span>
@@ -308,6 +319,90 @@
                               
                             </tbody>
                         </table>
+                        @endif
+
+
+                        @can('is-admin')
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ketua</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sekretaris</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bendahara</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pengurusRW as $p)
+                                    
+                                <tr>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-secondary text-xs font-weight-bold">{{$loop->iteration}} </span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-secondary text-xs font-weight-bold">RW {{ $p->nama }}</span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                      <a href="https://wa.me/62{{ $p->getketuarw->notelp }}" target="_blank">
+  
+                                    <span class="text-success text-xs font-weight-bold">{{ $p->getketuarw->nama }}</span>
+                                      </a>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                      <a href="https://wa.me/62{{ $p->getsekretarisrw->notelp }}" target="_blank">
+  
+                                    <span class="text-success text-xs font-weight-bold">{{ $p->getsekretarisrw->nama }}</span>
+                                      </a>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                      <a href="https://wa.me/62{{ $p->getsekretarisrw->notelp }}" target="_blank">
+  
+                                    <span class="text-success text-xs font-weight-bold">{{ $p->getbendahararw->nama }}</span>
+                                      </a>
+                                  </td>
+                            
+                                
+                                </tr>
+                                  @endforeach
+                                @foreach ($pengurus as $p)
+                                    
+                              <tr>
+                                <td class="align-middle text-center text-sm">
+                                  <span class="text-secondary text-xs font-weight-bold">{{$loop->iteration + 1}} </span>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                  <span class="text-secondary text-xs font-weight-bold">RT {{ $p->nama }}</span>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <a href="https://wa.me/62{{ $p->getketuart->notelp }}" target="_blank">
+
+                                  <span class="text-success text-xs font-weight-bold">{{ $p->getketuart->nama }}</span>
+                                </a>
+
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <a href="https://wa.me/62{{ $p->getsekretarisrt->notelp }}" target="_blank">
+
+                                  <span class="text-success text-xs font-weight-bold">{{ $p->getsekretarisrt->nama }}</span>
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <a href="https://wa.me/62{{ $p->getbendaharart->notelp }}" target="_blank">
+
+                                  <span class="text-success text-xs font-weight-bold">{{ $p->getbendaharart->nama }}</span>
+                                    </a>
+                                </td>
+                          
+                              
+                              </tr>
+                                @endforeach
+                               
+                                                           
+                            </tbody>
+                        </table>
+
+                              @endcan
                     </div>
                 </div>
             </div>
@@ -318,6 +413,8 @@
 
 
     <!-- Start of financial information -->
+    @if (Gate::denies('is-admin'))
+        
         <div class="row">
             <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
               <div class="card">
@@ -415,6 +512,7 @@
         </div>
         </div> 
     <!-- End of financial information -->
+    @endif
 
     @if (Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
     <div class="row mt-3">
@@ -563,8 +661,8 @@
             }
         }
     });
-  </script> --}}
-{{-- @endif
+  </script> 
+@endif
 
 
 @endsection

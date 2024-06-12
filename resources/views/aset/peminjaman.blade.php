@@ -97,16 +97,16 @@
                   @endcan
                   <td class="align-middle text-center">
                     @if ($pinjam->status == 'proses')
-                    <a class="btn badge badge-sm bg-gradient-success" href="/peminjaman/{{ $pinjam->peminjaman_id}}/disetujui">
+                    <a class="btn badge badge-sm text-success" href="/peminjaman/{{ $pinjam->peminjaman_id}}/disetujui">
                         Setujui
                     </a>
-                    <a class="btn badge badge-sm bg-gradient-danger" href="/peminjaman/{{ $pinjam->peminjaman_id}}/ditolak">
+                    <a class="btn badge badge-sm text-danger" href="/peminjaman/{{ $pinjam->peminjaman_id}}/ditolak">
                         Tolak
                     </a>
                     @else
                         <span class="badge badge-sm 
-                            @if ($pinjam->status == 'ditolak') bg-gradient-danger
-                            @elseif ($pinjam->status == 'disetujui') bg-gradient-success
+                            @if ($pinjam->status == 'ditolak') text-danger
+                            @elseif ($pinjam->status == 'disetujui') text-success
                             @endif">
                             {{ $pinjam->status }}
                         </span>                  

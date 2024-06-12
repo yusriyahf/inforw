@@ -27,6 +27,7 @@
               <h6 class="mb-0">Tabel Data Aset</h6>
               <a href="/aset/create" class="btn btn-primary btn-sm mt-2"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
           </div>
+          @can('is rw')
           <div>
               <select class="btn btn-white btn-sm">
                   <option value="">Filter RT</option>
@@ -35,6 +36,7 @@
                   @endforeach
               </select>
           </div>
+          @endcan
       </div>
       
       @if (session()->has('success'))
@@ -110,7 +112,7 @@
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/aset/{{ $aset->aset_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
 
-                    <form class="d-inline-block" method="POST" action="aset/{{$aset->id }}">
+                    <form class="d-inline-block" method="POST" action="aset/{{$aset->aset_id }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-link text-danger text-gradient px-1 mb-0" onclick="return confirm('Apakah Anda yakin menghapus data ini?');">

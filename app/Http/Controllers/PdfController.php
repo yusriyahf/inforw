@@ -47,10 +47,10 @@ class PdfController extends Controller
         }else{
             $kg = KegiatanModel::findOrFail($id);
             $data = [
-                'title' => 'Surat Pengantar',
+                'title' => 'Surat Pengajuan Kegiatan',
                 'date' => date('m/d/y'),
                 'kg' => $kg,
-                'nama' =>$kg->nama,
+                'nama' =>$kg->users->nama,
                 'nama_kegiatan' => $kg ->nama_kegiatan,
                 'alamat'=>$kg->alamat,
                 'tanggal'=> $kg->tanggal,

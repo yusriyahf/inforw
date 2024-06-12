@@ -8,9 +8,9 @@
         <h2 class="text-white">Kartu Keluarga</h2>
         <h6 class="text-white">Kartu keluarga digital mudah dilihat</h6>
     </div>
-    <div class="col-12">
-      <div class="card mb-4">
-        <div class="card-header pb-0">
+    <div class="col-12 mt-1">
+      <div class="card pl-2 p-4 mb-4">
+        <div class="card-header p-0">
             <div class="d-flex flex-column">
                 <h6>Tabel {{ $breadcrumb->title }}</h6>
                 <span class="mb-2 text-sm">No KK: <span class="text-dark font-weight-bold ms-sm-2">{{ $data->no_kk }}</span></span>

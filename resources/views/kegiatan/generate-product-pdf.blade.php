@@ -142,7 +142,7 @@
             <h1>SURAT PENGAJUAN KEGIATAN</h1>
             <h3>KETUA RW. 13 KELURAHAN PANDANWANGI</h3>
             <h3>KECAMATAN BLIMBING - MALANG JAWA TIMUR</h3>
-            <h2>______________________________________________________________</h2>
+            <h2>_________________________________________________________</h2>
         </div>
         <div class="content">
             <table class="info-table2">

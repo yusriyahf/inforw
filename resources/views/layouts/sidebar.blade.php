@@ -17,7 +17,7 @@
           <span class="nav-link-text ms-1">Beranda</span>
         </a>
       </li>
-      @if(Gate::allows('is-rt') || Gate::allows('is-rw')|| Gate::allows('is-admin'))
+      @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
       <li class="nav-item">
         <a class="nav-link {{ Request::is('warga') ? 'active' : '' }}" href="/warga">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -35,7 +35,7 @@
         </a>
       </li>
       @endif
-      @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+      @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
         <li class="nav-item">
             <a class="nav-link {{ Request::is('aset') ? 'active' : '' }}" href="/aset">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -112,7 +112,7 @@
       </li>
       @endcan
 
-        @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+        {{-- @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('pengumuman*') ? 'active' : '' }}" href="/pengumuman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -121,8 +121,8 @@
             <span class="nav-link-text ms-1">Pengumuman</span>
           </a>
         </li>
-        @endif
-        @if(Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
+        @endif --}}
+        {{-- @if(Gate::allows('is-sekretaris') || Gate::allows('is-warga'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('surat') ? 'active' : '' }}" href="/surat">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -131,7 +131,7 @@
             <span class="nav-link-text ms-1">Surat</span>
           </a>
         </li>
-        @endif
+        @endif --}}
         {{-- @can('is-warga')
         <li class="nav-item">
           <a class="nav-link {{ Request::is('organisasi') ? 'active' : '' }}" href="/pengaduan">
@@ -142,7 +142,7 @@
           </a>
         </li>
         @endcan --}}
-        @can('is-warga')
+        {{-- @can('is-warga')
         <li class="nav-item">
           <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/aset">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -161,8 +161,8 @@
             <span class="nav-link-text ms-1">Daftar Bansos</span>
           </a>
         </li>
-        @endcan
-        @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+        @endcan --}}
+        {{-- @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -171,12 +171,13 @@
             <span class="nav-link-text ms-1">Bansos</span>
           </a>
         </li>
-        @endif
+        @endif --}}
         @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
         <li class="nav-item">
           <a class="nav-link {{ Request::is('peminjaman') ? 'active' : '' }}" href="/peminjaman">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              {{-- <i class="ni ni-credit-card text-success text-sm opacity-10"></i> --}}
+              <i class="fas fa-handshake text-success text-sm opacity-10" style= "color: #6b6ae3 ;"></i>
             </div>
             <span class="nav-link-text ms-1">Peminjaman</span>
           </a>
@@ -232,7 +233,7 @@
         </a>
       </li>
       @endcan
-      @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-admin'))
+      @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
       <li class="nav-item">
         <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -275,11 +276,10 @@
       
 
       
-          
+      @can(Gate::allows('is-rt') || Gate::allows('is-rw') ||Gate::allows('is-warga') )
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Keuangan</h6>
       </li>
-
       <li class="nav-item">
         <a class="nav-link {{ Request::is('pemasukan*') ? 'active' : '' }}" href="/pemasukan">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -288,7 +288,6 @@
           <span class="nav-link-text ms-1">Pemasukan</span>
         </a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link {{ Request::is('pengeluaran*') ? 'active' : '' }}" href="/pengeluaran">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -305,6 +304,12 @@
           <span class="nav-link-text ms-1">Laporan</span>
         </a>
       </li>
+      @endcan  
+      
+
+      
+
+      
 
       @if(Gate::allows('is-rt') || Gate::allows('is-rw') || Gate::allows('is-warga') || Gate::allows('is-bendahara'))
       <li class="nav-item mt-3">

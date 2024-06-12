@@ -7,11 +7,14 @@
             <h2 class="text-white">Pengajuan Surat</h2>
             <h6 class="text-white">Pengajuan Surat yang mudah dan anti ribet</h6>
         </div>
+        @can('is-warga')
         <div class="col-12 mt-1">
             
-            <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary">SKTM</a>
-            <a href="/sp" class="btn btn-white btn-sm ms-auto text-primary">SP</a>
-        </div>
+          <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary">SKTM</a>
+          <a href="/sp" class="btn btn-white btn-sm ms-auto text-primary">SP</a>
+      </div>
+        @endcan
+        
 
         {{-- SKTM --}}
           <div class="col-12 mt-1">

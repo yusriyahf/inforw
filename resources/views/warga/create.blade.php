@@ -155,15 +155,22 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="keluarga" class="form-control-label">Keluarga</label>
-                  <input class="form-control @error('keluarga') is-invalid @enderror" type="text" name="keluarga" id="keluarga" value="{{ old('keluarga') }}">
+                    <label for="keluarga" class="form-control-label">KK</label>
+                    <select class="form-control @error('keluarga') is-invalid @enderror" name="keluarga" id="keluarga2">
+                      <option value="">Pilih KK</option>
+                      @foreach($keluarga as $k)
+                          <option value="{{ $k->keluarga_id }}" {{ old('keluarga') == $k->keluarga_id ? 'selected' : '' }}>{{ $k->no_kk }} - {{ $k->getkepala->nama}}</option>
+                      @endforeach
+                  </select>
                     @error('keluarga')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
-              </div>
+            </div>
+
+             
 
               <div class="col-md-10">
                 <button type="submit" class="btn btn-primary btn-sm me-2">Buat</button>
@@ -174,4 +181,13 @@
             </div>
     </div>
   </div>
+
+  <script>  
+    $(document).ready(function() {
+        $('#keluarga2').select2({
+            placeholder: 'Pilih KK',
+            allowClear: true
+        });
+    });
+</script>
 @endsection

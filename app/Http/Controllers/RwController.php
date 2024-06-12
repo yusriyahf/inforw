@@ -62,9 +62,12 @@ class RwController extends Controller
 
         $rw = RwModel::with(['getketuarw','getsekretarisrw','getbendahararw'])->find($id);
 
+        $warga = User::all();
+
         return view('pengurus.rw.edit', [
             'breadcrumb' => $breadcrumb,
-            'rw' => $rw
+            'rw' => $rw,
+            'warga' => $warga,
         ]);
     }
 

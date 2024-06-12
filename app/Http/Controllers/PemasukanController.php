@@ -21,8 +21,8 @@ class PemasukanController extends Controller
 
         $tanggal = $request->input('tanggal', now()->format('Y-m'));
 
+        $daftarRT = RtModel::all();
         if (Gate::allows('is-rw')) {
-            $daftarRT = RtModel::all();
             $rt = $request->input('rt');
             if ($rt) {
                 $data = PemasukanModel::where('rt', $rt)

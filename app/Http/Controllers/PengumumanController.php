@@ -120,7 +120,7 @@ class PengumumanController extends Controller
                 }
             }],
             'user' => 'required',
-        ]);
+        ];
 
         // Menambahkan aturan validasi dinamis
         if (Gate::allows('is-rt')) {

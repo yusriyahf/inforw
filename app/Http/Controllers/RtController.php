@@ -90,9 +90,14 @@ class RtController extends Controller
 
         $rt = RtModel::with(['getketuart','getsekretarisrt','getbendaharart'])->find($id);
 
+        $warga = User::whereHas('getkeluarga', function ($query) use ($id) {
+            $query->where('rt', $id);
+        })->get();
+        
         return view('pengurus.rt.edit', [
             'breadcrumb' => $breadcrumb,
-            'rt' => $rt
+            'rt' => $rt,
+            'warga' => $warga,
         ]);
     }
 
@@ -102,31 +107,32 @@ class RtController extends Controller
     public function update(Request $request, $id)
     {
         $rt = RtModel::with(['getketuart','getsekretarisrt','getbendaharart'])->find($id);
-        User::find($rt->ketua)->update(['role' => 4]);
+        // dd($rt);
+        User::find($rt->ketua)->update(['role' => 4]);  
         User::find($rt->sekretaris)->update(['role' => 4]);
         User::find($rt->bendahara)->update(['role' => 4]);
         
         $request->validate([
-            'rt' => 'required|min:1',
-            'ketua' => 'required|exists:users,nama',
-            'sekretaris' => 'required|exists:users,nama',
-            'bendahara' => 'required|exists:users,nama'
+            'rt' => 'required',
+            'ketua' => 'required',
+            'sekretaris' => 'required',
+            'bendahara' => 'required'
         ]);
 
-        $ketua = User::where('nama',$request->ketua)->pluck('user_id')->first();
-        $sekretaris = User::where('nama',$request->sekretaris)->pluck('user_id')->first();
-        $bendahara = User::where('nama',$request->bendahara)->pluck('user_id')->first();
+        // $ketua = User::where('nama',$request->ketua)->pluck('user_id')->first();
+        // $sekretaris = User::where('nama',$request->sekretaris)->pluck('user_id')->first();
+        // $bendahara = User::where('nama',$request->bendahara)->pluck('user_id')->first();
 
         RtModel::where('rt_id',$id)->update([
             'nama' => $request->rt,
-            'ketua' => $ketua,
-            'sekretaris' => $sekretaris,
-            'bendahara' => $bendahara
+            'ketua' => $request->ketua,
+            'sekretaris' => $request->sekretaris,
+            'bendahara' => $request->bendahara
         ]);
 
-        User::find($ketua)->update(['role' => 3]);
-        User::find($sekretaris)->update(['role' => 5]);
-        User::find($bendahara)->update(['role' => 6]);
+        User::find($request->ketua)->update(['role' => 3]);
+        User::find($request->sekretaris)->update(['role' => 5]);
+        User::find($request->bendahara)->update(['role' => 6]);
 
         return redirect('/rt')->with('success', 'Data berhasil diubah');
         
