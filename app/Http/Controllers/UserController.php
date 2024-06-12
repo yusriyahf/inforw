@@ -107,7 +107,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => 'required|numeric|digits:12',
+            'nik' => 'required|numeric|digits:16',
             'nama' => 'required|max:30',
             'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
@@ -117,9 +117,9 @@ class UserController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'notelp' => 'required|numeric',
+            'keluarga' => 'required'
         ]);
 
-        $validatedData['keluarga'] = 1;
         $validatedData['role'] = 4;
         $validatedData['password'] = Hash::make('12345');
 
@@ -174,17 +174,19 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
         $request->validate([
-            'nik' => 'required|numeric|digits:12',
+            'nik' => 'required|numeric|digits:16',
             'nama' => 'required|max:30',
             'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required|max:30',
+            'alamat' => 'required|max:50',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'notelp' => 'required|numeric',
+            'keluarga' => 'required',
         ]);
 
 
@@ -200,6 +202,7 @@ class UserController extends Controller
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
+            'keluarga' => $request->keluarga,
         ]);
 
         return redirect('/warga')->with('success', 'Data Warga berhasil diubah');

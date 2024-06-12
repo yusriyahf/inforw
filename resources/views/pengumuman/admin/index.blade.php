@@ -25,7 +25,6 @@
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
                         @can('is-rw')
                   
@@ -44,9 +43,6 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->judul }} </span>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                              @if(!empty($d->gambar))
@@ -79,6 +75,8 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->created_at }} </span>
                         </td>
                         <td class="align-middle text-center">
+                    <a class="btn btn-link text-dark px-1 mb-0" href="/pengumuman/{{ $d->pengumuman_id }}"><i class="fas fa-info-circle text-dark me-2" aria-hidden="true"></i></a>
+
                             <a class="btn btn-link text-dark px-1 mb-0" href="/pengumuman/{{ $d->pengumuman_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
         
                             <form class="d-inline-block" method="POST" action="/pengumuman/{{$d->pengumuman_id}}">

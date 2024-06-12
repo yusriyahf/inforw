@@ -19,7 +19,7 @@
       </li>
       @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('warga') ? 'active' : '' }}" href="/warga">
+        <a class="nav-link {{ Request::is('warga*') ? 'active' : '' }}" href="/warga">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-users text-sm opacity-10" style="color: #6b6ae3;"></i>
           </div>
@@ -233,7 +233,7 @@
         </a>
       </li>
       @endcan
-      @if(Gate::allows('is-rt') || Gate::allows('is-rw'))
+      @can('is-rw')
       <li class="nav-item">
         <a class="nav-link {{ Request::is('bansos') ? 'active' : '' }}" href="/bansos">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -242,7 +242,7 @@
           <span class="nav-link-text ms-1">Bansos</span>
         </a>
       </li>
-      @endif
+      @endcan
 
       {{-- @can('is-warga')
       <li class="nav-item">

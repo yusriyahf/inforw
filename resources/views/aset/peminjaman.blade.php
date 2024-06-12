@@ -97,10 +97,10 @@
                   @endcan
                   <td class="align-middle text-center">
                     @if ($pinjam->status == 'proses')
-                    <a class="btn badge badge-sm text-success" href="/peminjaman/{{ $pinjam->peminjaman_id}}/disetujui">
+                    <a class="btn badge badge-sm text-success" href="#" onclick="confirmAction(event, '/peminjaman/{{ $pinjam->peminjaman_id }}/disetujui', 'Apakah Anda yakin ingin menyetujui peminjaman ini?')">
                         Setujui
                     </a>
-                    <a class="btn badge badge-sm text-danger" href="/peminjaman/{{ $pinjam->peminjaman_id}}/ditolak">
+                    <a class="btn badge badge-sm text-danger" href="#" onclick="confirmAction(event, '/peminjaman/{{ $pinjam->peminjaman_id }}/ditolak', 'Apakah Anda yakin ingin menolak peminjaman ini?')">
                         Tolak
                     </a>
                     @else
@@ -111,8 +111,10 @@
                             {{ $pinjam->status }}
                         </span>                  
                     @endif
-                    
-                  </td>
+                </td>
+
+
+
                 </tr>
                 @endforeach
               </tbody>
@@ -150,4 +152,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 </script>
+<script>
+  function confirmAction(event, url, message) {
+      event.preventDefault(); // Prevent the default link click behavior
+      if (confirm(message)) {
+          window.location.href = url; // Redirect if the user confirms
+      }
+  }
+  </script>
 @endsection

@@ -7,7 +7,7 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Pengajuan Surat Keterangan Tidak Mampu</p>
+              <p class="mb-0">Edit Pengumuman</p>
             </div>
           </div>
           <div class="card-body">
@@ -61,14 +61,6 @@
               </div>
             </div>
             
-            <div class="col-md-3">
-              <div class="mt-3">
-                  <img id="preview" src="{{ $data->gambar ? asset('gambar/pengumuman/' . $data->gambar) : '#' }}" alt="Preview Gambar" class="img-fluid" style="{{ $data->gambar ? '' : 'display: none;' }}">
-              </div> 
-              <div class="mt-3">
-                  <span id="file-name">{{ $data->gambar ? $data->gambar : 'No file chosen' }}</span>
-              </div>
-            </div>
             
               
              <div class="col-md-10">

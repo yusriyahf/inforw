@@ -11,7 +11,10 @@
   <div class="card pl-2 p-4 mb-4">
     <div class="card-header p-0">
           <h6>Tabel Data {{ $breadcrumb->title }}</h6>
+          @can('is-rt')
+              
           <a href="/warga/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+          @endcan
           @if (Gate::check('is-rw') || Gate::check('is-admin'))
               
             <form action="/warga" method="GET" class="row">
@@ -60,8 +63,9 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTL</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">KK</th>
-                  
+                  @can('is-rt')
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                  @endcan
                 </tr>
               </thead>
               <tbody>
@@ -141,6 +145,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $war->getkeluarga->no_kk}}</span>
                   </td>
                   
+                  @can('is-rt')                
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="warga/{{ $war->user_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
 
@@ -153,6 +158,8 @@
                     </form>
                     
                   </td>
+                      
+                  @endcan
                 </tr>
                 @endforeach
               </tbody>

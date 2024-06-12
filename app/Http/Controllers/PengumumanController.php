@@ -185,6 +185,18 @@ class PengumumanController extends Controller
         ]);
     }
 
+    public function showrt(String $id) {
+        $data = PengumumanModel::where('pengumuman_id', $id)->first();
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Pages', 'Pengumuman', 'Detail']
+        ];
+        return view('pengumuman.admin.show', [
+            'breadcrumb' => $breadcrumb,
+            'data' => $data,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
