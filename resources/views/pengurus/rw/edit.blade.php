@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="ketua" class="form-control-label">Ketua</label>
                     <select class="form-control @error('ketua') is-invalid @enderror" name="ketua" id="rt2">
-                      <option value="">Pilih KK</option>
+                      <option value="">Pilih Ketua RW</option>
                       @foreach($warga as $k)
                           <option value="{{ $k->user_id }}" {{ old('ketua', $rw->ketua) == $k->user_id ? 'selected' : '' }}>{{ $k->nama }} - {{$k->getkeluarga->getrt->nama}}</option>
                       @endforeach

@@ -33,8 +33,8 @@
                                 <div class="card-img-top-wrapper" style="height: 200px; overflow: hidden;">
                                     @if (!empty($d->gambar))
                                     <a href="#" class="text-decoration-none text-reset" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-url="gambar/aset/{{ $d->gambar }}">
-                                        <img src="{{ asset('gambar/aset/' . $d->gambar) }}" class="card-img-top" alt="Image" style="height: 100%; width: auto; object-fit: cover;">
-                                    </a>
+                                        <img src="{{ asset('gambar/aset/' . $d->gambar) }}" class="card-img-top" alt="Image" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </a>                                    
                                     {{-- @else --}}
                                     {{-- <img src="{{ asset('default-image.png') }}" class="card-img-top" alt="No Image" style="height: 100%; width: auto; object-fit: cover;"> --}}
                                     @endif

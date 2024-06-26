@@ -18,7 +18,7 @@ use App\Models\AsetModel;
 use App\Models\PemasukanModel;
 use App\Models\PengeluaranModel;
 use App\Models\PengumumanModel;
-use PendaftarKriteriaSeeder;
+use Database\Seeders\PendaftarKriteriaSeeder;
 use PendaftarSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,271 +35,287 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-
-
-        RolesModel::create([
-            'role_id' => '1',
-            'nama' => 'admin',
-        ]);
-        RolesModel::create([
-            'role_id' => '2',
-            'nama' => 'rw',
-        ]);
-        RolesModel::create([
-            'role_id' => '3',
-            'nama' => 'rt',
-        ]);
-        RolesModel::create([
-            'role_id' => '4',
-            'nama' => 'warga',
-        ]);
-        RolesModel::create([
-            'role_id' => '5',
-            'nama' => 'sekretaris',
-        ]);
-        RolesModel::create([
-            'role_id' => '6',
-            'nama' => 'bendahara',
+        $this->call([
+            RolesSeeder::class,
+            RtSeeder::class,
+            RwSeeder::class,
+            KartuKeluargaSeeder::class,  
+            UserSeeder::class,
+            UpdateRwRtSeeder::class,
+            UpdateKeluargaSeeder::class,
+            AsetSeeder::class,
+            PengaduanSeeder::class,
+            PengumumanSeeder::class,
+            BansosSeeder::class,
+            KriteriaBansosSeeder::class,
+            SubKriteriaSeeder::class,
+            PendaftarBansosSeeder::class,
+            PendaftarKriteriaSeeder::class
         ]);
 
-        RtModel::create([
-            'rt_id' => '1',
-            'nama' => '01'
-        ]);
-        RtModel::create([
-            'rt_id' => '2',
-            'nama' => '02'
-        ]);
-        RtModel::create([
-            'rt_id' => '3',
-            'nama' => '03'
-        ]);
-        RtModel::create([
-            'rt_id' => '4',
-            'nama' => '04'
-        ]);
-        RwModel::create([
-            'rw_id' => '1',
-            'nama' => '13'
-        ]);
+        // RolesModel::create([
+        //     'role_id' => '1',
+        //     'nama' => 'admin',
+        // ]);
+        // RolesModel::create([
+        //     'role_id' => '2',
+        //     'nama' => 'rw',
+        // ]);
+        // RolesModel::create([
+        //     'role_id' => '3',
+        //     'nama' => 'rt',
+        // ]);
+        // RolesModel::create([
+        //     'role_id' => '4',
+        //     'nama' => 'warga',
+        // ]);
+        // RolesModel::create([
+        //     'role_id' => '5',
+        //     'nama' => 'sekretaris',
+        // ]);
+        // RolesModel::create([
+        //     'role_id' => '6',
+        //     'nama' => 'bendahara',
+        // ]);
 
-        KeluargaModel::create([
-            'keluarga_id' => '1',
-            'no_kk' => '357304',
-            'rw' => '1',
-            'rt' => '1'
-        ]);
+        // RtModel::create([
+        //     'rt_id' => '1',
+        //     'nama' => '01'
+        // ]);
+        // RtModel::create([
+        //     'rt_id' => '2',
+        //     'nama' => '02'
+        // ]);
+        // RtModel::create([
+        //     'rt_id' => '3',
+        //     'nama' => '03'
+        // ]);
+        // RtModel::create([
+        //     'rt_id' => '4',
+        //     'nama' => '04'
+        // ]);
+        // RwModel::create([
+        //     'rw_id' => '1',
+        //     'nama' => '13'
+        // ]);
 
-        User::create([
-            'user_id' => '1',
-            'nik' => 'admin',
-            'nama' => 'admin',
-            'password' => bcrypt('admin'),
-            'role' => '1',
-        ]);
+        // KeluargaModel::create([
+        //     'keluarga_id' => '1',
+        //     'no_kk' => '357304',
+        //     'rw' => '1',
+        //     'rt' => '1'
+        // ]);
 
-        KeluargaModel::where('keluarga_id', '1')->update([
-            'kepala_keluarga' => '1'
-        ]);
+        // User::create([
+        //     'user_id' => '1',
+        //     'nik' => 'admin',
+        //     'nama' => 'admin',
+        //     'password' => bcrypt('admin'),
+        //     'role' => '1',
+        // ]);
 
-        User::create([
-            'user_id' => '2',
-            'nik' => '2241720171',
-            'nama' => 'Kim Gimyung',
-            'password' => bcrypt('12345'),
-            'role' => '4',
-            'keluarga' => '1'
-        ]);
-        User::create([
-            'user_id' => '3',
-            'nik' => '2241720172',
-            'nama' => 'Zin Lee',
-            'password' => bcrypt('12345'),
-            'role' => '2',
-            'keluarga' => '1'
-        ]);
-        User::create([
-            'user_id' => '4',
-            'nik' => '2241720173',
-            'nama' => 'Vasko',
-            'password' => bcrypt('12345'),
-            'role' => '3',
-            'keluarga' => '1'
-        ]);
-        User::create([
-            'user_id' => '5',
-            'nik' => '2241720178',
-            'nama' => 'Yusriyah Firjatullah',
-            'password' => bcrypt('12345'),
-            'role' => '4',
-            'keluarga' => '1'
-        ]);
-        User::create([
-            'user_id' => '6',
-            'nik' => '2241720179',
-            'nama' => 'Sung Jin Woo',
-            'password' => bcrypt('12345'),
-            'role' => '6',
-            'keluarga' => '1'
-        ]);
-        User::create([
-            'user_id' => '7',
-            'nik' => '2241720180',
-            'nama' => 'Cha Hae In',
-            'password' => bcrypt('12345'),
-            'role' => '5',
-            'keluarga' => '1'
-        ]);
+        // KeluargaModel::where('keluarga_id', '1')->update([
+        //     'kepala_keluarga' => '1'
+        // ]);
+
+        // User::create([
+        //     'user_id' => '2',
+        //     'nik' => '2241720171',
+        //     'nama' => 'Kim Gimyung',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '4',
+        //     'keluarga' => '1'
+        // ]);
+        // User::create([
+        //     'user_id' => '3',
+        //     'nik' => '2241720172',
+        //     'nama' => 'Zin Lee',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '2',
+        //     'keluarga' => '1'
+        // ]);
+        // User::create([
+        //     'user_id' => '4',
+        //     'nik' => '2241720173',
+        //     'nama' => 'Vasko',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '3',
+        //     'keluarga' => '1'
+        // ]);
+        // User::create([
+        //     'user_id' => '5',
+        //     'nik' => '2241720178',
+        //     'nama' => 'Yusriyah Firjatullah',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '4',
+        //     'keluarga' => '1'
+        // ]);
+        // User::create([
+        //     'user_id' => '6',
+        //     'nik' => '2241720179',
+        //     'nama' => 'Sung Jin Woo',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '6',
+        //     'keluarga' => '1'
+        // ]);
+        // User::create([
+        //     'user_id' => '7',
+        //     'nik' => '2241720180',
+        //     'nama' => 'Cha Hae In',
+        //     'password' => bcrypt('12345'),
+        //     'role' => '5',
+        //     'keluarga' => '1'
+        // ]);
 
 
 
-        RtModel::where('rt_id', '1')->update([
-            'ketua' => '2',
-            'sekretaris' => '3',
-            'bendahara' => '1',
-        ]);
-        RtModel::where('rt_id', '2')->update([
-            'ketua' => '2',
-            'sekretaris' => '3',
-            'bendahara' => '1',
-        ]);
+        // RtModel::where('rt_id', '1')->update([
+        //     'ketua' => '2',
+        //     'sekretaris' => '3',
+        //     'bendahara' => '1',
+        // ]);
+        // RtModel::where('rt_id', '2')->update([
+        //     'ketua' => '2',
+        //     'sekretaris' => '3',
+        //     'bendahara' => '1',
+        // ]);
 
-        RwModel::where('rw_id', '1')->update([
-            'ketua' => '1',
-            'sekretaris' => '2',
-            'bendahara' => '3',
-        ]);
+        // RwModel::where('rw_id', '1')->update([
+        //     'ketua' => '1',
+        //     'sekretaris' => '2',
+        //     'bendahara' => '3',
+        // ]);
 
-        PengumumanModel::create([
-            'pengumuman_id' => '1',
-            'judul' => 'Beso Kerja Bakti',
-            'deskripsi' => 'Semua bapak bapak wajib mengikuti jika tidak akan dikenakan sangsi yang sangat berat lo',
-            'user' => '1',
-            'rt' => '1'
-        ]);
+        // PengumumanModel::create([
+        //     'pengumuman_id' => '1',
+        //     'judul' => 'Beso Kerja Bakti',
+        //     'deskripsi' => 'Semua bapak bapak wajib mengikuti jika tidak akan dikenakan sangsi yang sangat berat lo',
+        //     'user' => '1',
+        //     'rt' => '1'
+        // ]);
 
-        PengumumanModel::create([
-            'pengumuman_id' => '2',
-            'judul' => 'Ada warga baru',
-            'deskripsi' => 'Semuanya mari kita beri sambutan yang meriah kepada pak martis',
-            'user' => '1',
-            'rt' => '1'
-        ]);
+        // PengumumanModel::create([
+        //     'pengumuman_id' => '2',
+        //     'judul' => 'Ada warga baru',
+        //     'deskripsi' => 'Semuanya mari kita beri sambutan yang meriah kepada pak martis',
+        //     'user' => '1',
+        //     'rt' => '1'
+        // ]);
 
-        AsetModel::create([
-            'aset_id' => '1',
-            'nama' => 'Lapangan',
-            'deskripsi' => 'lapangan dengan luas 3x3m',
-            'status' =>  'tersedia',
-            'jenis' => 'tempat',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '2',
-            'nama' => 'Gedung',
-            'deskripsi' => 'Gedung dengan 3 lantai',
-            'status' =>  'tersedia',
-            'jenis' => 'tempat',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '3',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '4',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '5',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '6',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '7',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '8',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '9',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '10',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '11',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
-        AsetModel::create([
-            'aset_id' => '12',
-            'nama' => 'Sound System',
-            'deskripsi' => 'Suara setara auman singa',
-            'status' =>  'tersedia',
-            'jenis' => 'barang',
-            'rw' => '1',
-            'rt' => '1',
-        ]);
+        // AsetModel::create([
+        //     'aset_id' => '1',
+        //     'nama' => 'Lapangan',
+        //     'deskripsi' => 'lapangan dengan luas 3x3m',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'tempat',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '2',
+        //     'nama' => 'Gedung',
+        //     'deskripsi' => 'Gedung dengan 3 lantai',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'tempat',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '3',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '4',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '5',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '6',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '7',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '8',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '9',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '10',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '11',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
+        // AsetModel::create([
+        //     'aset_id' => '12',
+        //     'nama' => 'Sound System',
+        //     'deskripsi' => 'Suara setara auman singa',
+        //     'status' =>  'tersedia',
+        //     'jenis' => 'barang',
+        //     'rw' => '1',
+        //     'rt' => '1',
+        // ]);
 
         PemasukanModel::create([
             'pemasukan_id' => '1',
             'jumlah' => '1250000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '01', '07')
         ]);
@@ -308,7 +324,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '2',
             'jumlah' => '750000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '01', '20')
         ]);
@@ -317,7 +333,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '3',
             'jumlah' => '1100000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '02', '07')
         ]);
@@ -326,7 +342,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '4',
             'jumlah' => '950000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '02', '20')
         ]);
@@ -335,7 +351,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '5',
             'jumlah' => '1050000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '03', '07')
         ]);
@@ -344,7 +360,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '6',
             'jumlah' => '750000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '03', '20')
         ]);
@@ -353,7 +369,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '7',
             'jumlah' => '1150000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '04', '07')
         ]);
@@ -362,7 +378,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '8',
             'jumlah' => '800000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '04', '20')
         ]);
@@ -371,7 +387,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '9',
             'jumlah' => '1500000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '05', '07')
         ]);
@@ -380,7 +396,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '10',
             'jumlah' => '852000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '05', '20')
         ]);
@@ -389,7 +405,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '11',
             'jumlah' => '1565000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '06', '07')
         ]);
@@ -398,7 +414,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '12',
             'jumlah' => '664000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '06', '20')
         ]);
@@ -407,7 +423,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '13',
             'jumlah' => '1655000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '07', '07')
         ]);
@@ -416,7 +432,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '14',
             'jumlah' => '754000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '07', '20')
         ]);
@@ -425,7 +441,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '15',
             'jumlah' => '1490000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '08', '07')
         ]);
@@ -434,7 +450,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '16',
             'jumlah' => '800000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '08', '20')
         ]);
@@ -443,7 +459,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '17',
             'jumlah' => '1500000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '09', '07')
         ]);
@@ -452,7 +468,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '18',
             'jumlah' => '750000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '09', '20')
         ]);
@@ -461,7 +477,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '19',
             'jumlah' => '1500000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '10', '07')
         ]);
@@ -470,7 +486,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '20',
             'jumlah' => '750000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '10', '20')
         ]);
@@ -479,7 +495,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '21',
             'jumlah' => '1295000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '11', '07')
         ]);
@@ -488,7 +504,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '22',
             'jumlah' => '800000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '11', '20')
         ]);
@@ -497,7 +513,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '23',
             'jumlah' => '1500000',
             'deskripsi' => 'Iuran keamanan',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '12', '07')
         ]);
@@ -506,7 +522,7 @@ class DatabaseSeeder extends Seeder
             'pemasukan_id' => '24',
             'jumlah' => '750000',
             'deskripsi' => 'Iuran sampah',
-            'user' => '3',
+            'user' => '7',
             'rt' => '1',
             'tanggal' => Carbon::create('2024', '12', '20')
         ]);
@@ -715,12 +731,5 @@ class DatabaseSeeder extends Seeder
         //     'organisasi_id' => '1'
         // ]);
 
-        $this->call(
-            BansosSeeder::class,
-            // KriteriaBansosSeeder::class,
-            // SubKriteriaSeeder::class,
-            // PendaftarSeeder::class,
-            // PendaftarKriteriaSeeder::class
-        );
     }
 }

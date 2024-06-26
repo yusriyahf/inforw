@@ -225,7 +225,7 @@
       @endcan
       @can('is-warga')
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('aset*') ? 'active' : '' }}" href="/daftarBansos">
+        <a class="nav-link {{ Request::is('daftarBansos') ? 'active' : '' }}" href="/daftarBansos">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-hands text-sm opacity-10" style="color: #6b6ae3;"></i>
           </div>
