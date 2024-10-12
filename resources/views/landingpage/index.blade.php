@@ -218,49 +218,40 @@
         <header class="section-header">
            <p>Profile RW 03 Pandanwangi</p>
         </header>
-        <div class="row gy-4">
+        <div class="row gy-4 d-flex justify-content-center">
 
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah RT</p>
+              <div class="count-box">
+                  <i class="bi bi-emoji-smile"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalRt}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah RT</p>
+                  </div>
               </div>
-            </div>
           </div>
-
+      
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah KK</p>
+              <div class="count-box">
+                  <i class="bi bi-journal-richtext" style="color: #ee6c20;"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalKk}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah KK</p>
+                  </div>
               </div>
-            </div>
           </div>
-
+      
           <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-headset" style="color: #15be56;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Jumlah Penduduk</p>
+              <div class="count-box">
+                  <i class="bi bi-headset" style="color: #15be56;"></i>
+                  <div>
+                      <span data-purecounter-start="0" data-purecounter-end="{{$totalWarga}}" data-purecounter-duration="1" class="purecounter"></span>
+                      <p>Jumlah Penduduk</p>
+                  </div>
               </div>
-            </div>
           </div>
-
-          {{-- <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-people" style="color: #bb0852;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Hard Workers</p>
-              </div>
-            </div>
-          </div> --}}
-
-        </div>
+      
+      </div>
+      
       </div>
     </section>
     <!-- End Counts Section -->
@@ -446,7 +437,7 @@
                 </h2>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                   <div class="accordion-body">
-                    Klik tombol 'Daftar Sekarang' dan ikuti langkah-langkah yang diberikan. Anda akan diminta untuk mengisi data pribadi dan informasi terkait RW Anda.
+                    Klik tombol 'Login' dan ikuti langkah-langkah yang diberikan. 
                   </div>
                 </div>
               </div>
@@ -454,12 +445,25 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                    Apakah Info RW aman digunakan?
+                    Bagaimana cara mengajukan permohonan bantuan sosial (bansos)?
                   </button>
                 </h2>
                 <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                   <div class="accordion-body">
-                    Ya, kami menggunakan enkripsi dan protokol keamanan terbaru untuk melindungi data Anda. Keamanan dan privasi pengguna adalah prioritas utama kami.
+                    Masuk ke akun Anda, pilih menu 'Pengajuan Bansos', isi formulir yang disediakan, dan unggah dokumen pendukung jika diperlukan. Permohonan Anda akan diproses dan Anda akan diberitahu melalui email atau notifikasi di akun Anda.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                    Bagaimana cara meminjam aset melalui Info RW?
+                  </button>
+                </h2>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Masuk ke akun Anda, pilih menu 'Peminjaman Aset', pilih aset yang ingin dipinjam, dan isi formulir peminjaman. Setelah itu, tunggu konfirmasi dari pengurus RW.
                   </div>
                 </div>
               </div>
@@ -486,16 +490,30 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
-                    Apakah ada biaya untuk menggunakan layanan Info RW?
+                    Bagaimana cara membuat pengaduan di Info RW?
                 </h2>
                 <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                   <div class="accordion-body">
-                    Tidak, semua layanan di Info RW 100% gratis. Anda dapat menikmati seluruh fitur dan kemudahan tanpa biaya apapun.
+                    Untuk membuat pengaduan, Anda dapat masuk ke akun Anda di platform Info RW dan pilih opsi "Buat Pengaduan". Ikuti langkah-langkah yang diberikan untuk mengisi formulir pengaduan dan kirimkan.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
+                    Bagaimana cara mengajukan surat secara online melalui Info RW?
+                  </button>
+                </h2>
+                <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Anda dapat mengajukan surat secara online dengan masuk ke akun Anda di platform Info RW, kemudian pilih opsi "Ajukan Surat" dan ikuti langkah-langkah yang diberikan untuk mengisi formulir pengajuan surat.
                   </div>
                 </div>
               </div>
 
             </div>
+              
           </div>
 
         </div>
@@ -503,7 +521,8 @@
 
       </div>
 
-    </section>
+    </section>
+
     <!-- End F.A.Q Section -->
 
 
@@ -581,7 +600,7 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="member">
               <div class="member-img">
-                <img src="/landingpage/img/maol.jpeg" class="img-fluid" alt="">
+                <img src="/landingpage/img/maul.jpg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>

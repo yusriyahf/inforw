@@ -40,7 +40,7 @@
             <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Submit</button>
         </form>
         <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="col-md-5 col-sm-6 mb-4">
               <div class="card">
                   <div class="card-body p-3">
                       <div class="row">
@@ -62,7 +62,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="col-md-5 col-sm-6 mb-4">
               <div class="card">
                   <div class="card-body p-3">
                       <div class="row">
@@ -121,7 +121,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $pgl->deskripsi }}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $pgl->jumlah }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ formatRupiah($pgl->jumlah)}}</span>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pgl->tanggal }}</span>

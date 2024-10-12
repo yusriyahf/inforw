@@ -12,12 +12,6 @@
             <div class="card mb-4">
               <div class="card-header pb-0">
                 <h6>Data RW</h6>
-                <a href="/rt/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-                @if (session()->has('success'))
-                  <div class="alert alert-success col-lg-8" role="alert">
-                    {{ session('success') }}
-                  </div>
-                @endif
               </div>
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">

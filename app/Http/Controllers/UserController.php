@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KeluargaModel;
 use App\Models\User;
 use App\Models\RtModel;
 use App\Models\SpModel;
@@ -78,6 +79,9 @@ class UserController extends Controller
             'title' => 'Create',
             'list' => ['Pages', 'Warga', 'Create']
         ];
+        $keluarga = KeluargaModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+
+
 
         if (Gate::allows('is-warga')) {
             $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
@@ -93,6 +97,7 @@ class UserController extends Controller
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
             'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+            'keluarga' => $keluarga
         ]);
     }
 
@@ -102,7 +107,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => 'required|numeric|digits:12',
+            'nik' => 'required|numeric|digits:16',
             'nama' => 'required|max:30',
             'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
@@ -112,9 +117,9 @@ class UserController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'notelp' => 'required|numeric',
+            'keluarga' => 'required'
         ]);
 
-        $validatedData['keluarga'] = 1;
         $validatedData['role'] = 4;
         $validatedData['password'] = Hash::make('12345');
 
@@ -141,6 +146,8 @@ class UserController extends Controller
             'list' => ['Pages', 'Warga', 'Edit']
         ];
 
+        $keluarga = KeluargaModel::where('rt', auth()->user()->getkeluarga->rt)->get();
+
         if (Gate::allows('is-warga')) {
             $notifPengumuman = PengumumanModel::orderBy('created_at', 'desc')->take(3)->get();
         } elseif (Gate::allows('is-rt')) {
@@ -154,6 +161,7 @@ class UserController extends Controller
         return view('warga.edit', [
             'warga' => $warga,
             'breadcrumb' => $breadcrumb,
+            'keluarga' => $keluarga,
             'notifPengumuman' => (Gate::allows('is-warga')) ? $notifPengumuman : null,
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
@@ -166,17 +174,19 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
         $request->validate([
-            'nik' => 'required|numeric|digits:12',
+            'nik' => 'required|numeric|digits:16',
             'nama' => 'required|max:30',
             'pekerjaan' => 'required|max:30',
             'status_perkawinan' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required|max:30',
+            'alamat' => 'required|max:50',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'notelp' => 'required|numeric',
+            'keluarga' => 'required',
         ]);
 
 
@@ -192,6 +202,7 @@ class UserController extends Controller
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
+            'keluarga' => $request->keluarga,
         ]);
 
         return redirect('/warga')->with('success', 'Data Warga berhasil diubah');

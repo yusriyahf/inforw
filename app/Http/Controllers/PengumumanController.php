@@ -120,7 +120,7 @@ class PengumumanController extends Controller
                 }
             }],
             'user' => 'required',
-        ]);
+        ];
 
         // Menambahkan aturan validasi dinamis
         if (Gate::allows('is-rt')) {
@@ -182,6 +182,18 @@ class PengumumanController extends Controller
             'notifPengaduan' => (Gate::allows('is-rt')) ? $notifPengaduan : null,
             'notifSktm' => (Gate::allows('is-rt')) ? $notifSktm : null,
             'notifSp' => (Gate::allows('is-rt')) ? $notifSp : null,
+        ]);
+    }
+
+    public function showrt(String $id) {
+        $data = PengumumanModel::where('pengumuman_id', $id)->first();
+        $breadcrumb = (object) [
+            'title' => 'Detail',
+            'list' => ['Pages', 'Pengumuman', 'Detail']
+        ];
+        return view('pengumuman.admin.show', [
+            'breadcrumb' => $breadcrumb,
+            'data' => $data,
         ]);
     }
 

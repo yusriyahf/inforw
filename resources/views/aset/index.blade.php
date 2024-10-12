@@ -27,6 +27,7 @@
               <h6 class="mb-0">Tabel Data Aset</h6>
               <a href="/aset/create" class="btn btn-primary btn-sm mt-2"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
           </div>
+          @can('is rw')
           <div>
               <select class="btn btn-white btn-sm">
                   <option value="">Filter RT</option>
@@ -35,6 +36,7 @@
                   @endforeach
               </select>
           </div>
+          @endcan
       </div>
       
       @if (session()->has('success'))

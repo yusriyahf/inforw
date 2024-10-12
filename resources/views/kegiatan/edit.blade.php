@@ -48,25 +48,16 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="alamat" class="form-control-label">Alamat</label>
-                                        <input class="form-control @error('alamat') is-invalid @enderror" type="text" name="alamat" id="alamat" value="{{ old('alamat', $data->alamat) }}" autocomplete="off">
-                                        @error('alamat')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                            </div>
+                            <div class="col-md-8 col-sm-6">
 
-                            <div class="col-md-10"></div>
-                            <div class="col-md-2">
-                                <div class="d-flex justify-content-end">
-                                    <a href="/kegiatan" class="btn btn-danger btn-sm me-2">Batal</a>
-                                    <button class="btn btn-primary btn-sm" type="submit">Kirim</button>
-                                </div>
+
                             </div>
+                            <div class="col-md-4 col-sm-6">
+                                <a href="/kegiatan" class="btn btn-danger btn-sm me-2">Batal</a>
+                                <button class="btn btn-primary btn-sm ms-auto" type="submit">Save</button>
+              
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
@@ -74,4 +65,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection

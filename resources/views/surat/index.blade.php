@@ -7,11 +7,14 @@
             <h2 class="text-white">Pengajuan Surat</h2>
             <h6 class="text-white">Pengajuan Surat yang mudah dan anti ribet</h6>
         </div>
+        @can('is-warga')
         <div class="col-12 mt-1">
             
-            <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary">SKTM</a>
-            <a href="/sp" class="btn btn-white btn-sm ms-auto text-primary">SP</a>
-        </div>
+          <a href="/sktm" class="btn btn-white btn-sm ms-auto text-primary">SKTM</a>
+          <a href="/sp" class="btn btn-white btn-sm ms-auto text-primary">SP</a>
+      </div>
+        @endcan
+        
 
         {{-- SKTM --}}
           <div class="col-12 mt-1">
@@ -32,7 +35,7 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pendaftar</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PDF</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th>
+                        {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th> --}}
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Surat</th>
                       </tr>
                     </thead>
@@ -50,10 +53,10 @@
                           <span class="text-secondary text-xs font-weight-bold"><a href="/generate-pdf/sktm/{{ $data->sktm_id }}" class="text-primary" target="_blank">Cetak</a></span>
 
                         </td>
-                        <td class="align-middle text-center text-sm">
+                        {{-- <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold"><a href="/sktm/{{ $data->sktm_id }}"  
                              class="text-primary">Detail</a></span>
-                        </td>
+                        </td> --}}
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>
                         </td>
@@ -88,7 +91,7 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Pendaftar</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PDF</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th>
+                        {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Surat</th> --}}
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Surat</th>
                       </tr>
                     </thead>
@@ -103,10 +106,10 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold"><a href="/generate-pdf/sp/{{ $data->sp_id }}" class="text-primary">Cetak</a></span>
-                        </td>
+                        {{-- </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold"><a href="/sp/{{ $data->sp_id }}" class="text-primary">Detail</a></span>
-                        </td>
+                        </td> --}}
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>
                         </td>

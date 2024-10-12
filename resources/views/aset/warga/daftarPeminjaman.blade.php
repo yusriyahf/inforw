@@ -65,9 +65,9 @@
                             </td>
                             <td class="align-middle text-center text-sm">
                               <span class="badge badge-sm 
-                                  @if ($d->status == 'proses') bg-gradient-secondary
-                                  @elseif ($d->status == 'ditolak') bg-gradient-danger
-                                  @elseif ($d->status == 'disetujui') bg-gradient-success
+                                  @if ($d->status == 'proses') text-secondary
+                                  @elseif ($d->status == 'ditolak') text-danger
+                                  @elseif ($d->status == 'disetujui') text-success
                                   @endif">
                                   {{ $d->status }}
                               </span>

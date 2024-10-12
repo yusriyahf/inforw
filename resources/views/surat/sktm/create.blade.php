@@ -134,4 +134,65 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var nikInput = document.getElementById('nik');
+        var nikFeedback = document.getElementById('nikFeedback');
+        var nikSuccess = document.getElementById('nikSuccess');
+    
+        nikInput.addEventListener('input', function () {
+            var inputValue = nikInput.value.trim();
+            if (inputValue.length === 16) {
+                // Valid input
+                nikInput.classList.remove('is-invalid');
+                nikInput.classList.add('is-valid');
+                nikFeedback.textContent = ''; // Clear any existing error message
+                nikSuccess.textContent = 'NIK sudah memenuhi syarat.';
+            } else if (inputValue.length < 16) {
+                // Input is too short
+                nikInput.classList.remove('is-valid');
+                nikInput.classList.add('is-invalid');
+                nikFeedback.textContent = 'NIK harus terdiri dari 16 digit.';
+                nikSuccess.textContent = '';
+            } else {
+                // Input is too long
+                nikInput.classList.remove('is-valid');
+                nikInput.classList.add('is-invalid');
+                nikFeedback.textContent = 'NIK hanya boleh terdiri dari 16 digit.';
+                nikSuccess.textContent = '';
+            }
+        });
+    });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var noKKInput = document.getElementById('no_kk');
+          var noKKFeedback = document.getElementById('noKKFeedback');
+          var noKKSuccess = document.getElementById('noKKSuccess');
+      
+          noKKInput.addEventListener('input', function () {
+              var inputValue = noKKInput.value.trim();
+              if (inputValue.length === 16) {
+                  // Valid input
+                  noKKInput.classList.remove('is-invalid');
+                  noKKInput.classList.add('is-valid');
+                  noKKFeedback.textContent = ''; // Clear any existing error message
+                  noKKSuccess.textContent = 'No KK sudah memenuhi syarat.';
+              } else if (inputValue.length < 16) {
+                  // Input is too short
+                  noKKInput.classList.remove('is-valid');
+                  noKKInput.classList.add('is-invalid');
+                  noKKFeedback.textContent = 'No KK harus terdiri dari 16 digit.';
+                  noKKSuccess.textContent = '';
+              } else {
+                  // Input is too long
+                  noKKInput.classList.remove('is-valid');
+                  noKKInput.classList.add('is-invalid');
+                  noKKFeedback.textContent = 'No KK hanya boleh terdiri dari 16 digit.';
+                  noKKSuccess.textContent = '';
+              }
+          });
+      });
+      </script>
 @endsection

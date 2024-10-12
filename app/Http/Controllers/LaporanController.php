@@ -17,6 +17,28 @@ class LaporanController extends Controller
 
     public function index(Request $request)
     {
+        if (Gate::allows('is-rw')) {
+            $tanggal = $request->input('tanggal', now()->format('Y-m')); // Ambil tanggal dari form 
+            $pemasukan = PemasukanModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                           ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                           ->get();
+
+    
+            $totalPemasukan = PemasukanModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                ->sum('jumlah');
+    
+            $pengeluaran = PengeluaranModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                ->get();
+    
+            $totalPengeluaran = PengeluaranModel::whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
+                ->whereMonth('tanggal', '=', date('m', strtotime($tanggal)))
+                ->sum('jumlah');
+    
+            $total = $totalPemasukan - $totalPengeluaran;
+
+        } else {
         $tanggal = $request->input('tanggal', now()->format('Y-m')); // Ambil tanggal dari form 
         $pemasukan = PemasukanModel::where('rt', auth()->user()->getkeluarga->getrt->rt_id)
             ->whereYear('tanggal', '=', date('Y', strtotime($tanggal)))
@@ -39,6 +61,7 @@ class LaporanController extends Controller
             ->sum('jumlah');
 
         $total = $totalPemasukan - $totalPengeluaran;
+        }
         $breadcrumb = (object) [
             'title' => 'Laporan',
             'list' => ['Pages', 'Laporan']

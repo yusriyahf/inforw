@@ -24,11 +24,8 @@
                     <div class="form-group">
                       <label for="no_kk" class="form-control-label">No KK</label>
                       <input class="form-control @error('no_kk') is-invalid @enderror" type="text" name="no_kk" id="no_kk" value="{{ old('no_kk', $data->no_kk) }}" autocomplete="off">
-                      @error('no_kk')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                      <div id="kkError" class="invalid-feedback"></div> <!-- Menampilkan pesan kesalahan -->
+                      <div id="kkSuccess" class="valid-feedback">KK sudah memenuhi syarat.</div> <!-- Menampilkan pesan sukses -->
                     </div>
                   </div>
 
@@ -95,4 +92,41 @@
         });
     });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      function validateNIK() {
+          var nikInput = document.getElementById('no_kk');
+          var nikError = document.getElementById('kkError');
+          var nikSuccess = document.getElementById('kkSuccess');
+          if (nikInput.value.length !== 16) {
+              showError(nikInput, nikError, 'KK harus terdiri dari 16 digit.');
+          } else {
+              showSuccess(nikInput, nikError, nikSuccess);
+          }
+      }
+  
+      function showError(input, errorElement, message) {
+          input.classList.add('is-invalid');
+          input.classList.remove('is-valid');
+          errorElement.textContent = message;
+          errorElement.style.display = 'block';
+          hideSuccess();
+      }
+  
+      function showSuccess(input, errorElement, successElement) {
+          input.classList.add('is-valid');
+          input.classList.remove('is-invalid');
+          errorElement.style.display = 'none'; // Hide the error message
+          successElement.style.display = 'block'; // Show the success message
+      }
+  
+      function hideSuccess() {
+          var successElement = document.getElementById('kkSuccess');
+          successElement.style.display = 'none';
+      }
+  
+      var nikInput = document.getElementById('no_kk');
+      nikInput.addEventListener('input', validateNIK);
+  });
+  </script>
 @endsection

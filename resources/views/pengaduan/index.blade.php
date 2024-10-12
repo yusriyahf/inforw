@@ -23,7 +23,7 @@
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
+            <table class="table tables align-items-center mb-0">
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
@@ -78,7 +78,7 @@
                   {{-- <td class="align-middle text-center text-sm">
                     <span class="text-secondary text-xs font-weight-bold">{{ $pn->status }}</span>
                   </td> --}}
-                  @can('is-warga')
+                  {{-- @can('is-warga')
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/pengaduan/{{ $pn->pengaduan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
                     <form class="d-inline-block" method="POST" action="/pengaduan/{{$pn->pengaduan_id}}">
@@ -89,7 +89,7 @@
                         </button>
                     </form>                   
                   </td>
-                  @endcan
+                  @endcan --}}
                   @can('is-rt')
                   <td class="align-middle text-center">
                     <a class="btn btn-link text-dark px-1 mb-0" href="/pengaduan/{{ $pn->pengaduan_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>

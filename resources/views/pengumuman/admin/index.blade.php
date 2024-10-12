@@ -7,9 +7,9 @@
             <h2 class="text-white">Pengumuman Warga</h2>
             <h6 class="text-white">Buat Pengumuman untuk warga dengan solusi digital</h6>
         </div>
-        <div class="col-12">
-            <div class="card mb-4">
-              <div class="card-header pb-0">
+        <div class="col-12 mt-1">
+          <div class="card pl-2 p-4 mb-4">
+            <div class="card-header p-0">
                 <h6>Riwayat Pengumuman</h6>
                 <a href="/pengumuman/create" class="btn btn-primary btn-sm ms-auto"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
                 @if (session()->has('success'))
@@ -25,7 +25,6 @@
                       <tr>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gambar</th>
                         @can('is-rw')
                   
@@ -44,9 +43,6 @@
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->judul }} </span>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-secondary text-xs font-weight-bold">{{ $d->deskripsi }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                              @if(!empty($d->gambar))
@@ -79,6 +75,8 @@
                           <span class="text-secondary text-xs font-weight-bold">{{ $d->created_at }} </span>
                         </td>
                         <td class="align-middle text-center">
+                    <a class="btn btn-link text-dark px-1 mb-0" href="/pengumuman/{{ $d->pengumuman_id }}"><i class="fas fa-info-circle text-dark me-2" aria-hidden="true"></i></a>
+
                             <a class="btn btn-link text-dark px-1 mb-0" href="/pengumuman/{{ $d->pengumuman_id }}/edit"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i></a>
         
                             <form class="d-inline-block" method="POST" action="/pengumuman/{{$d->pengumuman_id}}">
