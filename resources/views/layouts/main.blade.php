@@ -25,6 +25,9 @@
   </title>
   {{-- anyar --}}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css
+" rel="stylesheet">
 <!-- Include Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Include Select2 JS -->
@@ -257,6 +260,9 @@
         $('.tables').DataTable();
     });
     </script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.all.min.js
+    "></script>
 </body>
 
 </html>

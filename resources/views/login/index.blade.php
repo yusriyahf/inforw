@@ -100,7 +100,7 @@
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder">Login</h4>
-                  <p class="mb-0">Masukkan NIK dan Password</p>
+                  <p class="mb-0">Masukkan NIK dan Password </p>
                 </div>
                 <div class="card-body">
                   <form action="/login" method="POST">
