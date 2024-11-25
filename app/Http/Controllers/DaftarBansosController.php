@@ -33,7 +33,7 @@ class DaftarBansosController extends Controller
             $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
         }
 
-        $tglSaatIni = now();
+        $tglSaatIni = date('Y-m-d'); 
         $data = BansosModel::where('tgl_akhir_daftar', '>=', $tglSaatIni)->get();
         $pendaftar = PendaftarBansosModel::where('user_id', Auth::id())->get();
         if (KeluargaModel::where('kepala_keluarga', Auth::id())->exists()) {

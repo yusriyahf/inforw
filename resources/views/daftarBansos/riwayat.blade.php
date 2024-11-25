@@ -23,7 +23,7 @@
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bansos</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estimasi bantuan per penerima</th>
+                                {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estimasi bantuan per penerima</th> --}}
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Penerima</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Bansos</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Akhir Pendaftaran</th>
@@ -40,9 +40,9 @@
                                 <td class="align-middle text-center text-sm">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->nama_bansos }}</span>
                                 </td>
-                                <td class="align-middle text-center text-sm">
+                                {{-- <td class="align-middle text-center text-sm">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->total_bantuan / $d->getBansos->jumlah_penerima }}</span>
-                                </td>
+                                </td> --}}
                                 <td class="align-middle text-center text-sm">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $d->getBansos->jumlah_penerima }}</span>
                                 </td>

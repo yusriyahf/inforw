@@ -40,7 +40,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($datasktm as $data)       
+                        @foreach ($datasktm as $data)
+                        @if ($data->users->getkeluarga->getrt->rt_id == auth()->user()->getkeluarga->getrt->rt_id)
+                              
                       <tr>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }} </span>
@@ -61,6 +63,8 @@
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>
                         </td>
                       </tr>
+                        
+                      @endif 
                       @endforeach
                       
                     </tbody>
@@ -96,7 +100,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($datasp as $data)       
+                        @foreach ($datasp as $data)
+                        @if ($data->users->getkeluarga->getrt->rt_id == auth()->user()->getkeluarga->getrt->rt_id)       
                       <tr>
                         <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }} </span>
@@ -114,6 +119,7 @@
                           <span class="text-secondary text-xs font-weight-bold text-danger">{{ $data->status }}</span>
                         </td>
                       </tr>
+                      @endif 
                       @endforeach
                       
                     </tbody>

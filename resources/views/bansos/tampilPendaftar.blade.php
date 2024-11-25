@@ -50,7 +50,7 @@
     </div>
     <div class="card-footer">
         <a href="/bansos" class="btn btn-primary">Kembali ke Daftar Bansos</a>
-        @if (now() > $bansos->tgl_akhir_daftar && now() < $bansos->tgl_penyaluran)
+        @if (now()->format('Y-m-d') > $bansos->tgl_akhir_daftar && now()->format('Y-m-d') < $bansos->tgl_penyaluran)
             <button type="submit" class="btn btn-primary">Setujui Pendaftar Terpilih</button>
     </form>
         @endif

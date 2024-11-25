@@ -14,8 +14,8 @@ class SuratController extends Controller
 
     public function index()
     {
-        $datasktm = SktmModel::where('user', auth()->user()->user_id)->get();
-        $datasp = SpModel::where('user', auth()->user()->user_id)->get();
+        // $datasktm = SktmModel::where('user', auth()->user()->user_id)->get();
+        // $datasp = SpModel::where('user', auth()->user()->user_id)->get();
 
         $breadcrumb = (object) [
             'title' => 'Surat',
@@ -28,6 +28,9 @@ class SuratController extends Controller
             $notifPengaduan = PengaduanModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSktm = SktmModel::orderBy('created_at', 'desc')->take(3)->get();
             $notifSp = SpModel::orderBy('created_at', 'desc')->take(3)->get();
+        } elseif (Gate::allows('is-sekretaris')){
+            $datasktm = SktmModel::with(['users'])->get();
+            $datasp = SpModel::with('users')->get();
         }
 
         return view('surat.index', [
